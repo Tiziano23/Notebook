@@ -1,0 +1,62 @@
+\documentclass{article}
+\input{include/setup.tex}
+
+\title{Esercitazione 1}
+\author{Tiziano Marzocchella [#-Matricola: 655205]}
+\date{A.A. 2022/2023}
+
+\begin{document}
+\section{Esercizio 1}
+\begin{enumerate}
+    \item Dimostrazione per induzione della proprietà \(P: \forall n \in \mathbb{N} . f(n) < 1\) \\
+          \textbf{Caso base}, \(P(0)\) è vera:
+          \begin{align*}
+              P(0) & \implies f(0) < 1        \\
+                   & \implies \frac{1}{2} < 1
+          \end{align*}
+
+          \textbf{Passo induttivo}, \(P(n) \implies P(n + 1)\):
+          \[f(n) < 1 \implies f(n + 1) < 1\]
+          \begin{align*}
+              (f(n + 1) < 1) \equiv \quad \text{\{Clausola induttiva di f\}} \\
+              (\frac{1}{2 - f(n)} < 1) \equiv \quad \text{\{Calcolo\}}  \\
+              (\frac{1}{2 - f(n)} < \frac{1}{2 - 1}) \equiv \quad \text{\{Per osservazione(1) e ipotesi induttiva, \(f(n) < 1 < 2\)\}}
+          \end{align*}
+
+    \item Dimostrazione per induzione della proprietà \(P: \forall n \in \mathbb{N} . f(n) \geq \frac{1}{2}\) \\
+          \textbf{Caso base}, \(P(0)\) è vera:
+          \begin{align*}
+              P(0) & \implies f(0) \geq \frac{1}{2} \\
+                   & \implies \frac{1}{2} \geq \frac{1}{2}
+          \end{align*}
+
+          \textbf{Passo induttivo}, \(P(n) \implies P(n + 1)\):
+          \[f(n) < 1 \implies f(n + 1) < 1\]
+          \begin{align*}
+              \left(f(n + 1) \geq \frac{1}{2}\right)               \equiv & \quad \text{\{Clausola induttiva di f\}} \\
+              \left(\frac{1}{2 - f(n)} \geq \frac{1}{2}\right)     \equiv & \quad \text{\{Calcolo\}} \\
+              \left(\frac{1}{2 - f(n)} \geq \frac{1}{2 - 0}\right) \equiv & \quad \text{\{Per osservazione(1) e ipotesi induttiva, \(0 < f(n) < 2\)\}} \\
+              \left(\right)
+          \end{align*}
+\end{enumerate}
+
+\section{Esercizio 2}
+\begin{align*}
+    R \in Rel(A,A) \\
+    R^{op} \cap Id_A &= (R \cap Id_A)^{op} && \{id-op\} \\
+    R^{op} \cap Id_A^{op} &= (R \cap Id_A)^{op} && \{distributività di .^{op} su \cap\} \\
+    (R \cap Id_A)^{op} &= (R \cap Id_A)^{op}
+\end{align*}
+
+\section{Esercizio 3}
+\(A = \{a,b\} \quad R = \{(a,b) \quad R;R = \varnothing\}\)
+
+\section{Esercizio 4}
+\
+\begin{align*}
+    R \in Rel(A,A) \\
+    R^{op} \cap Id_A &= (R \cap Id_A)^{op} && \{id-op\} \\
+    R^{op} \cap Id_A^{op} &= (R \cap Id_A)^{op} && \{distributività di .^{op} su \cap\} \\
+    (R \cap Id_A)^{op} &= (R \cap Id_A)^{op}
+\end{align*}
+\end{document}

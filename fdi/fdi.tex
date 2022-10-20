@@ -1,0 +1,504 @@
+\documentclass{article}
+\input{../include/setup}
+
+\title{Fondamenti dell'Informatica}
+\author{Tiziano Marzocchella}
+\date{A.A. 2022/2023}
+
+\begin{document}
+\input{../include/first_page}
+
+\section{Introduzione}
+In questo corso affronteremo...
+\begin{itemize}
+    \item Linguaggio matematico di base: insiemi, relazioni, funzioni, ecc...
+    \item Strutture discrete: coppie, n-uple, stringhe, grafi, alberi, ecc..
+    \item Calcolo combinatorio: permutazioni, disposizioni, combinazioni
+    \item Tecniche di dimostrazione: simboliche, discorsive, per induzione
+    \item Specifiche formali: linguaggi formali, logica, ricorsione
+\end{itemize}
+
+%Modalità di esame
+
+%Materiale didattico
+
+\pagebreak
+
+\section{Insiemi}
+Un \emph{insieme} è una collezione di oggetti, detti elementi.
+
+\subsection{Notazione}
+\begin{itemize}
+    \item Utilizziamo \(A, B, C, \dots\) per denotare insiemi generici o direttamente un nome specifico
+    \item Utilizziamo \(a, b, c, \dots\) per denotare gli elementi di un insieme
+    \item \(a \in A\), a \emph{appartiene a} A
+    \item \(a \not\in A\), a \emph{non appartiene a} A
+\end{itemize}
+
+\subsection{Rappresentazione}
+\begin{itemize}
+    \item \emph{Estensionale}, per enumerazione, ovvero elencare in una lista tutti gli elementi
+    \item \emph{Intenzionale}, per proprietà
+\end{itemize}
+
+Nella rappresentazione intenzionale, un insieme \(X\) contiene tutti gli elementi \(x\) dell'insieme di riferimento \(A\) che soddisfano la proprietà \(P\).
+\[X = \{ x \in A \mid P(x) \}\]
+
+\begin{eg}
+    \begin{align*}
+        \mathbb{N}^p & = \{n \mid n \in N \text{ e n è divisibile per 2} \}         \\
+        \mathbb{Q}   & = \{\frac{n}{m} \mid n \in \mathbb{Z}, m \in \mathbb{N}^+ \}
+    \end{align*}
+    \[\]
+\end{eg}
+
+\subsection{Confronto di insiemi}
+\begin{dfn}
+    Due insiemi sono uguali \((A = B)\) se hanno gli stessi elementi, altrimenti sono diversi \((A \not= B)\)
+\end{dfn}
+
+\begin{eg}
+    \begin{align*}
+        V = \{a,e,i,o,u\} & V1 = \{a,e,i,o,e,a\}
+    \end{align*}
+\end{eg}
+
+\subsection{Inclusione}
+\begin{dfn}
+    \(A\) è un sottoinsieme di \(B\) \((A \subseteq B)\) se ogni elemento di \(A\) appartiene anche a \(B\).
+    \(A\) è un sottoinsieme proprio di \(B\) se  \((A \subseteq B) \text{ e } A \neq B\)
+\end{dfn}
+
+\subsection{Proprietà di uguaglianza e inclusione}
+\begin{itemize}
+    \item Riflessività, vale sempre per un insieme e se stesso
+          \[A = A \quad A \subseteq A\]
+    \item Transitività
+          \[\text{Se } A = B \text{ e } B = C \text{ allora } A = C\]
+          \[\text{Se } A \subseteq B \text{ e } B \subseteq C \text{ allora } A \subseteq C\]
+    \item Simmetria
+          \[\text{Se } A = B \text{ allora } B = A\]
+    \item Anti-simmetria
+          \[\text{Se } A \subseteq B \text{ e } B \subseteq A \text{ allora } A = B\]
+\end{itemize}
+
+\subsection{Operazioni su insiemi}
+\begin{itemize}
+    \item Unione
+    \item Intersezione
+    \item Differenza
+    \item Complemento
+\end{itemize}
+
+\subsection{Uguaglianze e leggi}
+Una uguaglianza valida, cioè vera per tutti i possibili casi, si chiama \emph{legge}.
+
+\subsection{Operatori booleani}
+Sono operazioni su valori booleani (vero o falso) che possiamo utilizzare per scrivere espressioni complesse che denotano insiemi.
+
+Per dimostrare la validità di una uguaglianza si utilizzano dimostrazioni di tipo:
+\begin{itemize}
+    \item discorsive
+    \item grafiche
+    \item per sostituzione
+\end{itemize}
+
+\subsection{Leggi per operatori su insiemi}
+\begin{itemize}
+    \item Leggi per \textbf{unione} e \textbf{intersezione}
+          \begin{itemize}
+              \item associatività
+              \item unità
+              \item commutatività
+              \item idempotenza
+              \item assorbimento
+          \end{itemize}
+    \item Leggi che collegano \(\cup\), \(\cap\) e \(\overline{()}\)
+    \item Leggi per \(\setminus\)
+    \item Complemento
+    \item Convoluzione
+    \item De Morgan
+    \item Universo e insieme vuoto
+\end{itemize}
+
+\subsection{Cardinalità}
+La cardinalità di un insieme finito è il numero di elementi al suo interno.
+\begin{itemize}
+    \item \(\lvert \varnothing \rvert = 0\)
+    \item \(A \subseteq B \implies \lvert A \rvert \leq \lvert B \rvert\)
+    \item \(A = B \implies \lvert A \rvert = \lvert B\rvert \)
+    \item \(A \subset B \implies \lvert A \rvert < \lvert B \rvert\), non vale per insiemi infiniti
+\end{itemize}
+
+\subsection{Insiemi di insiemi}
+
+\subsection{Numeri naturali come insiemi}
+
+\subsection{Insieme delle parti}
+Dato un insieme \(A\), l'insieme delle parti di \(A\) è:
+\[\mathcal{P}(A) = \{X \mid X \subseteq A\}\]
+\begin{itemize}
+    \item \(\mathcal{P}(\{0,1,2\}) = \{\varnothing, \{0\}, \{1\}, \{2\}, \{0,1\}, \{0,2\}, \{1,2\}, \{0,1,2\}\}\)
+    \item \(\mathcal{P}(\varnothing) = \{\varnothing\}\)
+    \item \(\lvert\mathcal{P}(A)\rvert = 2^{\lvert A \rvert}\)
+\end{itemize}
+
+\subsection{Prodotto cartesiano}
+Il prodotto cartesiano di due insiemi è l'insieme formato da tutte le coppie ordinate \((a,b)\) tali che \(a \in A\) e \(b \in B\).
+\[A \times B = \{(a,b) \mid a \in A, b \in B\}\]
+
+\subsection{Famiglie di insiemi}
+Sia \(I\) un insieme finito (di indici).\\
+Una famiglia di insiemi \(F\) indicizzata da \(I\) è:
+\[F = \{A_i \mid i \in I\} = \{A_i\}_{i \in I}\]
+
+\begin{itemize}
+    \item \(\cup F = \cup_{i \in I}A_i\)
+    \item \(\cap F = \cap_{i \in I}A_i\)
+\end{itemize}
+
+\subsection{Partizioni}
+Una partizione su un insieme \(A\) è una famiglia di sottoinsiemi di \(A\) tale che:
+\begin{itemize}
+    \item ogni insieme \(A_i\) è diverso da \(\varnothing\)
+    \item \(\cup_{i \in I}A_i = A\) (copertura di A)
+    \item Presi \(i \neq j\) si ha: \(A_i \cap A_j = \varnothing\)
+\end{itemize}
+Serve a classificare \quoted{esclusivamente} gli elementi di un insieme.
+
+\subsection{Paradosso di Russel}
+
+\pagebreak
+
+\section{Relazioni}
+\subsection{Nozioni di base}
+Dati gli insieme \(A\) e \(B\), una relazione \(R \subseteq A \times B\) si scrive
+\[R \in Rel(A,B)\]
+\[R: A \leftrightarrow B\]
+dove
+\[Rel(A,B) = \mathcal{P}(A \times B)\]
+
+\begin{itemize}
+    \item relazione vuota: \(\varnothing \subseteq A \times B\) oppure \(\varnothing_{A,B}\)
+    \item relazione completa: \(A \times B\)
+\end{itemize}
+
+\subsubsection{Relazioni su un singolo insieme}
+Chiamiamo le relazioni con insieme di partenza e arrivo coincidenti \textbf{Relazioni su \(A\)}
+\begin{eg}
+    \[Succ = \{(x,y) \in \mathbb{N} \in \mathbb{N} \mid y = x + 1\} \in Rel(\mathbb{N}, \mathbb{N}) \quad \text{Relazione su } \mathbb{N}\]
+\end{eg}
+
+\subsubsection{Relazione identità}
+Per un insieme \(A\) la relazione identità è:
+\[Id_A = \{(x,x) \mid x \in A\}\]
+una relazione che associa ogni elemento di \(A\) con se stesso. Viene definita solo per relazioni su singoli insiemi
+
+\subsection{Operazioni su relazioni}
+Possiamo definire nuove relazioni usando vari operatori insiemistici.\\
+Date due relazioni \(R\) e \(S\) su \(A\) e \(B\),
+\[R, S \in Rel(A,B)\]
+\begin{itemize}
+    \item \(R \cup S \subseteq A \times B\), unione tra \(R\) e \(S\)
+    \item \(R \cap S \subseteq A \times B\), intersezione tra \(R\) e \(S\)
+    \item \(R \setminus S \subseteq A \times B\), tutti gli elementi di \(R\) tolti gli elementi di \(S\)
+    \item \(\overline{R} = (A \times B \setminus R) \subseteq A \times B\), complemento di \(R\). Scelgo \(A \times B\) come universo per garantire l'inclusione
+\end{itemize}
+Valgono tutte le leggi che abbiamo visto per gli insiemi, ma con \(A \times B\) preso come insieme universo.
+
+\subsection{Composizione di relazioni}
+Siano \(R: A \leftrightarrow B\) e \(S: B \leftrightarrow C\), la \textbf{composizione} di \(R\) con \(S\) è:
+\[R;S: A \leftrightarrow C\]
+\[R;S = \{(x,y) \in A \times C \mid (\exists y \in B . (x,y) \in R \land (y,z) \in S\}\]
+\(R;S\) contiene tutti le coppie per le quali c'è un \quoted{cammino} da \(A\) a \(C\), seguendo le frecce delle relazioni.
+
+\subsubsection{Leggi per la composizione}
+Per tutti gli insiemi \(A,B,C,D\) e tutte le relazioni \(R: A \leftrightarrow B\), \(S: B \leftrightarrow C\) e \(T: C \leftrightarrow D\) valgono le seguenti leggi
+\begin{itemize}
+    \item Associatività: \(R;(S;T) = (R;S);T\)
+    \item Unità: \(Id_A;R = R = R;Id_B\)
+    \item Assorbimento: \(R;\varnothing_{B,C} = \varnothing_{A,C} = \varnothing_{A,B};S\)
+    \item Distributività
+\end{itemize}
+
+\subsection{Relazione opposta}
+Sia \(R: A \leftrightarrow B\) una relazione. La sua relazione \textbf{opposta} è:
+\[R^{op} = \{(y,x) \in B \times A \mid (x,y) \in R\}\]
+
+\subsubsection{Leggi per la relazione opposta}
+Per tutti gli insiemi \(A,B,C\) e tutte le relazioni \(R: A \leftrightarrow B\), \(S: B \leftrightarrow C\) valgono le seguenti leggi
+\begin{itemize}
+    \item Composizione: \(R^{op};S^{op} = (R;S)^{op}\)
+    \item Distributività: \(\)
+\end{itemize}
+
+\subsection{Proprietà delle relazioni}
+\subsubsection{Totalità}
+\subsubsection{Univalenza}
+\subsubsection{Suriettività}
+\subsubsection{Iniettività}
+\subsubsection{Osservazioni}
+\textbf{Schema TUSI}
+
+\noindent\textbf{Dualità}
+\begin{itemize}
+    \item \(R \text{ è totale}     \iff R^{op} \text{è suriettiva}\)
+    \item \(R \text{ è univalente} \iff R^{op} \text{è iniettiva}\)
+    \item \(R \text{ è suriettiva} \iff R^{op} \text{è totale}\)
+    \item \(R \text{ è iniettiva}  \iff R^{op} \text{è univalente}\)
+\end{itemize}
+\noindent\textbf{Caratterizzazione}
+\begin{align*}
+     & R \text{ è totale} \iff Id_A \subseteq R;R^{op}     &  &  & R \text{ è suriettiva} \iff Id_B \subseteq R^{op};R \\
+     & R \text{ è univalente} \iff R;R^{op} \subseteq Id_A &  &  & R \text{ è iniettiva} \iff R^{op};R \subseteq Id_B
+\end{align*}
+
+\pagebreak
+
+\section{Funzioni}
+Dati due insiemi \(A\) e \(B\), \(R: A \leftrightarrow B\) è una funzione se
+\[\forall a \in A (\exists \text{ esattamente un } b \in B . (a,b) \in R\]
+ovvero se \(R\) è \textbf{totale} e \textbf{univalente}. Vediamo alcuni esempi:
+\begin{itemize}
+    \item \(Id_A\) è una funzione
+    \item \(A \times B\) non è una funzione, ma
+          \begin{itemize}
+              \item se \(\lvert B \rvert = 1\), è una funzione
+              \item se \(\lvert A \rvert = 0\) e \(\lvert B \rvert = 0\), è una funzione
+          \end{itemize}
+    \item \(\varnothing: A \leftrightarrow B\), non è una funzione, ma
+          \begin{itemize}
+              \item se \(\lvert A \rvert = 0\), è una funzione
+          \end{itemize}
+\end{itemize}
+
+\subsection{Composizione di funzioni}
+Per tutti gli insiemi \(A\), \(B\) e \(C\) e tutte le funzioni \(f: A \rightarrow B\) e \(g: B \rightarrow C\), la relazione \(f;g\) è una funzione
+\[f;g: A \rightarrow C\]
+\(g \circ f\) o \(gf\), notazione matematica
+
+\subsection{Biiezioni}
+Dati \(A\) e \(B\), la relazione \(R: A \leftrightarrow B\) è una biiezione se è totale, univalente, iniettiva e surgettiva.
+\[\forall a \in A \text{ esiste esattamente un } b \in B . (a,b) \in R \land \forall b \in B \text{ esiste esattamente un } a \in A . (a,b) \in R\]
+Il numero di biiezioni tra due insiemi \(A\) e \(B\) con \(\lvert A \rvert = \lvert B \rvert = n\) è uguale a
+\[n!\]
+
+\subsubsection{Osservazioni}
+Per tutti gli \(A,B,C\) e \(i: A \rightarrow B\) e \(j: B \rightarrow C\) vale che
+\begin{itemize}
+    \item \(Id_A\) è una biiezione
+    \item \(i;j\) è una biiezione
+    \item \(i^{op}\) è una biiezione
+\end{itemize}
+
+\subsubsection{Teorema di caratterizzazione}
+Per tutti gli insiemi \(A\),\(B\), la relazione \(R: A \leftrightarrow B\) è biiezione se e solo se:
+\[Id_A = R;R^{op} \text{ e } Id_B = R^{op};R\]
+\[R \text{ biiezione} \iff Id_A \subseteq R;R^{op} \land R;R^{op} \subseteq Id_A \land Id_B \subseteq R^{op};R \land R^{op};R \subseteq Id_B \]
+
+\subsubsection{Insiemi in biiezioni}
+\[A \cong B\]
+Due insiemi sono in biiezione se esiste una biiezione \(i: A \rightarrow B\)
+
+\noindent\textbf{Proprietà della biiezione}
+Dati gli insiemi \(A,B,C\) vale:
+\begin{itemize}
+    \item Riflessività, \(A \cong A\)
+    \item Simmetria, \(A \cong B \implies B \cong A\)
+    \item Transitività, \(A \cong A \land B \cong C \implies A \cong C\)
+\end{itemize}
+
+\pagebreak
+
+\section{Induzione}
+L'induzione ci permette di definire insiemi, anche infiniti.
+
+\begin{eg}
+    Se prendiamo la definizione dell'insieme dei naturali
+    \[\mathbb{N} = \{0,1,2,\ldots\}\]
+    possiamo dire che non è una definizione soddisfacente perché
+    \begin{itemize}
+        \item cambiando l'ordine degli elementi nell'insieme la notazione con i puntini sospensivi non ha più senso. \[\mathbb{N} = \{2,0,1,\ldots\}\]
+        \item Un programma non saprebbe determinare il significato dei puntini sospensivi.
+    \end{itemize}
+\end{eg}
+
+La definizione per induzione si può applicare sia agli insiemi che alle funzioni.
+
+\subsection{Definizione induttiva di insieme}
+Per definire un insieme \(A\) con la definizione induttiva occorre definire 3 clausole:
+\begin{enumerate}
+    \item Clausola \textbf{base}, che esplicita gli elementi di \(A\)
+    \item Clausola \textbf{induttiva}, che definisce come utilizzare gli elementi già presenti in A per costruire gli altri elementi
+    \item Clausola \textbf{terminale}, che stabilisce quando l'insieme \(A\) non contiene altri elementi, ovvero è il più piccolo insieme che soddisfa le clausole 1 e 2.
+\end{enumerate}
+
+\subsection{Definizione induttiva di funzione}
+Una funzione \(f: A \rightarrow B\) definita per induzione segue le seguenti clausole
+\begin{enumerate}
+    \item Clausola \textbf{base}, ovvero il valore di \(f(a)\) per ogni \(a \in A\) (secondo la clausola base della definizione di A)
+    \item Clausola \textbf{induttiva}, ovvero le regole utilizzate per calcolare \(f(a)\) usando i valori di \(f\) per elementi che sono già in \(A\)
+\end{enumerate}
+La definizione induttiva garantisce una funzione totale
+
+\subsection{Dimostrazione per induzione}
+Si ha una proprietà \(P\) sui naturali
+\[P: \mathbb{N} \rightarrow Bool\]
+Verifichiamo le seguenti affermazioni
+\begin{itemize}
+    \item Caso base: \(P(0)\) è vera
+    \item Passo induttivo: Per ogni \(m \in \mathbb{N}\)
+          \[\left(P(n) \implies P(n + 1)\right)\]
+\end{itemize}
+Se entrambe sono vere allora \(P(m)\) è vera per ogni \(m \in \mathbb{N}\)
+
+\subsubsection{Regola di inferenza}
+Possiamo esprimere la dimostrazione per induzione attraverso la notazione di regola di inferenza
+\[\frac{P(0), \forall n \in \mathbb{N} . \left(P(n) \implies P(n + 1)\right)}{\forall m \in \mathbb{N} . P(m)}\]
+che si legge: \quoted{Per dimostrare ciò che sta sotto la riga, basta dimostrare ciò che sta sopra la riga}
+
+\pagebreak
+
+\section{Grafi}
+I grafi ci permettono di modellare precisamente e in modo visualmente intuitivo relazioni tra elementi di un insieme.
+
+Esistono grafi \emph{orientati} e \emph{non orientati}. I grafi orientati sono più direttamente collegati al concetto di relazione.
+
+\subsection{Grafo orientato}
+Un \emph{grafo orientato} è una relazione \(E: V \leftrightarrow V\) su un insieme \textbf{finito} \(V\). Scriviamo: \(G = (E,V)\)
+\begin{itemize}
+    \item \(V\): insieme di \textbf{nodi} o \textbf{vertici}
+    \item \(E\): insieme di \textbf{archi} o \textbf{lati} (coppie)
+\end{itemize}
+
+Questi grafi sono \emph{orientati} perchè ad un arco dal nodo \(x\) al nodo \(y\) possiamo assegnare un verso, e quindi possiamo anche creare archi che partono e arrivano nello stesso nodo, chiamati \textbf{cappio} o \textbf{loop}. Ne risulta che presi due nodi distinti \(x\) e \(y\), un arco \((x,y) \in E \neq (y,x) \in E\).
+
+Dato un grafo \(G\) indicheremo:
+\begin{itemize}
+    \item con \(n\) il numero dei nodi del grafo, cioè \(n = \lvert V\rvert\)
+    \item con \(m\) il numero di archi, ovvero \(m = \lvert E\rvert\)
+\end{itemize}
+
+\subsection{Vicinato e grado dei nodi}
+Due nodi x e y sono adiacenti se c'è un arco da x a y o c'è un'arco da y a x
+\[(x,y) \in E \lor (y,x) \in E\]
+Per ogni nodo possiamo indicare
+\begin{itemize}
+    \item Vicinato in uscita (stella uscente) di x 
+    \[N^+(x) = \{y \mid (x,y) \in E\}\]
+    \item Vicinato in ingresso (stella entrante) di x 
+    \[N^-(x) = \{y \mid (y,x) \in E\}\]
+    \item Grado in uscita di x:
+    \[d^+_x = \lvert N^+(x) \rvert\]
+    \item Grado in ingresso di x:
+    \[d^-_x = \lvert N^-(x) \rvert\]
+\end{itemize}
+
+\noindent\textbf{Hand-Shaking Lemma per grafi orientati}
+\[\sum_{x \in V} d_x^- = \sum_{x \in V} d_x^+ = \lvert E \rvert\]
+
+\subsection{Grafo come relazione}
+Essendo un grafo una relazione su un insieme finito di nodi, ovviamente possiamo verificare le proprietà TUSI.
+Le proprietà TUSI (Totale, Univalente, Surgettiva, Iniettiva) diventano condizioni sul grado dei nodi.
+\begin{enumerate}
+    \item \(E: V \leftrightarrow V\) è \textbf{totale} se e solo se per ogni nodo \(x \in V\) vale \(d_x^+ \geq 1\);
+    \item \(E: V \leftrightarrow V\) è \textbf{univalente} se e solo se per ogni nodo \(x \in V\) vale \(d_x^+ \leq 1\);
+    \item \(E: V \leftrightarrow V\) è \textbf{surgettiva} se e solo se per ogni nodo \(x \in V\) vale \(d_x^- \geq 1\);
+    \item \(E: V \leftrightarrow V\) è \textbf{iniettiva} se e solo se per ogni nodo \(x \in V\) vale \(d_x^- \leq 1\);
+\end{enumerate}
+
+\subsection{Cammini}
+\begin{itemize}
+    \item Un \emph{walk} è una sequenza di nodi \(P = v_0, \ldots, v_k\) con \(k \in \mathbb{N}\) tale che \((v_i,v_{i+1}) \in E\) per ogni \(i \in \{1,\ldots,k\}\).
+    \item Un \emph{trail} è un \emph{walk} che non attraversa più volte lo stesso \textbf{arco}.
+    \item Un \emph{path} è un \emph{trail} che non attraversa più volte lo stesso \textbf{nodo}.
+\end{itemize}
+
+La lunghezza di un walk è \(k\) e gli estremi sono \(v_0\) e \(v_k\).
+
+Un walk di lunghezza zero è costituito solo dal nodo \(v_0\).
+
+Esiste un walk di lunghezza \(n \in \mathbb{N}\) da \(x\) a \(y\) se e solo se \((x,y) \in E^n\).
+
+\begin{dms}
+    Dimostriamo per induzione questa proprietà
+    \begin{itemize}
+        \item \textbf{Caso base}: Sia \(v \in V\), v è walk di lunghezza 0 per definizione v è un walk da v a v, ma \(E^0 = Id_v\), quindi \((v,v) \in E^0 = Id_v\).
+        \item \textbf{Passo induttivo}: Esiste \(v_1 v_2, \ldots, v_{n+1}\) un walk di lunghezza n + 1 se e solo se c'è un arco \((v_0,v_1) \in E\) e un walk \(v_0, v_1, \ldots, v_{n+1}\) di lunghezza n.
+    \end{itemize}
+\end{dms}
+
+Se esiste un walk da \(x\) a \(y\) allora esiste un trail da \(x\) a \(y\).
+
+\subsection{Walk chiusi, circuiti e cicli}
+Un walk è detto chiuso se 
+
+\subsection{Connettività}
+Un grafo orientato \(G = (V,E)\) è fortemente connesso se per ogni coppia di nodi \(x,y \in V\) esiste un walk da \(x\) a \(y\).
+
+Una componente fortemente connessa di G è un sotto insieme non vuoto di nodi \(U \subseteq V\) tale che
+\begin{enumerate}
+    \item Per ogni copppia di nodi \(x, y \in U\) esiste un walk da \(x\) a \(y\).
+    \item Se \(U' \subseteq V\) soddisfa la 1. e \(U \subseteq U'\), allora \(U = U'\).
+\end{enumerate}
+
+\textbf{Altre proprietà}
+\begin{itemize}
+    \item \(G = (V,E)\) è fortemente connessa se e solo se \(V \times V \subseteq E^*\)
+    \item \((x,y) \in E^* \cap (E^*)^{op}\) se e solo se \(x\) e \(y\) appartengono alla stessa SCC.
+    \item \(x\) e \(y\) appartengono alla stessa SCC se e solo se esiste un walk chiuso che li attraversa entrambi.
+\end{itemize}
+
+\subsection{Directed Acyclic Graphs}
+Un grafo orientato senza cicli si chiama \textbf{Directed Acyclic Graph} (DAG)
+
+I nodi con grado di ingresso 0 vengono chiamati \emph{sorgenti} e i nodi con grado di uscita 0 si chiamano \emph{pozzi}.
+
+Se \(G = (V,E)\) è un DAG, allora \(E^*\) è un ordinamento parziale.
+
+\begin{dfn}{Ordinamenti topologici:}
+    Dato un DAG, un ordinamento topologico di G è una biiezione \(\eta: V \rightarrow n = \{0,1,2,\ldots,n-1\}\) tale che
+    \begin{center}
+        Per ogni arco \((x,y) \in E\) vale che \(\eta(x) < \eta(y)\)
+    \end{center}
+\end{dfn}
+
+\subsection{Cammini e cicli Euleriani}
+
+\begin{dfn}{Circuito euleriano: } 
+    Un circuito euleriano è un circuito che passa esattamente una volta per tutti gli archi del grafo.
+\end{dfn}
+
+\begin{dfn}{Trail euleriano: }
+    Un percorso euleriano è un trail che passa esattamente una volta per tutti gli archi del grafo.
+\end{dfn}
+
+\vspace{1 cm}
+
+Eulero ha sviluppato un teorema per decidere se esiste o meno un circuito o trail che passa per tutti gli archi.
+
+\begin{dfn}{Teorema di Eulero}\\
+    Dato un grafo non orientato e connesso,
+    \begin{enumerate}
+        \item Eiste un circuito euleriano se e solo se tutti i nodi hanno grado pari.
+        \item Esiste un trail euleriano da \(x\) a \(y\) se e solo se \(x\) e \(y\) sono gli unici nodi di grado dispari
+    \end{enumerate}
+\end{dfn}
+
+\subsection{Cicli e path hamiltoniani}
+Dato un grafo connesso (orientato o no orientato), un ciclo hamiltoniano è un ciclo che passa esattamente una volta per tutti i nodi del grafo.
+
+Un path hamiltoniano può partire e arrivare in nodi distinti.
+
+
+\section{Alberi}
+Un albero è un grafo non orientato, connesso, aciclico e non vuoto.
+
+\subsection{Terminologia}
+\begin{itemize}
+    \item Una \textbf{foresta} è un grafo non orientato, aciclico e non vuoto.
+    \item Una \textbf{foglia} è un nodo con grado 1.
+    \item Un \textbf{nodo interno} è un nodo con grado > 1
+    \item Un \textbf{albero radicato} è un albero con un \quoted{nodo speciale} ovvero la \textbf{radice}
+\end{itemize}
+\end{document}

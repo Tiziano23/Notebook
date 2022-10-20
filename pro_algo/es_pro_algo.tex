@@ -1,0 +1,126 @@
+\documentclass{article}
+\input{../include/setup.tex}
+
+\begin{document}
+\section{Esercizi}
+\subsection{Esercizio 1}
+\large\textbf{Input}
+\begin{itemize}
+    \item Numero intero \(N \geq 1\)
+\end{itemize}
+
+\noindent\large\textbf{Output}
+\begin{itemize}
+    \item Numero di coppie \((i,j)\) tali che \(i\) e \(j\) compresi tra 1 e \(N\)
+\end{itemize}
+
+\noindent Codice di base
+\begin{center}
+    \begin{verbatim}
+function Count_1(N: Int)
+    sum = 0
+    for (i = 1; i <= N; i = i + 1)
+        for (j = i; j <= N; j = j + 1)
+            sum = sum + 1
+    return sum
+\end{verbatim}
+\end{center}
+\textbf{Tempo di esecuzione: }
+\[2 + 3N + 1 + \sum_{i = 1}^N \left[3\left(N + 1 - i\right)\right] + 2 \sum_{i = 1}^N \left(N + 1 - i\right)\]
+
+\vspace{1.5cm}
+
+\noindent Posso fare di meglio.
+\begin{center}
+    \begin{verbatim}
+function Count_1(N: Int)
+    sum = 0
+    for (i = 1; i <= N; i = i + 1)
+        sum = sum + (N + 1 - i)
+    return sum
+\end{verbatim}
+\end{center}
+\textbf{Tempo di esecuzione: } \(7N + 3\)
+
+\vspace{1.5cm}
+
+\noindent Posso fare (ancora) meglio.
+\[\sum_{i=1}^N (N + 1 - i) = \sum_{i = 1}^N i = \frac{N(N + 1)}{2}\]
+Quindi posso scrivere:
+\begin{center}
+    \begin{verbatim}
+function Count_1(N: Int)
+    return N * (N + 1) / 2
+\end{verbatim}
+\end{center}
+\textbf{Tempo di esecuzione: } \(5\)
+
+\pagebreak
+
+\subsection{Esercizio 2}
+\begin{verbatim}
+    var A: [Int] = un array contenente interi;
+    var res: Bool = false;
+    const n: Int = A.length;
+    for(var k: Int = 0; k < sqrt(n); k++)
+        for (var h: Int = 0; h < k; h++)
+            for (var t: Int = 0; t < h; t++)
+                res = res || ((A[t] % 2 == 0) && (A[t+1] % 2 == 1))
+\end{verbatim}
+
+\textbf{Dichiarazioni} \\
+\textbf{Analisi statica}
+\[\Delta = \angled{(A, [Int]Loc), (res, BoolLoc), (n, Int)}\]
+
+\textbf{Analisi dinamica}
+
+Stato 0
+\[D_1;D_2;D_3;C\]
+\[\rho = \varnothing\]
+\[\sigma = \varnothing\]
+
+Stato 1
+\[D_2;D_3;C\]
+\[\rho = \angled{(A, [Loc])}\]
+\[\sigma = \angled{([Loc], [a_1,a_2,\ldots])}\]
+
+Stato 2
+\[D_3;C\]
+\[\rho = \angled{(A, [Loc]), (res, L_0)}\]
+\[\sigma = \angled{([Loc], [a_1,a_2,\ldots]), (L_0, false)}\]
+
+
+\textbf{Complessità}
+
+Il for più esterno viene eseguito \(sqrt{n}\) volte
+
+Il for intermedio è nell'ordine di \(O(n)\) perchè tramite la formula di Gauss:
+\[O\left(\sqrt{n}^2\right) = \frac{\sqrt{n}(\sqrt{n} + 1)}{2}\]
+
+Il for più interno è dell'ordine \(O(n\sqrt{n})\)
+\[h = \frac{k\left(k + 1\right)}{2}\]
+\[k = \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2}\]
+
+\begin{align*}
+    s &= \frac{h(h + 1)}{2} \\
+    s &= \frac{\frac{k\left(k + 1\right)}{2}(\frac{k\left(k + 1\right)}{2} + 1)}{2} \\
+    s &= \frac{
+            \frac{
+                \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2}
+                \left(
+                    \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2} + 1
+                \right)
+            }
+            {2}
+            \left(
+                \frac{
+                    \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2}
+                    \left(
+                        \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2} + 1
+                    \right)
+                    }{2} + 1 
+            \right)
+        }
+        {2}
+\end{align*}
+\end{document}

@@ -1,0 +1,220 @@
+\documentclass{article}
+\input{include/setup}
+\input{include/math_snippets}
+
+\title{Analisi Matematica}
+\author{Tiziano Marzocchella}
+\date{A.A. 2022/2023}
+
+\begin{document}
+\include{include/first_page}
+
+\section{Introduzione - Nozioni di base}
+\subsection{Insiemi numerici}
+\begin{itemize}
+    \item \(\numN\) - Numeri naturali (interi positivi)
+    \item \(\numZ\) - Numeri interi (anche i negativi)
+    \item \(\numQ\) - Numeri razionali (frazioni), tutti i numeri \(\frac{p}{q} \text{ con } p, q \in \numZ \text{ e } q \neq 0\)
+    \item \(\numR\) - Numeri reali, tutti i numeri compresi anche quelli \(\notin \numQ\)
+    \begin{eg}
+    \(\sqrt{2} \notin \numQ \hspace{2cm} \pi \notin \mathbb{Q} \hspace{2cm} e \notin \numQ\)
+    \end{eg}
+\end{itemize}
+
+\subsection{Retta reale}
+I numeri reali sono \emph{oggetti} su cui possiamo svolgere operazioni proprio come sui naturali.
+\[\numN \subset \numZ \subset \numQ \subset \numR\]
+In questo corso consideriamo \(\subset\) e \(\subseteq\) equivalenti, quindi
+\[A \subset B \land B \subset A \implies A=B\]
+Per denotare un insieme \(A \subset B\) ma \(A \neq B\) si usa
+\[A \subsetneqq B\]
+
+\subsection{Intervalli di \(\numR\)}
+\begin{dfn}
+\(I \subset \numR\) si dice intervallo di \(\numR\) se \(\forall x, y \in I\) con \(x < y\)\\
+dato \(z \in \numR\) tale che \(x < z < y\) risulta che \(z \in I\)
+\end{dfn}
+
+\begin{eg}
+\(A = \{ x \in \numR : x \neq 0\}\)
+%drawing
+\begin{align*}
+    -2 \in A, 3 \in A && -2 < 0 < 3,\gap 0 \notin A 
+\end{align*}
+\underline{\(A\) \textbf{non} è un intervallo.}
+\end{eg}
+
+\begin{eg}
+\(B = \{ x \in \numR : \lvert x \rvert > 3\}\)
+%drawing
+\[z \notin B, \gap x < z < y\]
+\underline{\(B\) \textbf{non} è un intervallo.}
+\end{eg}
+
+\noindent\vspace{.2cm}\large\textbf{Notazione}\\
+Dati \(a,b \in \numR\), con \(a < b\) scriviamo:
+\begin{itemize}
+    \item \([a, b] = \{x \in \numR : a \leq x \leq b\}\), estremi inclusi
+    \item \((a, b) = \{x \in \numR : a < x < b\}\), estremi esclusi
+    \item \([a, +\infty) = \{x \in \numR : x \geq a\}\), semiretta
+    \item \((-\infty,+\infty) = \numR\)
+\end{itemize}
+
+\pagebreak
+
+\section{Funzioni}
+Una funzione è una terna di oggetti, due insiemi e una legge.
+\[\funcs{f}{A}{B}\]
+\begin{itemize}
+    \item \(A\) è il dominio
+    \item \(B\) è il codominio
+    \item \(f\) è una legge che mette in corrispondenza ogni elemento di \(A\) con \underline{uno e un solo} elemento di \(B\).
+\end{itemize}
+
+\subsection{Grafico di una funzione}
+\begin{dfn}
+È possibile definire il grafico di una funzione come un insieme di punti.
+\[graph(f) = \{(a,b) \in A \times B :\gap b = f(a)\} \subset (A \times B)\]
+\end{dfn}
+\begin{eg}
+\(\funcs{f}{\numR}{\numR}, \Gap f(x) = 2x\)
+\begin{align*}
+    f(3) = 2 \cdot 3 = 6 &\implies (3,6) \in graph(f) \\
+    f(3) \neq 7 &\implies (3,7) \notin graph(f)
+\end{align*}
+\end{eg}
+
+\subsection{Immagine di una funzione}
+\begin{dfn}
+\(f: A \rightarrow B,\Gap D \subset A,\gap f(D) \subset B\)\\
+L'insieme
+\[f(D) = \{f(x) : x \in D\}\]
+si dice \emph{immagine} di \(D\) attraverso \(f\).\\
+Nel caso \(D = A\) invece di \(f(A)\) si scrive
+\[Imm(f) = f(A) = \{f(x) : x \in A \}\]
+\end{dfn}
+
+\begin{eg}
+\(\funcs{f}{\numR}{\numR},\gap f(x) = x^2\)\\
+Dato l'intervallo \(D = [2,3]\)\\
+\(f(D) = ?\)
+%drawing
+\begin{align*}
+x \in [2,3] \iff    &x \leq x \leq 3\\
+                    &4 \leq x^2 \leq 9\\
+                    &4 \leq f(x) \leq 9
+\end{align*}
+\begin{align*}
+    & \funcs{f}{\numR}{\numR},\gap f(x) = x^2 && \funcs{f}{\numR}{\numR},\gap g(x) = -x^2\\
+    & Imm(f) = [0, +\infty)                     && Imm(g) = (-\infty, 0]
+\end{align*}
+\end{eg}
+
+\subsection{Iniettività e Surgettività}
+\begin{dfn}
+\(\funcs{f}{A}{B}\) si dice \emph{iniettiva} se per ogni coppia di \(x\) diverse appartenenti al dominio la funzione valutata in \(x_1\) ha valore diverso dalla funzione valutata in \(x_2\).
+\[\forall x_1,x_2 \in A \text{ con } x_1 \neq x_2 \implies f(x_1) \neq f(x_2)\]
+\end{dfn}
+
+\begin{eg}
+La funzione \(\funcs{f}{\numR}{\numR},\gap f(x) = x^2\) \underline{\textbf{non} è \emph{iniettiva}}.
+\begin{align*}
+    f(-2) = 4 && f(2) = 4 && -2   &\neq 2\\
+              &&          && f(2) &= f(-2)
+\end{align*}
+\end{eg}
+
+\(f\) è \emph{iniettiva} se \textbf{ogni} retta orizzontale \(y = k\) interseca il grafico di \(f\) \underline{al massimo} in un punto.
+
+Si può opportunamente modificare il dominio di ogni funzione per renderla \emph{iniettiva}.
+
+\begin{dfn}
+\(\funcs{f}{A}{B}\) si dice \emph{surgettiva} se per ogni \(y\) appartenete al codominio esiste una \(x\) appartenente al dominio tale che la funzione valutata in \(x\) è uguale a \(y\).
+\[\forall y \in B \gap \exists\, x \in A : f(x) = y\]
+\end{dfn}
+
+\begin{eg}
+La funzione \(\funcs{f}{\numR}{\numR},\gap f(x) = x^2\) \underline{\textbf{non} è \emph{surgettiva}}.
+\end{eg}
+
+Una funzione è \emph{surgettiva} se e solo se la sua \emph{immagine} coincide con il suo \emph{codominio}. Quindi \(f\) è \emph{surgettiva} se e solo se ogni retta orizzontale \(y = k\) tracciata nel codominio interseca il grafico di \(f\) in almeno un punto.
+
+\begin{dfn}
+\(\funcs{f}{A}{B}\) si dice \emph{bigettiva} se è sia iniettiva che surgettiva.
+\end{dfn}
+
+\subsection{Funzione inversa}
+La funzione inversa di \(\funcs{f}{A}{B}\), quando f è \underline{\emph{bigettiva}}, è 
+\[\funcs{f^{-1}}{B}{A}\]
+costruita soddisfacendo le seguenti condizioni.
+\begin{align*}
+    f^{-1}\left(f\left(x\right)\right) &= x \Gap \forall x \in A \\
+    f\left(f^{-1}\left(x\right)\right) &= y \Gap \forall y \in B
+\end{align*}
+
+\begin{dms}
+Dato che \(f\) è \emph{surgettiva}, \(\exists x \in A\) che è unico perché \(f\) è \emph{iniettiva}. Allora \(x = f^{-1}(y)\).
+\end{dms}
+\begin{eg}
+\(\sqrt{}\) è la funzione inversa di \(\funcs{f}{[0,+\infty)}{[0,+\infty)} \gap f(x) = x^2\).
+\begin{nb}
+\(\sqrt{x}\) non ha senso se \(x < 0\) perché \(\sqrt{x} \geq 0 \gap \forall x\)
+\[\funcs{\sqrt{}}{[0,+\infty)}{[0,+\infty)} \Gap \sqrt{4} = 2 \textbf{ non } \xcancel{\sqrt{4} = \pm 2}\]
+\end{nb}
+\begin{align*}
+    \left(\sqrt{x}\right)^2 &= x  && \forall x \geq 0 \\
+    \sqrt{x^2} &= \lvert x \rvert && \forall x \in \numR
+\end{align*}
+\end{eg}
+
+\subsection{Operazioni sui grafici}
+\subsubsection{Traslazioni}
+\(g(x) = f(x) + a\)
+\begin{itemize}
+    \item \(a > 0\) traslazione verso l'alto
+    \item \(a < 0\) traslazione verso il basso
+\end{itemize}
+
+\noindent\(g(x) = f(x + a)\)
+\begin{itemize}
+    \item \(a > 0\) traslazione verso sinistra
+    \item \(a < 0\) traslazione verso destra
+\end{itemize}
+
+\subsubsection{Valore assoluto}
+\(g(x) = \lvert f(x) \rvert\)
+
+\subsection{Funzioni monotone}
+\begin{dfn}
+\(A, B \subset \numR, \gap \funcs{f}{A}{B}, \gap x_1, x_2 \in A, \gap x_1 < x_2\)\\
+Se \(\forall x_1,x_2 \in A\):
+\begin{enumerate}
+    \item \(f(x_1) < f(x_2) \implies f\) è strettamente crescente
+    \item \(f(x_1) \leq f(x_2) \implies f\) è debolmente crescente
+    \item \(f(x_1) > f(x_2) \implies f\) è strettamente decrescente
+    \item \(f(x_1) \geq f(x_2) \implies f\) è debolmente crescente
+\end{enumerate}
+Se valgono 1 o 3 \(f\) è strettamente \emph{monotona}. \\
+Se valgono 2 o 4 \(f\) è debolmente \emph{monotona}.
+\end{dfn}
+
+Nel caso di funzione debolmente \emph{monotona} sono ammessi tratti orizzontali nel grafico.
+
+Una funzione monotona ha un andamento sempre crescente o decrescente. \\
+Se f è crescente \textbf{mantiene} l'andamento
+\begin{align*}
+    x_1 < x_2 &\implies f(x_1) < f(x_2) \Gap \text{strettamente crescente} \\
+    x_1 < x_2 &\implies f(x_1) \leq f(x_2) \Gap \text{debolmente crescente} \\
+\end{align*}
+Se f è decrescente \textbf{inverte} l'andamento
+\begin{align*}
+    x_1 < x_2 &\implies f(x_1) > f(x_2) \Gap \text{strettamente decrescente} \\
+    x_1 < x_2 &\implies f(x_1) \geq f(x_2) \Gap \text{debolmente decrescente} \\
+\end{align*}
+
+Una funzione f è strettamente crescente se e solo se
+\[\frac{f(x_1) - f(x_2)}{x_1 - x_2} > 0 \gap \forall x_1 \neq x_2\]
+
+Una funzione f è strettamente decrescente se e solo se
+\[\frac{f(x_1) - f(x_2)}{x_1 - x_2} < 0 \gap \forall x_1 \neq x_2\]
+\end{document}
