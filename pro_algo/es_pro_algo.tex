@@ -2,8 +2,7 @@
 \input{../include/setup.tex}
 
 \begin{document}
-\section{Esercizi}
-\subsection{Esercizio 1}
+\section{Esercizio 1}
 \large\textbf{Input}
 \begin{itemize}
     \item Numero intero \(N \geq 1\)
@@ -57,7 +56,7 @@ function Count_1(N: Int)
 
 \pagebreak
 
-\subsection{Esercizio 2}
+\section{Esercizio 2}
 \begin{verbatim}
     var A: [Int] = un array contenente interi;
     var res: Bool = false;
@@ -102,25 +101,84 @@ Il for più interno è dell'ordine \(O(n\sqrt{n})\)
 \[k = \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2}\]
 
 \begin{align*}
-    s &= \frac{h(h + 1)}{2} \\
-    s &= \frac{\frac{k\left(k + 1\right)}{2}(\frac{k\left(k + 1\right)}{2} + 1)}{2} \\
-    s &= \frac{
-            \frac{
-                \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2}
-                \left(
-                    \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2} + 1
-                \right)
-            }
-            {2}
+    s & = \frac{h(h + 1)}{2}                                                         \\
+    s & = \frac{\frac{k\left(k + 1\right)}{2}(\frac{k\left(k + 1\right)}{2} + 1)}{2} \\
+    s & = \frac{
+        \frac{
+            \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2}
             \left(
-                \frac{
-                    \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2}
-                    \left(
-                        \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2} + 1
-                    \right)
-                    }{2} + 1 
+            \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2} + 1
             \right)
         }
         {2}
+        \left(
+        \frac{
+            \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2}
+            \left(
+            \frac{\sqrt{n}\left(\sqrt{n} + 1\right)}{2} + 1
+            \right)
+        }{2} + 1
+        \right)
+    }
+    {2}
 \end{align*}
+
+\section{Esercizio 3}
+Verificare che il programma sia corretto dal punto di vista di semantica statica.
+
+\begin{verbatim}
+var xG:Double = 3.5;
+if (xG < 3.5) {
+    const xL:Double = 13.2;
+    var sommaIf:Double = xG + xL;
+}
+else {
+    var sommaElse:Double = xG + xL;
+}
+sommaIf = sommaIf + 1;
+sommaElse = sommaElse + 1;
+\end{verbatim}
+
+\begin{enumerate}
+    \item \(D_1 = \)\quad var xG:Double = 3.5;
+    \item \(D_2 = \)\quad const xL:Double = 13.2;
+    \item \(D_3 = \)\quad var sommaIf:Double = xG + xL;
+    \item \(D_4 = \)\quad var sommaElse:Double = xG + xL;
+    \item \(C_1 = \)\quad 
+    \begin{verbatim}
+const xL:Double = 13.2
+var sommaIf:Double = xG + xL;
+    \end{verbatim}
+    \item \(C_2 = \)\quad var sommaElse:Double = xG + xL;
+    \item \(C_3 = \)\quad
+\begin{verbatim}
+if (xG < 3.5) {
+    const xL:Double = 13.2;
+    var sommaIf:Double = xG + xL;
+}
+else {
+    var sommaElse:Double = xG + xL;
+}
+\end{verbatim}
+    \item \(C_4 = \)\quad sommaIf = sommaIf + 1;
+    \item \(C_5 = \)\quad sommaElse = sommaElse + 1;
+    \item \(C_6 = \)\quad \(C_3;C_4;C_5\)
+    \item \(C_7 = \)\quad \(C_4;C_5\)
+\end{enumerate}
+
+\[
+    \frac{
+        \frac{\varnothing \vdash_e 3.5:Double}{\varnothing \vdash_d D_1 : \Delta_1},
+        \quad
+        \frac
+        {
+            \Delta_1 \vdash_c C_3,
+            \quad
+            \frac
+            {\Delta_1 \vdash_c C_4, \Delta_1 \vdash_c C_5}
+            {\Delta_1 \vdash_c C_7}
+        }{\Delta_1 \vdash_c C_6}
+    }{\varnothing \vdash_c P}
+\]
+
 \end{document}

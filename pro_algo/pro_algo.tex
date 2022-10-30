@@ -469,12 +469,12 @@ Una dichiarazione \(D\) è ben formata se rispetta i tipi e mi permette di produ
     \item (R10)
           \[\frac
               {\Delta \vdash_e E:\, \tau,\ T == \tau}
-              {\Delta \vdash_d \text{const} Id:T = E}\]
+              {\Delta \vdash_d \text{const } Id:T = E}\]
 
     \item (R11)
           \[\frac
               {\Delta \vdash_e E:\, \tau,\ T == \tau}
-              {\Delta \vdash_d \text{var} Id:T = E \,:\, [(Id, \tau Loc)]}\]
+              {\Delta \vdash_d \text{var } Id:T = E \,:\, [(Id, \tau Loc)]}\]
 
     \item (R12)
           \[\frac
@@ -615,7 +615,7 @@ Usiamo la notazione asintotica per dare un limite ad una funzione \(f(n)\) a men
     \(g(n)\) è detto limite superiore asintotico di \(f(n)\).
     \[f(n) = O\left(g(n)\right)\]
     Diciamo che \(f(n)\) è \textbf{O-grande} di \(g(n)\).
-    
+
     \vspace*{.25cm}
 
     \noindent Possiamo anche cercare il limite non stretto, \\
@@ -675,12 +675,12 @@ Facciamo sempre riferimento al concetto di induzione e definiamo:
 
 Se sviluppiamo la formula per il costo generico
 \begin{align*}
-    h(N) &= 2h(N - 1) + 1 = 2(2h(N - 2) + 1) + 1 \\
-         &= 4h(N - 2) + 3 = 4(2h(N - 3) + 1) + 3 \\
-         &= 8h(N - 3) + 7 \\
-         &= 2^{N-1}h\left(N - (N - 1)\right) + 2^{N-1} - 1 \\
-         &= 2^{N-1}h(1) + 2^{N-1} - 1 \\
-         &= 2^{N} - 1\\
+    h(N) & = 2h(N - 1) + 1 = 2(2h(N - 2) + 1) + 1           \\
+         & = 4h(N - 2) + 3 = 4(2h(N - 3) + 1) + 3           \\
+         & = 8h(N - 3) + 7                                  \\
+         & = 2^{N-1}h\left(N - (N - 1)\right) + 2^{N-1} - 1 \\
+         & = 2^{N-1}h(1) + 2^{N-1} - 1                      \\
+         & = 2^{N} - 1                                      \\
 \end{align*}
 riusciamo ad esprimere la complessità eliminando la definizione ricorsiva.
 
@@ -691,7 +691,7 @@ riusciamo ad esprimere la complessità eliminando la definizione ricorsiva.
 \begin{equation}
     T(n) =
     \begin{cases}
-        0 & true \\
+        0 & true  \\
         0 & false
     \end{cases}
 \end{equation}
@@ -699,17 +699,43 @@ riusciamo ad esprimere la complessità eliminando la definizione ricorsiva.
 \subsection{Master theorem}
 \[T(n) = aT\left(\frac{n}{b}\right) + f(n)\]
 
-Se \(f(n) = O\left(n^{\log_b a - \epsilon}\right)\) cresce più lentamente di \(n^{\log_b a}\), \\
-allora la soluzione è
+\textbf{Caso 1.}
+Se \(f(n)\) cresce polinomialmente più lentamente di \(n^{\log_b a}\)
+\[f(n) = O\left(n^{\log_b a - \epsilon}\right)\]
+\begin{center}allora la soluzione è\end{center}
 \[T(n) = \Theta\left(n^{\log_b a}\right)\]
 
-Se \(f(n) = \Omega\left(n^{\log_b a + \epsilon}\right)\) cresce più velocemente di \(n^{\log_b a}\) e \\
-\(a f(\frac{n}{b}) < c f(n)\) per qualche costante \(c > 1\) e per tutti gli \(n \geq n_0\), \\
-allora la soluzione è
+\vspace{1cm}
+
+\textbf{Caso 2.}
+Se \(f(n)\) è \(\Theta\)-grande di \(n^{\log_b a}\lg^k n\) per qualche costante \(k \geq 0\)
+\[f(n) = \Theta\left(n^{\log_b a}\lg^k n\right)\]
+\begin{center}allora la soluzione è\end{center}
+\[T(n) = \Theta\left(n^{\log_b a} \lg^{k+1} n\right)\]
+
+\vspace{1cm}
+
+\textbf{Caso 3.}
+Se \(f(n)\) cresce polinomialmente più velocemente di \(n^{\log_b a}\)
+\[f(n) = \Omega\left(n^{\log_b a + \epsilon}\right)\]
+\begin{center}e\end{center}
+\[a f(\frac{n}{b}) < c f(n) \quad \text{ per qualche costante } c < 1 \text{ e per tutti gli } n \geq n_0\]
+\begin{center}allora la soluzione è\end{center}
 \[T(n) = \Theta\left(f(n)\right)\]
 
-Se \(f(n) = \Theta\left(n^{\log_b a} \log_{10}^k n\right)\) per qualche costante \(k \geq 0\), \\
-allora la soluzione è
-\[T(n) = \Theta\left(n^{\log_b a} \log_{10}^{k+1} n\right)\]
+\section{Algoritmi}
+\subsection{Merge-sort}
+L'argorimo \emph{merge-sort} è di tipo \textbf{divide-et-impera}, che quindi si basa sull'idea di dividere a metà l'array da ordinare.
+Quindi lo step \emph{divide} seziona l'array di partenza in 2 parti uguali, poi lo step \emph{impera} ordina entrambe le parti, seguendo sempre l'argorimo \emph{merge-sort}, e infine i due array ordianti vengono \emph{fusi} insieme.
+
+
+\section{Alberi}
+
+Un albero è un grafo connesso aciclico. I nodi di grado 1 sono detti foglie, i nodi di grado > 1 sono detti nodi interni.
+Un albero \emph{radicato} ha 1 nodo \textbf{radice}.
+I nodi interni hanno 1 o più filgi, che consideriamo ordinati e numerati da 0 a k.
+
+Nel caso \(k = 2\) l'albero radicato è detto \textbf{binario}. In questo caso i filgi si chiamano sinistro (sx) e destro (dx).
+
 
 \end{document}
