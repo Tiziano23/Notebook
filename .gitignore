@@ -4,3 +4,6 @@
 *.fls
 *.out
 *.fdb_latexmk
+
+output/
+
