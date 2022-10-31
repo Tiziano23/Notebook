@@ -664,15 +664,13 @@ Nell analizzare un algorimo utilizzeremo il limite inferiore asintotico per dare
 
 Viceversa, utilizzeremo il limite superiore asintotico per dare un limite di tempo massimo per un qualunque input di dimensione N.
 
-\subsection{Costo di funzioni ricorsive}
+\subsection{Metodo iterativo}
 Per calcolare il costo di funzioni ricorsive utilizziamo il concetto di \textbf{relazione di ricorrenza}.
-
 Facciamo sempre riferimento al concetto di induzione e definiamo:
 \begin{itemize}
     \item Costo base: \(h(1) = 1\)
     \item Costo per un N generico: \(h(N) = 2h(N - 1) + 1,\quad N > 1\)
 \end{itemize}
-
 Se sviluppiamo la formula per il costo generico
 \begin{align*}
     h(N) & = 2h(N - 1) + 1 = 2(2h(N - 2) + 1) + 1           \\
@@ -684,20 +682,36 @@ Se sviluppiamo la formula per il costo generico
 \end{align*}
 riusciamo ad esprimere la complessità eliminando la definizione ricorsiva.
 
-\pagebreak
+\subsection{Metodo Divide-et-impera}
 
-\subsection{Divide et impera}
+\begin{itemize}
+    \item \textbf{Divide: } Se l'istanza del problema da risolvere è troppo \quoted{complicata} per essere risolta direttamente, dividila in due o più sottoproblemi.
+    \item \textbf{Impera: } Utilizza sempre la tecnica Divide-et-impera per risolvere i sottoproblemi
+    \item \textbf{Combine: } Combina le soluzioni dei sottoproblemi per trovare una soluzione al problema originario.
+\end{itemize}
 
-\begin{equation}
+\begin{equation*}
     T(n) =
     \begin{cases}
-        0 & true  \\
-        0 & false
+        c & \text{se } n \leq k  \\
+        D(n) + \sum_{i = 1}^h T(n_i) + C(n) & \text{se }n > k
     \end{cases}
-\end{equation}
+\end{equation*}
+
+Una equazione di ricorrenza generalizzata, considerando di dividere il problema iniziale in \(a\) sottoproblemi di dimensione \(n/b\) e impiegare un costo \(D(n)\) per dividere e un costo \(C(n)\) per combinare.
+\begin{equation*}
+    T(n) =
+    \begin{cases}
+        \Theta(1) & \text{se } n \leq k  \\
+        aT(n/b) + D(n) + C(n) & \text{se }n > k
+    \end{cases}
+\end{equation*}
 
 \subsection{Master theorem}
+Utilizziamo il master theorem per risolvere equazioni di ricorrenza della forma:
 \[T(n) = aT\left(\frac{n}{b}\right) + f(n)\]
+
+\vspace{1cm}
 
 \textbf{Caso 1.}
 Se \(f(n)\) cresce polinomialmente più lentamente di \(n^{\log_b a}\)
@@ -705,7 +719,7 @@ Se \(f(n)\) cresce polinomialmente più lentamente di \(n^{\log_b a}\)
 \begin{center}allora la soluzione è\end{center}
 \[T(n) = \Theta\left(n^{\log_b a}\right)\]
 
-\vspace{1cm}
+\vspace{.7cm}
 
 \textbf{Caso 2.}
 Se \(f(n)\) è \(\Theta\)-grande di \(n^{\log_b a}\lg^k n\) per qualche costante \(k \geq 0\)
@@ -713,7 +727,7 @@ Se \(f(n)\) è \(\Theta\)-grande di \(n^{\log_b a}\lg^k n\) per qualche costante
 \begin{center}allora la soluzione è\end{center}
 \[T(n) = \Theta\left(n^{\log_b a} \lg^{k+1} n\right)\]
 
-\vspace{1cm}
+\vspace{.7cm}
 
 \textbf{Caso 3.}
 Se \(f(n)\) cresce polinomialmente più velocemente di \(n^{\log_b a}\)
@@ -723,21 +737,51 @@ Se \(f(n)\) cresce polinomialmente più velocemente di \(n^{\log_b a}\)
 \begin{center}allora la soluzione è\end{center}
 \[T(n) = \Theta\left(f(n)\right)\]
 
+\vspace{1.5cm}
+
+\noindent\textbf{Applicazione master theorem}
+\begin{enumerate}
+    \item Quale caso? e confronto \quoted{a spanne} \(f(n)\) vs \(n^{log_b a}\)
+    \item Dimostrare in quale caso siamo, con definizione di O-grande / \(\Omega\)-grande / \(\Theta\)-grande, quindi trovare \(\epsilon\) e \(c\). Nel terzo caso verificare la condizione di \emph{regolarità}
+\end{enumerate}
+\underline{\textbf{ogni risposta va giustificata}}
+
+\subsection{Metodo ad albero}
+Gli algoritmi di tipo ricorsivo si possono esprimere attraverso una struttura ad albero.
+\begin{itemize}
+    \item Ogni nodo rappresenta una chiamata ricorsiva
+    \item La radice rappresenta la chiamata iniziale
+    \item Le foglie rappresentano chiamate su casi base
+\end{itemize}
+L'altezza dell'albero trova il costo dell'equazione di ricorrenza.
+
+\pagebreak
+
 \section{Algoritmi}
 \subsection{Merge-sort}
 L'argorimo \emph{merge-sort} è di tipo \textbf{divide-et-impera}, che quindi si basa sull'idea di dividere a metà l'array da ordinare.
 Quindi lo step \emph{divide} seziona l'array di partenza in 2 parti uguali, poi lo step \emph{impera} ordina entrambe le parti, seguendo sempre l'argorimo \emph{merge-sort}, e infine i due array ordianti vengono \emph{fusi} insieme.
 
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{costo_algo.png}
+\end{center}
+
+\pagebreak
 
 \section{Alberi}
-
 Un albero è un grafo connesso aciclico. I nodi di grado 1 sono detti foglie, i nodi di grado > 1 sono detti nodi interni.
 Un albero \emph{radicato} ha 1 nodo \textbf{radice}.
 I nodi interni hanno 1 o più filgi, che consideriamo ordinati e numerati da 0 a k.
 
 Nel caso \(k = 2\) l'albero radicato è detto \textbf{binario}. In questo caso i filgi si chiamano sinistro (sx) e destro (dx).
 
+\pagebreak
 
-\section{}
+\section{Tempo di esecuzione}
+\begin{align*}
+    T(n) = n   &  & N_l = kT
+    T(n) = n^2 &  & N_q = \sqrt[2]{kT}
+    T(n) = n^3 &  & N_c = \sqrt[3]{kT}
+\end{align*}
 
 \end{document}
