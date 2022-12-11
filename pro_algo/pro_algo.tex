@@ -1,5 +1,6 @@
 \documentclass{article}
 \input{../include/setup}
+\input{../include/math_snippets}
 
 \title{
     Programmazione Algoritmica \\
@@ -369,7 +370,6 @@ Alla base dell'analisi semantica troviamo una serie di definizioni che ci premet
 \end{dfn}
 
 \pagebreak
-
 \subsection{Semantica statica}
 La semantica statica si occupa di analizzare i tipi all'interno del programma da eseguire. L'analiz\-zatore semantico riceve in input un albero di sintassi astratta, ovvero un programma corretto per le regole della grammatica utilizzata.
 
@@ -469,21 +469,60 @@ Una dichiarazione \(D\) è ben formata se rispetta i tipi e mi permette di produ
     \item (R10)
           \[\frac
               {\Delta \vdash_e E:\, \tau,\ T == \tau}
-              {\Delta \vdash_d \text{const } Id:T = E}\]
+              {\Delta \vdash_d \text{const}\ Id:T = E}\]
 
     \item (R11)
           \[\frac
               {\Delta \vdash_e E:\, \tau,\ T == \tau}
-              {\Delta \vdash_d \text{var } Id:T = E \,:\, [(Id, \tau Loc)]}\]
+              {\Delta \vdash_d \text{var}\ Id:T = E \,:\, [(Id, \tau Loc)]}\]
 
     \item (R12)
           \[\frac
               {\Delta \vdash_d D_1:\, \Delta_1,\ \Delta[\Delta_1] \vdash_d D_2:\, \Delta_2}
-              {\Delta \vdash_d D_1;D_2:\, \Delta[\Delta_1[\Delta_2]]}\]
+              {\Delta \vdash_d D_1;D_2:\, \Delta[\Delta_1][\Delta_2]}\]
+\end{itemize}
+
+
+\subsubsection{Funzioni}
+\begin{itemize}
+    \item (FS1)
+          \[\ddfrac
+              {\Delta \vdash_e E : \tau}
+              {\Delta \vdash_c \text{return}\ E;}
+          \]
+    \item (FS2)
+          \[\ddfrac
+              {
+                  form : \Delta_0,\
+                  \Delta[\Delta_0] \vdash_c C; \text{return}\ E
+              }{
+                  \Delta \vdash_d (\text{function}\ Id(form) \rightarrow \tau \{C;\text{return}\ E\}) \,:\, [(Id, \mathcal{F}(form) \rightarrow \tau)]
+              }
+          \]
+    \item (FS3)
+          \[
+              nil : \varnothing,\
+              \ddfrac{
+                  form : \Delta_0,\ Id \notin \Delta_0
+              }{
+                  (\text{const}\ Id:\tau, form) \,:\, \Delta_0[(Id, \tau)]
+              },\
+              \ddfrac{
+                  form : \Delta_0,\ Id \notin \Delta_0
+              }{
+                  (\text{var}\ Id:\tau, form) \,:\, \Delta_0[(Id, \tau Loc)]
+              }
+          \]
+    \item (FS4)
+          \[\ddfrac{
+                  \Delta \vdash_{ae} ae : aet, \Delta(Id) = aet \rightarrow \tau
+              }{
+                  \Delta \vdash_e Id(ae) : \tau
+              }
+          \]
 \end{itemize}
 
 \pagebreak
-
 \subsection{Semantica dinamica}
 La semantica dinamica definisce una sequenza di transizioni tra stati della macchina astratta. La semantica dinamica simula l'esecuzione di un programma ignorando i tipi perché sono già verificati dalla semantica statica, lavorando quindi su valori.
 
@@ -605,7 +644,6 @@ La semantica dinamica delle espressioni simula la valutazione delle espressioni 
 \end{itemize}
 
 \pagebreak
-
 \section{Calcolo della complessità}
 \subsection{Limiti asintotici}
 Usiamo la notazione asintotica per dare un limite ad una funzione \(f(n)\) a meno di un fattore costante \(c\).
@@ -693,7 +731,7 @@ riusciamo ad esprimere la complessità eliminando la definizione ricorsiva.
 \begin{equation*}
     T(n) =
     \begin{cases}
-        c & \text{se } n \leq k  \\
+        c                                   & \text{se } n \leq k \\
         D(n) + \sum_{i = 1}^h T(n_i) + C(n) & \text{se }n > k
     \end{cases}
 \end{equation*}
@@ -702,7 +740,7 @@ Una equazione di ricorrenza generalizzata, considerando di dividere il problema 
 \begin{equation*}
     T(n) =
     \begin{cases}
-        \Theta(1) & \text{se } n \leq k  \\
+        \Theta(1)             & \text{se } n \leq k \\
         aT(n/b) + D(n) + C(n) & \text{se }n > k
     \end{cases}
 \end{equation*}
@@ -733,18 +771,18 @@ Se \(f(n)\) è \(\Theta\)-grande di \(n^{\log_b a}\lg^k n\) per qualche costante
 Se \(f(n)\) cresce polinomialmente più velocemente di \(n^{\log_b a}\)
 \[f(n) = \Omega\left(n^{\log_b a + \epsilon}\right)\]
 \begin{center}e\end{center}
-\[a f(\frac{n}{b}) < c f(n) \quad \text{ per qualche costante } c < 1 \text{ e per tutti gli } n \geq n_0\]
+\[a f(\frac{n}{b}) < c f(n) \quad \text{ per qualche costante } c < 1 \text{ e per tutti gli } n > n_0\]
 \begin{center}allora la soluzione è\end{center}
 \[T(n) = \Theta\left(f(n)\right)\]
 
 \vspace{1.5cm}
 
-\noindent\textbf{Applicazione master theorem}
+\noindent\textbf{Applicazione master theorem} \(\rightarrow\) \underline{\textbf{ogni risposta va giustificata}}
 \begin{enumerate}
-    \item Quale caso? e confronto \quoted{a spanne} \(f(n)\) vs \(n^{log_b a}\)
-    \item Dimostrare in quale caso siamo, con definizione di O-grande / \(\Omega\)-grande / \(\Theta\)-grande, quindi trovare \(\epsilon\) e \(c\). Nel terzo caso verificare la condizione di \emph{regolarità}
+    \item Confronto \quoted{a spanne} \(f(n)\) vs \(n^{log_b a}\). Quale cresce più velocemente?
+    \item Dimostrazione con definizione di O-grande / \(\Omega\)-grande / \(\Theta\), quindi trovare \(\epsilon\) e \(c\).
+    \item Nel terzo caso verificare la condizione di \emph{regolarità}
 \end{enumerate}
-\underline{\textbf{ogni risposta va giustificata}}
 
 \subsection{Metodo ad albero}
 Gli algoritmi di tipo ricorsivo si possono esprimere attraverso una struttura ad albero.
@@ -783,5 +821,45 @@ Nel caso \(k = 2\) l'albero radicato è detto \textbf{binario}. In questo caso i
     T(n) = n^2 &  & N_q = \sqrt[2]{kT}
     T(n) = n^3 &  & N_c = \sqrt[3]{kT}
 \end{align*}
+
+\section{Scoping}
+Il campo di azione di un identificatore, detto scope, è la porzione di programma in cui l'identificatore può essere utilizzato. \emph{Block-Scope} significa che gli identificatori possono essere utilizzati nel blocco di programma in cui sono definiti, e in eventuali \emph{sotto-blocchi}.
+Gli identificatori dichiarati sono \textbf{identificatori legati} e le dichiarazioni sono \textbf{occorrenze di legame}.
+\begin{dfn}{Scoping statico}
+    Tecnica di scoping basata sull'albero di sintassi che non richiede l'esecuzione del codice per controllarne la validità.
+\end{dfn}
+\begin{dfn}{Scoping dinamico}
+    Tecnica di scoping che analizza il codice a tempo di esecuzione stabilendo i legami attraverso l'ambiente.
+\end{dfn}
+Possiamo quindi partizionare gli identificatori in \textbf{liberi} e \textbf{legati} in base alle regole di scoping.
+
+\pagebreak
+\section{Funzioni}
+Le funzioni ci permettono di applicare il principio di astrazione, ovvero di ridurre la duplicazione di informazione nei programmi, facilitndo la comprensione e menutenzione del codice. Le funzioni consentono
+\begin{itemize}
+    \item modularità
+    \item chiarezza e leggibilità
+    \item fattorizzazione del codice
+    \item separazione tra utilizzo e implementazione
+\end{itemize}
+Nell'utilzzo delle funzioni, distinguiamo due fasi diverse
+\begin{itemize}
+    \item \textbf{definizione di funzione}: definizione del codice che realizza l'operazione astratta
+    \item \textbf{chiamata di funzione}: utilizzo della funzione attraverso un espressione
+\end{itemize}
+
+\subsection{Definizione di funzione}
+
+\subsection{Chiamata di funzione}
+La chiamata di funzione è un espressione che viene valutatà così
+\begin{enumerate}
+    \item viene sospesa l'esecuzione del chiamante e vengono assegnati i parametri attuali a quelli formali
+    \item esecuzione di F
+    \item istruzione return che termina l'esecuzione di F
+    \item il controllo ritorna al chiamante, e la chiamata ad F assume il valore \quoted{calcolato} dal return
+\end{enumerate}
+
+
+
 
 \end{document}

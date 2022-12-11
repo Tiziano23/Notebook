@@ -1,0 +1,40 @@
+{
+    "folders": [
+        {
+            "path": "pro_algo"
+        },
+        {
+            "path": "fdi"
+        },
+        {
+            "path": "analisi"
+        },
+        {
+            "path": "include"
+        }
+    ],
+    "settings": {
+        "editor.wordWrap": "on",
+        "files.exclude": {
+            "**/.hg": true,
+            "**/.git": true,
+            "**/.svn": true,
+            "**/*.aux": true,
+            "**/*.fls": true,
+            "**/*.out": true,
+            "**/*.toc": true,
+            "**/*.synctex.gz": true,
+            "**/*.fdb_latexmk": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/Thumbs.db": true
+        },
+        "latex-workshop.latex.clean.subfolder.enabled": true,
+        "latex-workshop.latex.outDir": "%DIR%/output",
+        "latex-workshop.latex.texDirs": ["%WORKSPACE_FOLDER%/include", "%DIR%/inlcude"]
+    },
+    "extensions": {
+        "recommendations": ["James-Yu.latex-workshop"],
+        "unwantedRecommendations": []
+    }
+}

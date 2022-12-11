@@ -1,5 +1,6 @@
 \documentclass{article}
 \input{../include/setup}
+\input{../include/math_snippets}
 
 \title{Fondamenti dell'Informatica}
 \author{Tiziano Marzocchella}
@@ -8,78 +9,65 @@
 \begin{document}
 \input{../include/first_page}
 
-\section{Introduzione}
-In questo corso affronteremo...
+\section{Nozioni di base}
+\subsection{Uguaglianze e leggi}
+Una uguaglianza che è valida, cioè vera, per tutti i possibili casi si chiama \textbf{legge}.
+
+Per dimostrare la validità di una uguaglianza si utilizzano dimostrazioni di tipo:
 \begin{itemize}
-    \item Linguaggio matematico di base: insiemi, relazioni, funzioni, ecc...
-    \item Strutture discrete: coppie, n-uple, stringhe, grafi, alberi, ecc..
-    \item Calcolo combinatorio: permutazioni, disposizioni, combinazioni
-    \item Tecniche di dimostrazione: simboliche, discorsive, per induzione
-    \item Specifiche formali: linguaggi formali, logica, ricorsione
+    \item discorsive
+    \item grafiche
+    \item per sostituzione
 \end{itemize}
-
-%Modalità di esame
-
-%Materiale didattico
-
 \pagebreak
 
 \section{Insiemi}
-Un \emph{insieme} è una collezione di oggetti, detti elementi.
+Un insieme è una collezione di oggetti, detti elementi.
 
-\subsection{Notazione}
+\subsection{Notazione e Rappresentazione}
+Un insieme si scrive in questi termini
 \begin{itemize}
-    \item Utilizziamo \(A, B, C, \dots\) per denotare insiemi generici o direttamente un nome specifico
+    \item Utilizziamo \(A, B, C, \dots\) per denotare insiemi
     \item Utilizziamo \(a, b, c, \dots\) per denotare gli elementi di un insieme
-    \item \(a \in A\), a \emph{appartiene a} A
-    \item \(a \not\in A\), a \emph{non appartiene a} A
+    \item \(a \in A\), si legge \(a\) \textbf{appartiene} a \(A\)
+    \item \(a \not\in A\), si legge \(a\) \textbf{non appartiene} a \(A\)
 \end{itemize}
 
-\subsection{Rappresentazione}
+\noindent Abbiamo due alternative per rappresentare un insieme
 \begin{itemize}
-    \item \emph{Estensionale}, per enumerazione, ovvero elencare in una lista tutti gli elementi
-    \item \emph{Intenzionale}, per proprietà
+    \item \textbf{Estensionale}, per enumerazione, ovvero elencare in una lista tutti gli elementi
+          \[A = \{a,b,c\}\]
+    \item \textbf{Intenzionale}, per proprietà, ovvero un insieme \(X\) contiene tutti gli elementi \(x\) dell'insieme di riferimento \(A\) che soddisfano la proprietà \(P\).
+          \[X = \{ x \in A \mid P(x) \}\]
 \end{itemize}
-
-Nella rappresentazione intenzionale, un insieme \(X\) contiene tutti gli elementi \(x\) dell'insieme di riferimento \(A\) che soddisfano la proprietà \(P\).
-\[X = \{ x \in A \mid P(x) \}\]
-
-\begin{eg}
-    \begin{align*}
-        \mathbb{N}^p & = \{n \mid n \in N \text{ e n è divisibile per 2} \}         \\
-        \mathbb{Q}   & = \{\frac{n}{m} \mid n \in \mathbb{Z}, m \in \mathbb{N}^+ \}
-    \end{align*}
-    \[\]
-\end{eg}
-
-\subsection{Confronto di insiemi}
-\begin{dfn}
-    Due insiemi sono uguali \((A = B)\) se hanno gli stessi elementi, altrimenti sono diversi \((A \not= B)\)
-\end{dfn}
-
-\begin{eg}
-    \begin{align*}
-        V = \{a,e,i,o,u\} & V1 = \{a,e,i,o,e,a\}
-    \end{align*}
-\end{eg}
-
-\subsection{Inclusione}
-\begin{dfn}
-    \(A\) è un sottoinsieme di \(B\) \((A \subseteq B)\) se ogni elemento di \(A\) appartiene anche a \(B\).
-    \(A\) è un sottoinsieme proprio di \(B\) se  \((A \subseteq B) \text{ e } A \neq B\)
-\end{dfn}
-
-\subsection{Proprietà di uguaglianza e inclusione}
+\subsection*{Cardinalità}
+La cardinalità di un insieme finito è il numero di elementi al suo interno.
 \begin{itemize}
-    \item Riflessività, vale sempre per un insieme e se stesso
-          \[A = A \quad A \subseteq A\]
-    \item Transitività
-          \[\text{Se } A = B \text{ e } B = C \text{ allora } A = C\]
-          \[\text{Se } A \subseteq B \text{ e } B \subseteq C \text{ allora } A \subseteq C\]
-    \item Simmetria
-          \[\text{Se } A = B \text{ allora } B = A\]
-    \item Anti-simmetria
-          \[\text{Se } A \subseteq B \text{ e } B \subseteq A \text{ allora } A = B\]
+    \item \(\lvert \varnothing \rvert = 0\)
+    \item \(A \subseteq B \implies \lvert A \rvert \leq \lvert B \rvert\)
+    \item \(A = B \implies \lvert A \rvert = \lvert B\rvert \)
+    \item \(A \subset B \implies \lvert A \rvert < \lvert B \rvert\), non vale per insiemi infiniti
+\end{itemize}
+\subsection*{Uguaglianza}
+Due insiemi sono uguali \((A = B)\) se hanno gli stessi elementi, altrimenti sono diversi \((A \not= B)\)
+\subsection*{Inclusione}
+\(A\) è un sottoinsieme di \(B\) \((A \subseteq B)\) se ogni elemento di \(A\) appartiene anche a \(B\).
+\(A\) è un sottoinsieme proprio di \(B\) se  \((A \subseteq B) \text{ e } A \neq B\)
+\subsection*{Proprietà di uguaglianza e inclusione}
+\begin{itemize}
+    \item Riflessività, vale sempre per un insieme e se stesso, \(A = A \quad A \subseteq A\)
+    \item Transitività:
+          \begin{align*}
+              \text{Se } A = B \text{ e } B = C \text{ allora } A = C &  & \text{Se } A \subseteq B \text{ e } B \subseteq C \text{ allora } A \subseteq C
+          \end{align*}
+    \item Simmetria: Se \(A = B\) allora \(B = A\)
+    \item Anti-simmetria: Se \(A \subseteq B\) e \(B \subseteq A\) allora \(A = B\)
+\end{itemize}
+\subsection*{Altre osservazioni utili}
+Per tutti gli insiemi \(A\) e \(B\) vale che:
+\begin{itemize}
+    \item Se \(A \subset B\) allora \(A \subseteq B\)
+    \item Se \(A \subseteq B\) allora \(a \in A \implies a \in B\)
 \end{itemize}
 
 \subsection{Operazioni su insiemi}
@@ -89,30 +77,9 @@ Nella rappresentazione intenzionale, un insieme \(X\) contiene tutti gli element
     \item Differenza
     \item Complemento
 \end{itemize}
-
-\subsection{Uguaglianze e leggi}
-Una uguaglianza valida, cioè vera per tutti i possibili casi, si chiama \emph{legge}.
-
-\subsection{Operatori booleani}
-Sono operazioni su valori booleani (vero o falso) che possiamo utilizzare per scrivere espressioni complesse che denotano insiemi.
-
-Per dimostrare la validità di una uguaglianza si utilizzano dimostrazioni di tipo:
-\begin{itemize}
-    \item discorsive
-    \item grafiche
-    \item per sostituzione
-\end{itemize}
-
-\subsection{Leggi per operatori su insiemi}
+\subsection*{Leggi per operazioni su insiemi}
 \begin{itemize}
     \item Leggi per \textbf{unione} e \textbf{intersezione}
-          \begin{itemize}
-              \item associatività
-              \item unità
-              \item commutatività
-              \item idempotenza
-              \item assorbimento
-          \end{itemize}
     \item Leggi che collegano \(\cup\), \(\cap\) e \(\overline{()}\)
     \item Leggi per \(\setminus\)
     \item Complemento
@@ -121,20 +88,11 @@ Per dimostrare la validità di una uguaglianza si utilizzano dimostrazioni di ti
     \item Universo e insieme vuoto
 \end{itemize}
 
-\subsection{Cardinalità}
-La cardinalità di un insieme finito è il numero di elementi al suo interno.
-\begin{itemize}
-    \item \(\lvert \varnothing \rvert = 0\)
-    \item \(A \subseteq B \implies \lvert A \rvert \leq \lvert B \rvert\)
-    \item \(A = B \implies \lvert A \rvert = \lvert B\rvert \)
-    \item \(A \subset B \implies \lvert A \rvert < \lvert B \rvert\), non vale per insiemi infiniti
-\end{itemize}
-
-\subsection{Insiemi di insiemi}
-
-\subsection{Numeri naturali come insiemi}
-
-\subsection{Insieme delle parti}
+\subsection{Diverse tipologie di insiemi}
+\subsection*{Numeri naturali come insiemi}
+Per ogni \(n \in \numN\) definiamo
+\[n = \{0,1,2,\ldots, n - 1\}\]
+\subsection*{Insieme delle parti}
 Dato un insieme \(A\), l'insieme delle parti di \(A\) è:
 \[\mathcal{P}(A) = \{X \mid X \subseteq A\}\]
 \begin{itemize}
@@ -142,22 +100,18 @@ Dato un insieme \(A\), l'insieme delle parti di \(A\) è:
     \item \(\mathcal{P}(\varnothing) = \{\varnothing\}\)
     \item \(\lvert\mathcal{P}(A)\rvert = 2^{\lvert A \rvert}\)
 \end{itemize}
-
-\subsection{Prodotto cartesiano}
+\subsection*{Prodotto cartesiano}
 Il prodotto cartesiano di due insiemi è l'insieme formato da tutte le coppie ordinate \((a,b)\) tali che \(a \in A\) e \(b \in B\).
 \[A \times B = \{(a,b) \mid a \in A, b \in B\}\]
-
-\subsection{Famiglie di insiemi}
+\subsection*{Famiglie di insiemi}
 Sia \(I\) un insieme finito (di indici).\\
 Una famiglia di insiemi \(F\) indicizzata da \(I\) è:
 \[F = \{A_i \mid i \in I\} = \{A_i\}_{i \in I}\]
-
 \begin{itemize}
-    \item \(\cup F = \cup_{i \in I}A_i\)
-    \item \(\cap F = \cap_{i \in I}A_i\)
+    \item L'unione su una famiglia \(F\) è: \(\cup F = \cup_{i \in I}A_i\)
+    \item L'intersezione su una famiglia \(F\) è: \(\cap F = \cap_{i \in I}A_i\)
 \end{itemize}
-
-\subsection{Partizioni}
+\subsection*{Partizioni}
 Una partizione su un insieme \(A\) è una famiglia di sottoinsiemi di \(A\) tale che:
 \begin{itemize}
     \item ogni insieme \(A_i\) è diverso da \(\varnothing\)
@@ -168,35 +122,68 @@ Serve a classificare \quoted{esclusivamente} gli elementi di un insieme.
 
 \subsection{Paradosso di Russel}
 
+\subsection{Definizione induttiva di funzioni su insiemi}
+\subsection*{Unione n-aria}
+Data una famiglia di insiemi \(\mathcal{F} = \{A_i\}_{i \in I}\), per ogni \(n \in \numN\)
+\begin{center}
+    \begin{tabular}{ll}
+        {[Clausola base]}      & \(\displaystyle \bigcup_{i = k}^0 A_i =
+        \begin{cases}
+            \varnothing & \text{se } k > 0 \\
+            A_0         & \text{se } k = 0
+        \end{cases}
+        \)                                                                     \\
+        {[Clausola induttiva]} & \(\displaystyle \bigcup_{i = k}^{n + 1} A_i =
+        \begin{cases}
+            \varnothing                            & \text{se } k \geq n + 1 \\
+            (\bigcup_{i = k}^n A_i) \cup A_{n + 1} & \text{se } k \leq n + 1
+        \end{cases}
+        \)
+    \end{tabular}
+\end{center}
+\subsection*{Intersezione n-aria}
+Data una famiglia di insiemi \(\mathcal{F} = \{A_i\}_{i \in I}\), per ogni \(n \in \numN\)
+\begin{center}
+    \begin{tabular}{ll}
+        {[Clausola base]}      & \(\displaystyle \bigcap_{i = k}^0 A_i =
+        \begin{cases}
+            \mathcal{U} & \text{se } k > 0 \\
+            A_0         & \text{se } k = 0
+        \end{cases}
+        \)                                                                     \\
+        {[Clausola induttiva]} & \(\displaystyle \bigcap_{i = k}^{n + 1} A_i =
+        \begin{cases}
+            \mathcal{U}                            & \text{se } k \geq n + 1 \\
+            (\bigcap_{i = k}^n A_i) \cap A_{n + 1} & \text{se } k \leq n + 1
+        \end{cases}
+        \)
+    \end{tabular}
+\end{center}
+\subsection*{Definizione induttiva di Kleene}
+\begin{align*}
+    \text{[clausola base] }      & \epsilon \in A^*                                \\
+    \text{[clausola induttiva] } & w \in A^* \implies aw \in A^*,\ \forall a \in A
+\end{align*}
+
 \pagebreak
 
 \section{Relazioni}
-\subsection{Nozioni di base}
+\subsection{Notazione}
 Dati gli insieme \(A\) e \(B\), una relazione \(R \subseteq A \times B\) si scrive
-\[R \in Rel(A,B)\]
-\[R: A \leftrightarrow B\]
-dove
-\[Rel(A,B) = \mathcal{P}(A \times B)\]
-
+\begin{align*}
+    R \in Rel(A,B) &  & R: A \leftrightarrow B
+\end{align*}
+\(Rel(A,B) = \mathcal{P}(A \times B)\) è l'insieme di tutte le relazioni tra \(A\) e \(B\).
+\subsection*{Relazioni particolari}
 \begin{itemize}
-    \item relazione vuota: \(\varnothing \subseteq A \times B\) oppure \(\varnothing_{A,B}\)
-    \item relazione completa: \(A \times B\)
+    \item \textbf{Relazione vuota}: \(\varnothing \subseteq A \times B\) oppure \(\varnothing_{A,B}\)
+    \item \textbf{Relazione completa}: \(A \times B\)
+    \item \textbf{Relazione identità}: una relazione che associa ogni elemento di \(A\) con se stesso. Viene definita solo per relazioni su singoli insiemi
+          \[Id_A = \{(x,x) \mid x \in A\}\]
 \end{itemize}
 
-\subsubsection{Relazioni su un singolo insieme}
-Chiamiamo le relazioni con insieme di partenza e arrivo coincidenti \textbf{Relazioni su \(A\)}
-\begin{eg}
-    \[Succ = \{(x,y) \in \mathbb{N} \in \mathbb{N} \mid y = x + 1\} \in Rel(\mathbb{N}, \mathbb{N}) \quad \text{Relazione su } \mathbb{N}\]
-\end{eg}
-
-\subsubsection{Relazione identità}
-Per un insieme \(A\) la relazione identità è:
-\[Id_A = \{(x,x) \mid x \in A\}\]
-una relazione che associa ogni elemento di \(A\) con se stesso. Viene definita solo per relazioni su singoli insiemi
-
 \subsection{Operazioni su relazioni}
-Possiamo definire nuove relazioni usando vari operatori insiemistici.\\
-Date due relazioni \(R\) e \(S\) su \(A\) e \(B\),
+Possiamo definire nuove relazioni usando vari operatori insiemistici. Date due relazioni \(R\) e \(S\) su \(A\) e \(B\),
 \[R, S \in Rel(A,B)\]
 \begin{itemize}
     \item \(R \cup S \subseteq A \times B\), unione tra \(R\) e \(S\)
@@ -205,60 +192,128 @@ Date due relazioni \(R\) e \(S\) su \(A\) e \(B\),
     \item \(\overline{R} = (A \times B \setminus R) \subseteq A \times B\), complemento di \(R\). Scelgo \(A \times B\) come universo per garantire l'inclusione
 \end{itemize}
 Valgono tutte le leggi che abbiamo visto per gli insiemi, ma con \(A \times B\) preso come insieme universo.
-
-\subsection{Composizione di relazioni}
+\subsection*{Relazione opposta}
+Sia \(R: A \leftrightarrow B\) una relazione. La sua relazione \textbf{opposta} è:
+\[R^{op} = \{(y,x) \in B \times A \mid (x,y) \in R\}\]
+\subsection*{Composizione di relazioni}
 Siano \(R: A \leftrightarrow B\) e \(S: B \leftrightarrow C\), la \textbf{composizione} di \(R\) con \(S\) è:
 \[R;S: A \leftrightarrow C\]
 \[R;S = \{(x,y) \in A \times C \mid (\exists y \in B . (x,y) \in R \land (y,z) \in S\}\]
 \(R;S\) contiene tutti le coppie per le quali c'è un \quoted{cammino} da \(A\) a \(C\), seguendo le frecce delle relazioni.
-
-\subsubsection{Leggi per la composizione}
+\subsection*{Leggi per la relazione opposta}
+Per tutti gli insiemi \(A,B,C\) e tutte le relazioni \(R: A \leftrightarrow B\), \(S: B \leftrightarrow C\) valgono le seguenti leggi
+\begin{itemize}
+    \item Convoluzione: \((R^{op})^{op} = R\)
+    \item op-id: \(Id_A^{op} = Id_A\)
+    \item op-copl: \((A \times B)^{op} = B \times A\)
+    \item op-vuoto: \(\varnothing_{A,B}^{op} = \varnothing_{B,A}\)
+    \item Distributività su ; : \((R;S)^{op} = S^{op};R^{op}\)
+    \item Distributività su \(\cup\): \((R \cup S)^{op} = S^{op} \cup R^{op}\)
+    \item Distributività su \(\cap\): \((R \cap S)^{op} = S^{op} \cap R^{op}\)
+    \item Distributività su compl : \((\overline{R})^{op} = \overline{(R^{op})}\)
+\end{itemize}
+\subsection*{Leggi per la composizione}
 Per tutti gli insiemi \(A,B,C,D\) e tutte le relazioni \(R: A \leftrightarrow B\), \(S: B \leftrightarrow C\) e \(T: C \leftrightarrow D\) valgono le seguenti leggi
 \begin{itemize}
     \item Associatività: \(R;(S;T) = (R;S);T\)
     \item Unità: \(Id_A;R = R = R;Id_B\)
     \item Assorbimento: \(R;\varnothing_{B,C} = \varnothing_{A,C} = \varnothing_{A,B};S\)
-    \item Distributività
-\end{itemize}
-
-\subsection{Relazione opposta}
-Sia \(R: A \leftrightarrow B\) una relazione. La sua relazione \textbf{opposta} è:
-\[R^{op} = \{(y,x) \in B \times A \mid (x,y) \in R\}\]
-
-\subsubsection{Leggi per la relazione opposta}
-Per tutti gli insiemi \(A,B,C\) e tutte le relazioni \(R: A \leftrightarrow B\), \(S: B \leftrightarrow C\) valgono le seguenti leggi
-\begin{itemize}
-    \item Composizione: \(R^{op};S^{op} = (R;S)^{op}\)
-    \item Distributività: \(\)
+    \item Distributività su U (sinistra): \(R;(S \cup T) = (R;S) \cup (R;T)\)
+    \item Distributività su U (destra): \((S \cup T);U = (S;U) \cup (T;U)\)
 \end{itemize}
 
 \subsection{Proprietà delle relazioni}
-\subsubsection{Totalità}
-\subsubsection{Univalenza}
-\subsubsection{Suriettività}
-\subsubsection{Iniettività}
-\subsubsection{Osservazioni}
-\textbf{Schema TUSI}
-
-\noindent\textbf{Dualità}
 \begin{itemize}
-    \item \(R \text{ è totale}     \iff R^{op} \text{è suriettiva}\)
-    \item \(R \text{ è univalente} \iff R^{op} \text{è iniettiva}\)
-    \item \(R \text{ è suriettiva} \iff R^{op} \text{è totale}\)
-    \item \(R \text{ è iniettiva}  \iff R^{op} \text{è univalente}\)
+    \item \textbf{Totalità}: Per tutti gli \(a \in A\) esiste almeno un \(b \in B\) tale che \((a,b) \in R\).
+          \[(\forall a \in A . (\exists b \in B . (a,b) \in R))\]
+    \item \textbf{Univalenza}: Per tutti gli \(a \in A\) esiste al più un \(b \in B\) tale che \((a,b) \in R\).
+          \[(\forall a \in A . (\forall b,b' \in B . (a,b) \in R \land (a,b') \in R \implies b = b'))\]
+    \item \textbf{Suriettività}: Per tutti i \(b \in B\) esiste almeno un \(a \in A\) tale che \((a,b) \in R\).
+          \[(\forall b \in B . (\exists a \in A . (a,b) \in R))\]
+    \item \textbf{Iniettività}: Per tutti i \(b \in B\) esiste al più un \(a \in A\) tale che \((a,b) \in R\).
+          \[(\forall b \in B . (\forall a,a' \in A . (a,b) \in R \land (a', b) \in R \implies a = a'))\]
 \end{itemize}
-\noindent\textbf{Caratterizzazione}
+\subsection*{Schema TUSI}
+\subsection*{Dualità}
+\begin{itemize}
+    \item \(R\) è totale se e solo se \(R^{op}\) è suriettiva
+    \item \(R\) è univalente se e solo se \(R^{op}\) è iniettiva
+    \item \(R\) è suriettiva se e solo se \(R^{op}\) è totale
+    \item \(R\) è iniettiva se e solo se \(R^{op}\) è univalente
+\end{itemize}
+\subsection*{Teorema di caratterizzazione}
+Per tutte le relazioni \(R: A \leftrightarrow B\)
 \begin{align*}
-     & R \text{ è totale} \iff Id_A \subseteq R;R^{op}     &  &  & R \text{ è suriettiva} \iff Id_B \subseteq R^{op};R \\
-     & R \text{ è univalente} \iff R;R^{op} \subseteq Id_A &  &  & R \text{ è iniettiva} \iff R^{op};R \subseteq Id_B
+    R \text{ è totale}     & \iff Id_A \subseteq R;R^{op} & R \text{ è suriettiva} & \iff Id_B \subseteq R^{op};R \\
+    R \text{ è univalente} & \iff R^{op};R \subseteq Id_B & R \text{ è iniettiva}  & \iff R;R^{op} \subseteq Id_A
 \end{align*}
+\pagebreak
+
+\subsection{Relazioni su un singolo insieme}
+Dato un insieme A, una relazione su \(A\) è un sottoinsieme di \(A \times A\), cioè un elemento di \(Rel(A,A)\).
+\subsection*{Proprietà di relazioni su insiemi}
+\begin{itemize}
+    \item \textbf{Riflessività}: Per tutti gli \(a \in A\) vale che \((a,a) \in R\).
+          \[(\forall a \in A \,.\, (a,a) \in R)\]
+    \item \textbf{Simmetria}: Per tutti gli \(a,b \in A\) vale che se \((a,b) \in R\) allora anche \((b,a) \in R\).
+          \[(\forall a,b \in A \,.\, (a,b) \in R \implies (b,a) \in R)\]
+    \item \textbf{Transitività}: Per tutti gli \(a,b,c \in A\) vale che se \((a,b) \in R\) e \((b,c) \in R\) allora anche \((a,c) \in R\).
+          \[(\forall a,b,c \in A \,.\, (a,b) \in R \land (b,c) \in R \implies (a,c) \in R)\]
+    \item \textbf{Anti-simmetria}: Per tutti gli \(a,b \in A\) vale che se \((a,b) \in R\) e \((b,a) \in R\) allora \(a = b\).
+          \[(\forall a,b \in A \,.\, (a,b) \in R \land (b,a) \in R \implies a = b)\]
+\end{itemize}
+\subsection*{Teorema di caratterizzazione}
+Per tutti gli insiemi \(A\) e tutte le relazioni \(R: A \leftrightarrow A\) vale che
+\begin{itemize}
+    \item \(R\) è \textbf{riflessiva} se e solo se \(Id_A \subseteq R\)
+    \item \(R\) è \textbf{simmetrica} se e solo se \(R \subseteq R^{op}\) oppure se \(R^{op} \subseteq R\), quindi se \(R = R^{op}\)
+    \item \(R\) è \textbf{transitiva} se e solo se \(R;R \subseteq R\)
+    \item \(R\) è \textbf{anti-simmetrica} se e solo se \(R \cap R^{op} \subseteq Id_A\)
+    \item \(R\) è \textbf{relazione di equivalenza} se è \textbf{riflessiva}, \textbf{simmetrica} e \textbf{transitiva}
+\end{itemize}
+\subsection*{Chiusure di relazioni su un insieme}
+Sia \(R: A \leftrightarrow A\) una relazione su un insieme A
+\begin{itemize}
+    \item \textbf{Chiusura riflessiva} di \(R\): \(R \cup Id_A\)
+    \item \textbf{Chiusura simmetrica} di \(R\): \(R \cup R^{op}\)
+    \item \textbf{Chiusura transitiva} di \(R\): \(\displaystyle R^+ = \bigcup_{n \in \numN^+} R^n\)
+    \item \textbf{Chiusura riflessiva e transitiva} di \(R\): \(\displaystyle R^* = \bigcup_{n \in \numN} R^n\) \\
+          Ovvero \(R^* = R^+ \cup Id_A\)
+\end{itemize}
+\subsection*{Classi di equivalenza}
+Sia \(R: A \leftrightarrow A\) una relazione di equivalenza su un insieme A, la classe di equivalenza di \(a \in A\) è l'insieme
+\[[a]_R = \{b \in A \vert (a,b) \in R\}\]
+\subsection*{Teorema di biiezione}
+L'insieme di tutte le classi di equivalenza di \(R\) definisce una partizione dell'insieme \(A\). \\
+Viceversa, ogni partizione di \(A\) definisce una relazione di equivalenza.\\
+Quindi per tutti gli insiemi \(A\) vale che
+\[ERel(A) \cong Part(A)\]
+dove \(ERel(A)\) è l'insieme di tutte le relazioni di equivalenza su \(A\) e \(Part(A)\) è l'insieme di tutte le possibili partizioni di \(A\).
+
+\subsection{Relazioni di ordinamento}
+Sia \(A\) un insieme e \(R: A \leftrightarrow A\) una relazione su \(A\)
+\subsection*{Relazione di ordinamento parziale}
+Si dice che \(R\) è una \textbf{relazione di ordinamento parziale} se è riflessiva, transitiva e anti-simmetrica.
+\subsection*{Relazione di ordinamento}
+Si dice che \(R\) è una \textbf{relazione di ordinamento} se è un ordinamento parziale e soddisfa la proprietà di \textbf{totalità}
+\begin{center}
+    per tutti gli \(a,b \in A\) vale che \((a,b) \in R\) oppure \((b,a) \in R\)
+\end{center}
+\subsection*{Ordinamento lessicografico}
+Dato un insieme \(A\) e un ordinamento \(\sqsubseteq_A: A \leftrightarrow A\). \\
+Vogliamo definire un ordinamento \(\sqsubseteq_{A^*}: A^* \leftrightarrow A^*\) sull'insieme delle stringhe su \(A\). \\
+\(a_0 a_1 \ldots a_n \sqsubseteq_{A^*} b_0 b_1 \ldots b_m\) se esiste \(i \in \numN\) tale che
+\begin{enumerate}
+    \item \(a_j = b_j\) per tutti i \(j < i\)
+    \item \(a_i \sqsubseteq b_i\) e \(a_i \neq b_i\) oppure \(i = n + 1\) e \(n < m\)
+\end{enumerate}
 
 \pagebreak
 
-\section{Funzioni}
-Dati due insiemi \(A\) e \(B\), \(R: A \leftrightarrow B\) è una funzione se
-\[\forall a \in A (\exists \text{ esattamente un } b \in B . (a,b) \in R\]
-ovvero se \(R\) è \textbf{totale} e \textbf{univalente}. Vediamo alcuni esempi:
+\subsection{Funzioni}
+Dati due insiemi \(A\) e \(B\), \(R: A \leftrightarrow B\) è una funzione se è \textbf{totale} e \textbf{univalente}
+\[\forall a \in A (\exists \text{ esattamente un } b \in B . (a,b) \in R)\]
+Vediamo alcuni esempi:
 \begin{itemize}
     \item \(Id_A\) è una funzione
     \item \(A \times B\) non è una funzione, ma
@@ -271,48 +326,385 @@ ovvero se \(R\) è \textbf{totale} e \textbf{univalente}. Vediamo alcuni esempi:
               \item se \(\lvert A \rvert = 0\), è una funzione
           \end{itemize}
 \end{itemize}
-
-\subsection{Composizione di funzioni}
+\subsection*{Composizione di funzioni}
 Per tutti gli insiemi \(A\), \(B\) e \(C\) e tutte le funzioni \(f: A \rightarrow B\) e \(g: B \rightarrow C\), la relazione \(f;g\) è una funzione
 \[f;g: A \rightarrow C\]
-\(g \circ f\) o \(gf\), notazione matematica
+\(g \circ f\) oppure \(gf\), notazione matematica
+\subsection*{Funzioni parziali, iniettive e surgettive}
+\begin{itemize}
+    \item Una funzione è parziale se è \textbf{univalente} ma non \textbf{totale}.
+    \item Una funzione è iniettiva se è \textbf{totale}, \textbf{univalente} e \textbf{iniettiva}.
+    \item Una funzione è surgettiva se è \textbf{totale}, \textbf{univalente} e \textbf{surgettiva}.
+\end{itemize}
+
+\pagebreak
 
 \subsection{Biiezioni}
 Dati \(A\) e \(B\), la relazione \(R: A \leftrightarrow B\) è una biiezione se è totale, univalente, iniettiva e surgettiva.
-\[\forall a \in A \text{ esiste esattamente un } b \in B . (a,b) \in R \land \forall b \in B \text{ esiste esattamente un } a \in A . (a,b) \in R\]
-Il numero di biiezioni tra due insiemi \(A\) e \(B\) con \(\lvert A \rvert = \lvert B \rvert = n\) è uguale a
-\[n!\]
-
-\subsubsection{Osservazioni}
-Per tutti gli \(A,B,C\) e \(i: A \rightarrow B\) e \(j: B \rightarrow C\) vale che
+\begin{center}
+    \begin{tabular}{rl}
+        \(\forall a \in A\) esiste esattamente un \(b \in B . (a,b) \in R\) & \(\land\) \\
+        \(\forall b \in B\) esiste esattamente un \(a \in A . (a,b) \in R\) &
+    \end{tabular}
+\end{center}
+Il numero di biiezioni tra due insiemi \(A\) e \(B\) con cardinalità \(n\) è uguale a: \(n!\)
+\subsection*{Risultati di chiusura}
+\noindent Per tutti gli \(A,B,C\) e \(i: A \rightarrow B\) e \(j: B \rightarrow C\) vale che
 \begin{itemize}
     \item \(Id_A\) è una biiezione
     \item \(i;j\) è una biiezione
     \item \(i^{op}\) è una biiezione
 \end{itemize}
+\subsection*{Teorema di caratterizzazione}
+Per tutti gli insiemi \(A\) e \(B\), per tutte le relazioni \(R: A \leftrightarrow B\) vale che
+\[R \text{ è biiezione} \iff Id_A = R;R^{op} \land Id_B\]
 
-\subsubsection{Teorema di caratterizzazione}
-Per tutti gli insiemi \(A\),\(B\), la relazione \(R: A \leftrightarrow B\) è biiezione se e solo se:
+Per tutti gli insiemi \(A\) e \(B\), la relazione \(R: A \leftrightarrow B\) è una biiezione se e solo se:
 \[Id_A = R;R^{op} \text{ e } Id_B = R^{op};R\]
-\[R \text{ biiezione} \iff Id_A \subseteq R;R^{op} \land R;R^{op} \subseteq Id_A \land Id_B \subseteq R^{op};R \land R^{op};R \subseteq Id_B \]
-
-\subsubsection{Insiemi in biiezioni}
+\[R \text{ è biiezione} \iff Id_A \subseteq R;R^{op} \land R;R^{op} \subseteq Id_A \land Id_B \subseteq R^{op};R \land R^{op};R \subseteq Id_B \]
+\subsection*{Insiemi in biiezione}
 \[A \cong B\]
 Due insiemi sono in biiezione se esiste una biiezione \(i: A \rightarrow B\)
-
-\noindent\textbf{Proprietà della biiezione}
+\subsection*{Proprietà della biiezione}
 Dati gli insiemi \(A,B,C\) vale:
 \begin{itemize}
     \item Riflessività, \(A \cong A\)
     \item Simmetria, \(A \cong B \implies B \cong A\)
     \item Transitività, \(A \cong A \land B \cong C \implies A \cong C\)
 \end{itemize}
+\pagebreak
+
+\section{Grafi}
+I grafi ci permettono di modellare precisamente e in modo visualmente intuitivo relazioni tra elementi di un insieme. Esistono grafi \textbf{orientati} e \textbf{non orientati}.
+
+\subsection{Grafi orientati}
+I grafi orientati sono più direttamente collegati al concetto di relazione. Un \emph{grafo orientato} è una relazione \(E: V \leftrightarrow V\) su un insieme \textbf{finito} \(V\). Scriviamo: \(G = (E,V)\)
+\begin{itemize}
+    \item \(V\): insieme di \textbf{nodi} o \textbf{vertici}
+    \item \(E\): insieme di \textbf{archi} o \textbf{lati} (coppie)
+\end{itemize}
+Questi grafi sono \emph{orientati} perchè ad un arco dal nodo \(x\) al nodo \(y\) possiamo assegnare un verso, e quindi possiamo anche creare archi che partono e arrivano nello stesso nodo, chiamati \textbf{cappio} o \textbf{loop}. Ne risulta che presi due nodi distinti \(x\) e \(y\), un arco \((x,y) \in E \neq (y,x) \in E\). \\
+Dato un grafo \(G\) indicheremo:
+\begin{itemize}
+    \item con \(n\) il numero dei nodi del grafo, cioè \(n = \lvert V\rvert\)
+    \item con \(m\) il numero di archi, ovvero \(m = \lvert E\rvert\)
+\end{itemize}
+\subsection*{Vicinato e grado dei nodi}
+Due nodi x e y sono adiacenti se c'è un arco da x a y o c'è un'arco da y a x
+\[(x,y) \in E \lor (y,x) \in E\]
+\begin{itemize}
+    \item Vicinato in uscita (stella uscente) di x
+          \[N^+(x) = \{y \mid (x,y) \in E\}\]
+    \item Vicinato in ingresso (stella entrante) di x
+          \[N^-(x) = \{y \mid (y,x) \in E\}\]
+    \item Grado in uscita di x:
+          \[d^+_x = \lvert N^+(x) \rvert\]
+    \item Grado in ingresso di x:
+          \[d^-_x = \lvert N^-(x) \rvert\]
+\end{itemize}
+\subsection*{Grafo come relazione}
+Essendo un grafo una relazione su un insieme finito di nodi, ovviamente possiamo verificare le proprietà TUSI.
+Le proprietà TUSI (Totale, Univalente, Surgettiva, Iniettiva) diventano condizioni sul grado dei nodi.
+\begin{enumerate}
+    \item \(E: V \leftrightarrow V\) è \textbf{totale} se e solo se per ogni nodo \(x \in V\) vale \(d_x^+ \geq 1\);
+    \item \(E: V \leftrightarrow V\) è \textbf{univalente} se e solo se per ogni nodo \(x \in V\) vale \(d_x^+ \leq 1\);
+    \item \(E: V \leftrightarrow V\) è \textbf{surgettiva} se e solo se per ogni nodo \(x \in V\) vale \(d_x^- \geq 1\);
+    \item \(E: V \leftrightarrow V\) è \textbf{iniettiva} se e solo se per ogni nodo \(x \in V\) vale \(d_x^- \leq 1\);
+\end{enumerate}
+\subsection*{Hand-Shaking Lemma per grafi orientati}
+La somma del grado di ingresso di tutti i nodi è esattamente uguale alla somma del grado di uscita di tutti i nodi, e entrambe le somme sono esattamente uguali alla cardinalità dell'insieme degli archi.
+\[\sum_{x \in V} d_x^- = \sum_{x \in V} d_x^+ = \lvert E \rvert\]
+
+\subsection{Grafi orientati aciclici - Directed Acyclic Graphs}
+Un grafo orientato senza cicli si chiama \textbf{Directed Acyclic Graph} (DAG). \\
+I nodi con grado di ingresso 0 vengono chiamati \emph{sorgenti} e i nodi con grado di uscita 0 si chiamano \emph{pozzi}.
+\subsection*{Proprietà dei DAG}
+Se \(G = (V,E)\) è un DAG, allora \(E^*\) è un ordinamento parziale.
+\subsection*{Ordinamenti topologici}
+Dato un DAG, un ordinamento topologico di G è una biiezione \(\eta: V \rightarrow n = \{0,1,2,\ldots,n-1\}\) tale che
+\begin{center}
+    Per ogni arco \((x,y) \in E\) vale che \(\eta(x) < \eta(y)\)
+\end{center}
+
+\subsection{Grafi non orientati}
+Sono grafi in cui gli archi non hanno una direzione specifica. Un grafo non orientato è una coppia \(G = (V,E)\), dove però \(E\) è definito come
+\[E \subseteq P_2(V) = \{X \subseteq V \mid \lvert X \rvert = 2\}\]
+Un grafo non orientato non può avere cappi. \(\{x,x\} \in X \subseteq V\) non ha cardinalità 2, ma 1.
+\subsection*{Grafo orientato associato}
+Possiamo associare ad un grafo non orientato, un grafo orientato, costruito aggiungendo 2 archi nelle 2 direzioni per ogni arco del grafo non orientato.
+\[\overset{\sim}{G} = (V, \overset{\sim}{E})\]
+\[\overset{\sim}{E} = \{(x,y) \in V \times V \mid \{x,y\} \in E\}: V \leftrightarrow V\]
+\begin{itemize}
+    \item Vicinato di \(x\): \(N(x) = \{y \in V \mid xy \in E\}\)
+    \item Grado di \(x\): \(d_x = \lvert N(x) \rvert\)
+    \item Nodi universali: \(d_x = \lvert V - 1 \rvert \implies x\) è universale
+    \item Nodi isolati: \(d_x = 0 \implies x\) è isolato
+    \item Hand-Shaking lemma: \(\displaystyle \sum_{x \in V} d_x = 2\lvert E \rvert\)
+\end{itemize}
+
+\subsection{Cammini (Walk, Trail, Path)}
+Un cammino è una sequenza di nodi collegati da archi nella stessa direzione.
+\begin{itemize}
+    \item Un \emph{walk} è una sequenza di nodi \(P = v_0, \ldots, v_k\) con \(k \in \mathbb{N}\) tale che \((v_i,v_{i+1}) \in E\) per ogni \(i \in \{1,\ldots,k\}\).
+    \item Un \emph{trail} è un \emph{walk} che non attraversa più volte lo stesso \textbf{arco}.
+    \item Un \emph{path} è un \emph{trail} che non attraversa più volte lo stesso \textbf{nodo}.
+\end{itemize}
+Vediamo alcune osservazioni sui \emph{walk}
+\begin{itemize}
+    \item La lunghezza di un walk è \(k\) e gli estremi sono \(v_0\) e \(v_k\).
+    \item Un walk di lunghezza zero è costituito solo dal nodo \(v_0\).
+    \item Esiste un walk di lunghezza \(n \in \mathbb{N}\) da \(x\) a \(y\) se e solo se \((x,y) \in E^n\).
+    \item Se esiste un walk da \(x\) a \(y\) allora esiste un trail da \(x\) a \(y\).
+\end{itemize}
+% \begin{dms}
+%     Dimostriamo per induzione questa proprietà
+%     \begin{itemize}
+%         \item \textbf{Caso base}: Sia \(v \in V\), v è walk di lunghezza 0 per definizione v è un walk da v a v, ma \(E^0 = Id_v\), quindi \((v,v) \in E^0 = Id_v\).
+%         \item \textbf{Passo induttivo}: Esiste \(v_1 v_2, \ldots, v_{n+1}\) un walk di lunghezza n + 1 se e solo se c'è un arco \((v_0,v_1) \in E\) e un walk \(v_0, v_1, \ldots, v_{n+1}\) di lunghezza n.
+%     \end{itemize}
+% \end{dms}
+\subsection*{Walk chiusi, circuiti e cicli}
+\begin{itemize}
+    \item Un walk \(P\) è \textbf{chiuso} se i suoi estremi sono lo stesso nodo
+    \item Un walk chiuso che è un trail è detto \textbf{circuito}
+    \item Un circuito che è un path (a meno degli estremi) è detto \textbf{ciclo}
+\end{itemize}
+\textbf{Osservazione. } Esiste un ciclo da \(x\) a \(x\) \(\iff (x,x) \in E^*\)
+\subsection*{Connettività}
+Un grafo orientato \(G = (V,E)\) è fortemente connesso se per ogni coppia di nodi \(x,y \in V\) esiste un walk da \(x\) a \(y\).
+Una \textbf{componente fortemente connessa} di G è un sotto insieme non vuoto di nodi \(U \subseteq V\) tale che
+\begin{enumerate}
+    \item Per ogni copppia di nodi \(x, y \in U\) esiste un walk da \(x\) a \(y\).
+    \item Se \(U' \subseteq V\) soddisfa la 1. e \(U \subseteq U'\), allora \(U = U'\).
+\end{enumerate}
+Tale insieme è detto \emph{massimale} perchè secondo \emph{(2)} non ci possono essere ulteriori nodi esterni a U che soddisfano \emph{(1)}.
+\subsection*{SSC e partizioni}
+Dato un grafo orientato \(G = (V,E)\), l'insieme delle componente fortemente connesse di \(G\) è una partizione di \(V\). Dimostriamo le proprietà di una partizione.
+\begin{enumerate}
+    \item (Non vuoti) vale per definizione di SSC
+    \item (Copertura) Preso un qualsiasi \(x \in V\), \(\{x\}\) soddisfa sempre \emph{(1)}, inoltre vale una delle seguenti
+          \begin{itemize}
+              \item \(\{x\}\) soddisfa anche \emph{(2)}
+              \item \(\{x\} \subseteq U\) dove \(U\) soddisfa sia \emph{(1)} che \emph{(2)}.
+          \end{itemize}
+          Questo perchè posso aggiungere iterativamente nodi a \(U\) in modo da soddisfare \emph{(2)}
+    \item Supponendo per assurdo di avere \(U,V\) due SSC diverse, tali che \(U \cap V \neq \varnothing\). Sia \(x \in U \cap V\). \\
+          \(\forall y \in U\) esiste un walk da \(y\) a \(x\) e uno da \(x\) a \(y\). Ma anche \(\forall z \in V\) esiste un walk \(z\) a \(x\) e uno da \(x\) a \(z\). Componendo questi walk attraverso \(x\), otteniamo i walk da \(z\) a \(y\) e viceversa. Di conseguenza ottengo che \(U \cup V\) è una SSC, che contraddice la supposizione iniziale.
+\end{enumerate}
+\subsection*{Altre proprietà}
+\begin{itemize}
+    \item \(G = (V,E)\) è fortemente connessa se e solo se \(V \times V \subseteq E^*\)
+    \item \(x\) e \(y\) appartengono alla stessa SCC se e solo se esiste un walk chiuso che li attraversa entrambi.
+    \item \((x,y) \in E^* \cap (E^*)^{op}\) se e solo se \(x\) e \(y\) appartengono alla stessa SCC.
+\end{itemize}
+\subsection*{Cammini e cicli Euleriani}
+\begin{itemize}
+    \item \textbf{Trail euleriano}: Un percorso euleriano è un trail che passa esattamente una volta per tutti gli archi del grafo.
+    \item \textbf{Circuito euleriano}: Un circuito euleriano è un circuito che passa esattamente una volta per tutti gli archi del grafo, ovvero un trail con nodo di partenza e arrivo uguali.
+\end{itemize}
+\textbf{Teorema di Eulero.} Eulero ha sviluppato un teorema per decidere se esiste o meno un circuito o trail che passa per tutti gli archi. Dato un grafo non orientato e connesso
+\begin{enumerate}
+    \item Eiste un circuito euleriano se e solo se tutti i nodi hanno grado pari.
+    \item Esiste un trail euleriano da \(x\) a \(y\) se e solo se \(x\) e \(y\) sono gli unici nodi di grado dispari.
+\end{enumerate}
+\subsection*{Cammini e cicli Hamiltoniani}
+Dato un grafo connesso (orientato o no orientato), un ciclo hamiltoniano è un ciclo che passa esattamente una volta per tutti i nodi del grafo. Un path hamiltoniano può partire e arrivare in nodi distinti.
+
+\subsection{Alberi}
+Un albero è un grafo \textbf{non orientato}, \textbf{connesso}, \textbf{aciclico} e \textbf{non vuoto}.
+\subsection*{Notazione e terminologia}
+\begin{itemize}
+    \item Una \textbf{foresta} è un grafo non orientato, aciclico e non vuoto, dove ogni componente connessa è un albero
+    \item Una \textbf{foglia} è un nodo con grado 1.
+    \item Un \textbf{nodo interno} è un nodo con grado > 1
+    \item Un \textbf{albero radicato} è un albero con un nodo \quoted{speciale} detto \textbf{radice}
+\end{itemize}
+\subsection*{Proprietà}
+\begin{itemize}
+    \item Ogni albero con almeno 2 nodi ha almeno una foglia.
+    \item Il numero di archi in un albero è \(\lvert E \rvert = \lvert V \rvert - 1\).
+    \item Per ogni coppia di nodi distinti \(x,y \in V\) esiste un unico path tra i due.
+    \item Per ogni arco \(xy \in E\), rimuoverlo rende il grafo non connesso.
+    \item Per ogni coppia di nodi distinti \(x,y \in V\) non connessi tra loro, l'aggiunta dell'arco \(xy\) crea un ciclo.
+\end{itemize}
+\subsection*{Alberi ordinali e cardinali}
+\begin{itemize}
+    \item Un albero radicato è \textbf{ordinale} se per ciascun nodo interno è definito un ordinamento totale tra i suoi  figli.
+    \item Un albero radicato è \textbf{cardinale di ordine k} o \textbf{k-ario} se ogni nodo ha esattamente k figli, alcuni dei quali possono essere vuoti
+    \item Un albero cardinale di ordine 2 si chiama \textbf{binario}
+\end{itemize}
+\subsection*{Alberi binari}
+Sono alberi radicati cardilali con \(k = 2\). Possono anche essere vuoti.
+
+\subsection{Distanza}
+Una distanza metrica su \(A\) è una funzione \(d: A \times A \rightarrow \numR\) che soddisfa le seguenti proprietà. \\
+Per ogni \(x,y,z \in A\)
+\begin{enumerate}
+    \item \(d(x,y) \geq 0\)
+    \item \(d(x,y) = 0 \iff x = y\)
+    \item \(d(x,y) = d(y,z)\)
+    \item \(d(x,y) \leq d(x,z) + d(z,y)\)
+\end{enumerate}
+\subsection*{Grafi non orientati}
+Dato \(G = (V,E)\) grafo non orientato connesso, la distanza tra due nodi \(x,y \in V\) è la lunghezza del walk più breve tra i due. Definendo la distanza ricorsivamente abbiamo
+\begin{center}
+    \begin{tabular}{ll}
+        {[Clausola base]}      & \(d(x,y) = 0\), se \(x = y\)                   \\
+        {[Clausola induttiva]} & \(d(x,y) = 1 + min\{d(z,y) \mid z \in N(x)\}\)
+    \end{tabular}
+\end{center}
+\subsection*{Grafi orientati}
+La definizione di distanza (come lunghezza del cammino minimo) si può applicare anche a grafi orentatai fortemente connessi.
+La distanza che otteniamo è però \emph{pseudo-metrica}, perchè non soddisfa la simmetria \(d(x,y) = d(y,z)\).
+\subsection*{Diametro, altezza, profondità}
+Il \textbf{diametro} di un grafo è la massima distanza tra coppie di nodi. \\
+In un albero radicato
+\begin{itemize}
+    \item La \textbf{profondità} di un nodo è la sua distanza dalla radice.
+    \item L'\textbf{altezza} di un nodo \(x\) è la massima distanza tra \(x\) e le foglie sue discendenti.
+    \item L'\textbf{altezza} dell'intero albero è l'altezza della radice.
+\end{itemize}
+
+\subsection{Altro}
+\subsection*{Isomorfismo di grafi}
+Un isomorfismo tra \(G = (V,E)\) e \(G' = (V',E')\) è una biiezione \(f: V \rightarrow V'\) tale che
+\begin{center}
+    \(xy \in E\) se e solo se \(f(x)f(y) \in E'\).
+\end{center}
+\subsection*{Complemento di un grafo non orientato}
+Dato un grafo \(H = (V,E)\) il suo complemento è il grafo \(G = (V,E')\) dove
+\[E' = P_2(V) \setminus E = \{xy \in P_2(V) \mid xy \notin E\}\]
+La relazione complemento è una \textbf{biiezione}, ed è anche la sua inversa.
+
+\pagebreak
+
+\section{Calcolo combinatorio}
+\subsection{Cardinalità di insiemi}
+La cardinalità di un insieme finito \(A\) è il numero di elementi contenuti in \(A\). Si denota con \(\verted{A}\).
+\textbf{Lemma. } Se \(P = \{A_i\}_{i \in I}\) è partizione di \(A\) allora
+\[\verted{A} = \sum_{i \in I} \verted{A_i}\]
+\subsection*{Cardinalità di operazioni su insiemi}
+Date le due seguenti leggi
+\begin{enumerate}
+    \item \(\verted{A} = \verted{A \setminus B} + \verted{A \cap B}\)
+    \item \(\verted{A \cup B} = \verted{A \setminus B} + \verted{A \cap B} + \verted{B \setminus A}\)
+\end{enumerate}
+Abbiamo le seguenti uguaglianze
+\begin{enumerate}
+    \item \(\verted{A \setminus B} = \verted{A} - \verted{A \cap B}\)
+    \item \(\verted{A \cup B} = \verted{A} + \verted{B} - \verted{A \cap B}\)
+    \item \(\verted{A \cup B} \leq \verted{A} + \verted{B}\)
+    \item Se \(B \subseteq A\) allora \(\verted{B} \leq \verted{A}\)
+\end{enumerate}
+\subsection*{Principio di Inclusione-Esclusione}
+Il principio di Inclusione-Esclusione serve per calcolare la cardinalità di un insieme arbitrario finito di insiemi (anch'essi finiti).
+La cardinalità dell'unione di un numero finito di \(r\) insiemi, si può calcolare così
+\[\verted{\bigcup_{j = 1}^r S_j} = \sum_{I \subseteq \{1,2,\ldots,r\}, I \neq \varnothing} (-1)^{\verted{I} + 1} \verted{\bigcap_{i \in I} S_i} \]
+Intuizione:
+\begin{itemize}
+    \item per ogni possibile sotootinsieme non vuoto \(I \subseteq \{1,2,\ldots,r\}\) consideriamo tutti gli insiemi \(S_i\) tali che \(i \in I\), e calcoliamo la cardinalità \(n_i\) della loro intersezione.
+    \item sommiamo tutti i valori \(n_i\) per cui la caridinalità di \(I\) è un numero disapri, e sottraiamo tutti i valori \(n_i\) per cui la cardinalità di \(I\) è un numero pari.
+\end{itemize}
+Seguono come corollario il Lemma X
+\begin{center}
+    Se \(P = \{A_i\}_{i \in I}\) è partizione di \(A\) allora \(\verted{A} = \sum_{i \in I}\verted{A_i}\)
+\end{center}
+\subsection*{Cardinalità di prodotto cartesiano}
+\begin{itemize}
+    \item \(\verted{A \times B} = \verted{A} \cdot \verted{B}\)
+    \item Per ogni \(n > 0\), \(\verted{A_1 \times A_2 \times \cdots \times A_n} = \verted{A_1} \cdot \verted{A_2} \cdot \ldots \cdot \verted{A_n}\)
+    \item \(\verted{A^n} = \verted{A}^n\)
+\end{itemize}
+\subsection*{Principio delle buche e dei piccioni}
+Volendo collocare \(n\) piccioni in \(m\) buche, se \(n > m\) una buca avrà almeno due piccioni.
+Dati due insiemi \(P\) e \(C\) con \(\verted{P} = n\) e \(\verted{C} = m\) e una funzione \(f: P \rightarrow C\).
+Supponendo che \(f\) sia una funzione iniettiva, avremmo che
+\begin{itemize}
+    \item Se \(f\) è una relazione totale allora \(\verted{f} \geq n\)
+    \item Se \(f\) è una relazione iniettiva allora \(\verted{f} \leq m\)
+\end{itemize}
+E quindi potremmo dedurre che \(n \leq \verted{f} \leq m\), e di conseguenza \(n \leq m\). \\
+Troviamo così una contraddizione, e quindi \(f\) non può essere iniettiva.
+
+\subsection{Permutazioni, Disposizioni e Combinazioni}
+\subsection*{Permutazioni}
+Sia \(A\) un insieme di cardinalità \(n\). Una permutazione di \(A\) è una sequenza ordinata di tutti gli elementi di \(A\).
+\[a_0, a_1, a_2, \ldots, a_{n-1}\]
+Alternativamente possiamo definire una permutazione come una biiezione.
+\[\pi: A \rightarrow \verted{A}\]
+Il numero di permutazioni dipende solo dal numero di elementi nell'insieme.
+Il numero di permutazioni è \(n!\).
+\subsection*{Permutazioni con ripetizione}
+Sia \(S = s_1, s_2, \ldots, s_k\) sequenza di elementi di \(A = \{a_1,\ldots,a_n\}\) con \(\verted{A} = n\). \\
+Per ogni \(i \in n + 1\), sia \(c_i = \) numero di occorrenze di \(a_i\) in \(S\). Allora il numero di permutazioni con ripetizione di \(S\) è
+\[\frac{k!}{c_1! \cdot c_2! \cdots c_n!}\]
+\subsection*{Disposizioni}
+Una disposizione delgi elementidi \(A\) in \(k\) posti è un sequenza ordinata di \(k\) elementi distinti di \(A\).
+\[a_0,a_1,\ldots,a_{k-1}\]
+Il numero di disposizioni di \(n\) elementi in \(k\) posti è
+\[D(n,k) = \frac{n!}{(n-k)!}\]
+\subsection*{Combinazioni}
+Una combinazione di \(k\) elementi di \(A\) è un sottoinsieme di \(A\) di cardinalità \(k\), detto anche k-insieme di \(A\). \\
+L'insieme delle combinazioni di \(k\) elementi di \(A\) è l'insieme dei k-insiemi di A.
+\[\mathcal{P}_k(A)\]
+Il numero di combinazioni di \(k\) elementi di un insieme di \(n\) elementi è il coefficiente binomiale.
+\[\binom{n}{k} = \frac{n!}{k! \cdot (n - k)!}\]
+
+\subsection{Contare su Grafi}
+Applichiamo tecniche di combinatoria per \quoted{contare nodi e foglie negli alberi}, per \quoted{contare grafi} e per \quoted{contare numero di archi, di path, di cicli nei grafi}.
+\subsection*{Quanti grafi non orientati con n nodi esistono?}
+Dati \(n\) nodi \(\{1,2,\ldots,n\}\), quanti diversi grafi non orientati possiamo definire? \\
+Fissando il numero di nodi, secondo le restrizioni dei grafi non orientati, abbiamo che il numero massimo di archi è
+\[m_{max} = \frac{n(n - 1)}{2}\]
+Quindi, per ogni \(i \in \{0,\ldots,m_{max}\}\), sappiamo che il numero di grafi su \(n\) nodi con \(i\) archi corrisponde al numero di sottoinsieme di archi di cardinalità \(i\), ovvero \(\binom{m_max}{i}\). Il numero totale di garfi è quindi
+\[\sum_{i \in \{0,\ldots,m_{max}\}} \binom{m_{max}}{i}\]
+oppure
+\[2^{\frac{n(n-1)}{2}}\]
+\subsection*{Quanti grafi orientati con n nodi esistono?}
+Secondo la stessa logica dei grafi non orientati, consideriamo che nei gradi orientati il massimo numero di archi è \(n^2\), quindi il numero di grafi è
+\[2^{n^2}\]
+\subsection*{???}
+Sia \(G_n\) l'insieme di grafi (non orientati) su \(n\) nodi. \\
+Sia \(G_n^k = \{G \in G_n \mid G \text{ ha } k \text{ archi}\}\). \\
+Sappiamo che \(\verted{G_n^k} = \binom{m}{k}\), dove \(m = \frac{n(n-1)}{2}\). \\
+Esiste una biiezione tra \(G_n^k\) e \(G_n^{m-k}\)? \\
+Sì, questa biiezione è proprio la biiezione complemento. Quindi per la regola di biiezione abbiamo
+\[\binom{m}{k} = \binom{m}{m - k}\]
+\subsection*{Quanti path ci sono in una cricca}
+Una cricca \(K_n\) è un grafo completo, in cui abbiamo tutti gli archi, di \(n\) nodi.
+\begin{itemize}
+    \item Quanti shortest path tra \(x\) e \(y\)? Ce n'è uno.
+    \item Quanti path hamiltoniani? Numero di permutazioni di n, quindi \(n!\).
+    \item Quanti cicli hamiltoniani? Sempre \(n!\), perchè l'ultimo nodo è sempre connesso col primo.
+    \item Quanti cicli hamiltoniani diversi? \(\frac{(n-1)!}{2}\)
+\end{itemize}
+
+\subsection{Alberi}
+Dato un albero, ovvero un grado non orientato, aciclico, connesso e non vuoto, abbiamo
+\begin{itemize}
+    \item Numero di nodi: \(\verted{V} = n\)
+    \item Numero di archi: \(n - 1\)
+    \item Altezza (Albero radicato): \(h = \) massima distanza tra radice e una foglia
+    \item Diametro: massima distanza tra due nodi \(x\) e \(y\)
+    \item Diametro (Albero radicato): \(2h\)
+\end{itemize}
+\subsection*{Alberi binari}
+Una albero binario è un albero radicato cardinale di ordine due. \\
+Per un albero binario \textbf{completo} di altezza h, valgono le seguenti
+\begin{itemize}
+    \item Numero di nodi: \(\displaystyle N_h = \sum_{i = 0}^h 2^i = 2^{h + 1} - 1\)
+    \item Numero di nodi interni: \(\displaystyle I_h = \sum_{i = 0}^{h - 1} 2^i = 2^h - 1\)
+    \item Numero di foglie: \(F_h = 2^h\)
+\end{itemize}
+Dato un albero binario con \(k\) foglie, la minima altezza è
+\[h_k \geq log_2 k\]
+Questo perchè un albero binario di altezza \(h\) ha \(k \leq 2^h\) foglie, perche al massimo un albero binario completo di altezza \(h\) ha \(k = 2^h\) folgie.
 
 \pagebreak
 
 \section{Induzione}
+\subsection{Induzione sui naturali}
 L'induzione ci permette di definire insiemi, anche infiniti.
-
 \begin{eg}
     Se prendiamo la definizione dell'insieme dei naturali
     \[\mathbb{N} = \{0,1,2,\ldots\}\]
@@ -322,26 +714,22 @@ L'induzione ci permette di definire insiemi, anche infiniti.
         \item Un programma non saprebbe determinare il significato dei puntini sospensivi.
     \end{itemize}
 \end{eg}
-
 La definizione per induzione si può applicare sia agli insiemi che alle funzioni.
-
-\subsection{Definizione induttiva di insieme}
+\subsection*{Definizione induttiva di insieme}
 Per definire un insieme \(A\) con la definizione induttiva occorre definire 3 clausole:
 \begin{enumerate}
     \item Clausola \textbf{base}, che esplicita gli elementi di \(A\)
     \item Clausola \textbf{induttiva}, che definisce come utilizzare gli elementi già presenti in A per costruire gli altri elementi
     \item Clausola \textbf{terminale}, che stabilisce quando l'insieme \(A\) non contiene altri elementi, ovvero è il più piccolo insieme che soddisfa le clausole 1 e 2.
 \end{enumerate}
-
-\subsection{Definizione induttiva di funzione}
+\subsection*{Definizione induttiva di funzione}
 Una funzione \(f: A \rightarrow B\) definita per induzione segue le seguenti clausole
 \begin{enumerate}
     \item Clausola \textbf{base}, ovvero il valore di \(f(a)\) per ogni \(a \in A\) (secondo la clausola base della definizione di A)
     \item Clausola \textbf{induttiva}, ovvero le regole utilizzate per calcolare \(f(a)\) usando i valori di \(f\) per elementi che sono già in \(A\)
 \end{enumerate}
-La definizione induttiva garantisce una funzione totale
-
-\subsection{Dimostrazione per induzione}
+La definizione induttiva garantisce una funzione totale.
+\subsection*{Dimostrazione per induzione}
 Si ha una proprietà \(P\) sui naturali
 \[P: \mathbb{N} \rightarrow Bool\]
 Verifichiamo le seguenti affermazioni
@@ -351,185 +739,562 @@ Verifichiamo le seguenti affermazioni
           \[\left(P(n) \implies P(n + 1)\right)\]
 \end{itemize}
 Se entrambe sono vere allora \(P(m)\) è vera per ogni \(m \in \mathbb{N}\)
-
-\subsubsection{Regola di inferenza}
+\subsection*{Regola di inferenza}
 Possiamo esprimere la dimostrazione per induzione attraverso la notazione di regola di inferenza
-\[\frac{P(0), \forall n \in \mathbb{N} . \left(P(n) \implies P(n + 1)\right)}{\forall m \in \mathbb{N} . P(m)}\]
+\[\frac{
+        P(0), \forall n \in \mathbb{N} . \left(P(n) \implies P(n + 1)\right)
+    }{
+        \forall m \in \mathbb{N} . P(m)
+    }
+\]
 che si legge: \quoted{Per dimostrare ciò che sta sotto la riga, basta dimostrare ciò che sta sopra la riga}
+
+\subsection{Liste}
+Consentono di memorizzare sequenze omogenee di dati di lunghezza variabile.
+\begin{itemize}
+    \item La lista contenente \(a_1, a_2, \ldots, a_k\) si scrive: \[[a_1, a_2, \ldots, a_k]\]
+    \item La lista vuota è \([\ ]\)
+    \item Nelle liste contano ordine e molteplicità degli elementi
+    \item Le liste sono sempre finite
+\end{itemize}
+\subsection*{Definizione induttiva di lista}
+Partendo dalla lista vuota e l'operazione di aggiunta in testa \(a:\), possiamo costruire una qualunque lista. \\
+L'insieme \(L_A\) delle liste su \(A\) è il più piccolo insieme che soddisfa:
+\begin{enumerate}
+    \item {[Clausola base]} \([\ ] \in L_A\)
+    \item {[Clausola induttiva]} Se \(a \in A\) e \(lst \in L_A\) allora \(a: lst \in L_A\)
+\end{enumerate}
+\subsection*{Lunghezza di una lista}
+Lunghezza di una lista, \(len: L_A \rightarrow \numN\)
+\begin{enumerate}
+    \item \(len([\ ]) = 0\)
+    \item \(len(a: lst) = len(lst) + 1\)
+\end{enumerate}
+\subsection*{Somma di una lista}
+Somma di una lista, \(sumList: L_\numN \rightarrow \numN\)
+\begin{enumerate}
+    \item \(sumList([\ ]) = 0\)
+    \item \(sumList(n: lst) = sumList(lst) + n\)
+\end{enumerate}
+\subsection*{Appartenenza}
+Appartenenza, \(belList: L_A \times A \rightarrow Bool\)
+\begin{enumerate}
+    \item \(belList([\ ], b) = f\), per ogni \(b \in A\).
+    \item \(belList(a: lst, b) = t\), per ogni \(a,b \in A\) tali che \(a = b\).
+    \item \(belList(a: lst, b) = belList(lst, b)\), per ogni \(a,b \in A\) tali che \(a \neq b\).
+\end{enumerate}
+\subsection*{Concatenazione di due liste}
+Concatenazione di due liste, \(app: L_A \times L_A \rightarrow L_A\)
+\begin{enumerate}
+    \item \(app([\ ], lst_2) = lst_2\)
+    \item \(app(a: lst_1, lst_2) = a: app(lst_1, lst_2)\)
+\end{enumerate}
+\subsection*{Principio di induzione}
+Sia \(P: L_A \rightarrow Bool\) una proprietà su \(L_A\). Se
+\begin{itemize}
+    \item (\textbf{Caso base}) \(P([\ ])\) è vera
+    \item (\textbf{Passo induttivo}) Se \(P(lst)\) è vera allora \(P(a: lst)\) è vera, per ogni \(lst \in L_A, a \in A\)
+\end{itemize}
+\textbf{Allora} \(P(lst)\) è vera per ogni \(lst \in L_A\). Lo possiamo scrivere con una regola di inferenza
+\[\frac{
+        P([\ ]),\ \forall a \in A . \forall lst' \in L_A . P(lst') \implies P(a: lst')
+    }{
+        \forall lst \in L_A . P(lst)
+    }
+\]
+
+\subsection{Alberi binari (BT)}
+Ridefiniamo gli alberi binari, ovvero gli alberi cardinali di ordine 2, in momdo induttivo.
+\begin{enumerate}
+    \item {[Clausola base]} \(\lambda \in BT\)
+    \item {[Clausola induttiva]} Se \(t_1, t_2 \in BT\) allora \(N(t_1, t_2)\in BT\)
+\end{enumerate}
+\begin{itemize}
+    \item \(N(t_1, t_2)\) è un nodo con un figlio sinistro e destro.
+    \item Folgie, nodi con entrambi i sottoalberi vuoti.
+\end{itemize}
+\subsection*{Dimensione di un albero binario}
+Dimensione di un albero binario, \(size: BT \rightarrow \numN\)
+\begin{enumerate}
+    \item \(size(\lambda) = 0\)
+    \item \(size(N(t_1,t_2)) = size(t_1) + size(t_2) + 1\)
+\end{enumerate}
+\subsection*{Altezza di un albero binario}
+Altezza di un albero binario, \(height: BT \rightarrow \numN \cup \{-1\}\)
+\begin{enumerate}
+    \item \(height(\lambda) = -1\)
+    \item \(hieght(N(t_1,t_2)) = max(height(t_1), height(t_2)) + 1\)
+\end{enumerate}
+\subsection*{Principio di induzione}
+Sia \(P: BT \rightarrow Bool\) una proprietà su \(BT\). Se
+\begin{itemize}
+    \item (\textbf{caso base}) \(P(\lambda)\) è vera
+    \item (\textbf{passo induttivo}) Se \(P(t_1)\) e \(P(t_2)\) sono vere allora anche \(P(N(t_1,t_2))\) è vera, per ogni \(t_1, t_2 \in BT\)
+\end{itemize}
+\textbf{Allora} \(P(t)\) è vera per ogni \(t \in BT\). Lo possiamo scrivere con una regola di inferenza
+\[\frac{
+        P(\lambda), \forall t_1, t_2 \in BT . (P(t_1) \land P(t_2) \implies P(N(t_1, t_2)))
+    }{
+        \forall t \in BT . P(t)
+    }
+\]
+
+\subsection{Alberi etichettati su un insieme}
+Alberi etichettati su un insieme \(A\), \(BT_A\)
+\begin{enumerate}
+    \item {[Clausola base]} \(\lambda \in BT_A\).
+    \item {[Clausola induttiva]} Se \(t_1, t_2 \in BT_A\) allora \(N(t_1, a, t_2)\in BT_A\) per ogni \(a \in A\).
+\end{enumerate}
+\subsection*{Appartenenza}
+Appartenenza: \(belBT: BT_A \rightarrow Bool\)
+\begin{enumerate}
+    \item \(belBT(\lambda, b) = f\)
+    \item \(belBT(N(t_1, a, t_2), b) = t\) per ogni \(a,b \in A\) tali che \(a = b\)
+    \item \(belBT(N(t_1, a, t_2), b) = belBT(t_1, b) \lor belBT(t_2, b)\) per ogni \(a,b \in A\) tali che \(a \neq b\)
+\end{enumerate}
+\subsection*{Visita simmetrica di un albero}
+Visita simmetrica da sinistra a destra, \(visit: BT_A \rightarrow L_A\)
+\begin{enumerate}
+    \item \(visit(\lambda) = []\)
+    \item \(visit(N(t_1, a, t_2)) = app(visit(t_1), a: visit(t_2))\)
+\end{enumerate}
+\subsection*{Altre funzioni induttive sugli alberi}
+\(lengthBT: BT_{A^*} \rightarrow BT_\numN\)
+\begin{enumerate}
+    \item \(lengthBT(\lambda) = \lambda\)
+    \item \(lengthBT(N(t_1, w, t_2)) = N(lengthBT(t_1), \verted{w}, lengthBT(t_2))\)
+\end{enumerate}
+\(sumBT: BT_\numN \rightarrow \numN\)
+\begin{enumerate}
+    \item \(sumBT(\lambda) = 0\)
+    \item \(sumBT(N(t_1, n, t_2)) = sumBT(t_1) + sumBT(t_2) + n\)
+\end{enumerate}
+\(belong: A \times BT_A \rightarrow Bool\)
+\begin{enumerate}
+    \item \(belong(\lambda, b) = f\)
+    \item \(belong(N(t_1, a, t_2), b) = t\) per tutti gli \(a,b \in A\) tali che \(b == a\)
+    \item \(belong(N(t_1, a, t_2), b) = belong(t_1, a) \lor belong(t_2, a)\) per tutti gli \(a,b \in A\) tali che \(b \neq a\)
+\end{enumerate}
+\subsection*{Principio di induzione}
+Sia \(P: BT_A \rightarrow Bool\) una proprietà su \(BT_A\). Se
+\begin{itemize}
+    \item (\textbf{caso base}) \(P(\lambda)\) è vera
+    \item (\textbf{passo induttivo}) Se \(P(t_1)\) e \(P(t_2)\) sono vere allora anche \(P(N(t_1,a, t_2))\) è vera, per ogni \(t_1, t_2 \in BT\) e per ogni \(a \in A\)
+\end{itemize}
+\textbf{Allora} \(P(t)\) è vera per ogni \(t \in BT_A\). Lo possiamo scrivere con una regola di inferenza
+\[\frac{
+        P(\lambda), (\forall a \in A . (\forall t_1, t_2 \in BT_A . (P(t_1) \land P(t_2) \implies P(N(t_1, a, t_2)))))
+    }{
+        \forall t \in BT_A . P(t)
+    }
+\]
+
+\subsection{Principio di induzione strutturale}
+\subsection*{Segnature}
+Una segnatura è una famiglia di insiemi indicizzata dai naturali
+\[\calF = \{\calF_n\}_{n \in \numN}\]
+Per ogni \(n \in \numN\), \(\calF_n\) è l'insieme di \textbf{simboli di arietà} \(n\), ovvero con \(n\) argomenti. I simboli di arietà 0 sono detti \textbf{costanti}. Data una segnatura \(\calF\), l'insieme \(\FTerm\) è il più piccolo insieme che soddisfa
+\begin{enumerate}
+    \item {[Clausola base]} Per ogni costante \(c \in \calF_0\), \(c \in \FTerm\)
+    \item {[Clausola induttiva]} Per ogni \(n \geq 1\) e per ogni simbolo \(f \in \calF_n\), se \(t_1, t_2, \ldots, t_n \in \FTerm\) allora \(f(t_1, t_2, \ldots, t_n) \in \FTerm\)
+\end{enumerate}
+\subsection*{Segnatura per alberi binari}
+\begin{center}
+    \begin{tabular}{cccc}
+        \(\mathcal{BT}_0 = \{\lambda\}\) & \(\mathcal{BT}_1 = \varnothing\) & \(\mathcal{BT}_2 = \{N\}\) & \(\mathcal{BT}_n = \varnothing\) per ogni \(n \geq 3\)
+    \end{tabular}
+\end{center}
+Applicando la definizione induttiva di \(\FTerm\) otteniamo il principio di induzione sugli alberi binari.
+\subsection*{Segnatura per liste su A}
+\begin{center}
+    \begin{tabular}{ccc}
+        \(\mathcal{L}^A_0 = \{\lambda\}\) & \(\mathcal{L}^A_1 = \{a: \mid a \in A\}\) & \(\mathcal{L}^A_n = \varnothing\) per ogni \(n \geq 2\)
+    \end{tabular}
+\end{center}
+Applicando la definizione induttiva di \(\FTerm\) otteniamo il principio di induzione sulle liste su \(A\).
+\subsection*{Segnatura per i naturali}
+\begin{center}
+    \begin{tabular}{ccc}
+        \(\mathcal{N}_0 = \{Z\}\) & \(\mathcal{N}_1 = \{S\}\) & \(\mathcal{N}_n = \varnothing\) per ogni \(n \geq 2\)
+    \end{tabular}
+\end{center}
+Applicando la definizione induttiva di \(\FTerm\) otteniamo il principio di induzione sui naturali.
+\begin{enumerate}
+    \item \(Z \in \mathcal{N}Term\)
+    \item se \(t \in \mathcal{N}Term\) allora \(S(t) \in \mathcal{N}Term\)
+\end{enumerate}
+\subsection*{Funzioni definite induttivamente sui termini}
+Per definire induttivamente una funzione su \(\FTerm\) occorre
+\begin{itemize}
+    \item definire il valore della funzione per i simboli di arietà zero.
+    \item definire il valore della funzione per ogni simbolo di arietà \(n \geq 1\), eventualmente utilizzando il valore della funzione calcolato su ogniuno degli n-argomenti.
+\end{itemize}
+\subsection*{Regola di inferenza}
+Sia \(\calF\) una segnatura e \(P: \FTerm \rightarrow Bool\) una proprietà su \(\FTerm\). Se
+\begin{itemize}
+    \item (\textbf{Caso Base}) \(P(c)\) è vera per ogni simbolo \(c \in \calF_0\)
+    \item (\textbf{Passo induttivo}) Se \(P(t_1), \ldots, P(t_n)\) sono vere allora anche \(P(f(t_1, \ldots, t_n))\) è vera, per ogni \(n \geq 1\), per ogni \(f \in \calF_n\) e per tutti i termini \(t_1, \ldots, t_n \in \FTerm\)
+\end{itemize}
+\textbf{Allora} \(P(t)\) è vera per ogni \(t \in \FTerm\). Lo possiamo scrivere con una regola di inferenza
+\[\frac{
+        \forall c \in F_0 . P(c),\ \forall n \geq 1 . \forall f \in F_n . \forall t_1, \ldots, t_n \in FTerm . (P(t_1) \land \ldots \land P(t_n) \implies P(f(t_1,\ldots,t_n)))
+    }{
+        \forall t \in FTerm . P(t)
+    }
+\]
 
 \pagebreak
 
-\section{Grafi}
-I grafi ci permettono di modellare precisamente e in modo visualmente intuitivo relazioni tra elementi di un insieme.
-
-Esistono grafi \emph{orientati} e \emph{non orientati}. I grafi orientati sono più direttamente collegati al concetto di relazione.
-
-\subsection{Grafo orientato}
-Un \emph{grafo orientato} è una relazione \(E: V \leftrightarrow V\) su un insieme \textbf{finito} \(V\). Scriviamo: \(G = (E,V)\)
+\section{Ricorsione}
+La ricosione serve a definire cose in termini di loro stesse.
 \begin{itemize}
-    \item \(V\): insieme di \textbf{nodi} o \textbf{vertici}
-    \item \(E\): insieme di \textbf{archi} o \textbf{lati} (coppie)
+    \item Una ricorsione che funziona è detta \textbf{ben fondata}
+    \item Una forma specifica di ricorsione che funziona (sempre) è l'induzione. Questo perchè lavora solo su elementi \quoted{minimali} e \quoted{minori}
 \end{itemize}
 
-Questi grafi sono \emph{orientati} perchè ad un arco dal nodo \(x\) al nodo \(y\) possiamo assegnare un verso, e quindi possiamo anche creare archi che partono e arrivano nello stesso nodo, chiamati \textbf{cappio} o \textbf{loop}. Ne risulta che presi due nodi distinti \(x\) e \(y\), un arco \((x,y) \in E \neq (y,x) \in E\).
-
-Dato un grafo \(G\) indicheremo:
+\subsection{Definizione ricorsiva di funzione}
+Definiamo un funzione ricorsivamente come un insieme di clausole. Una funzione è ricorsiva se in almeno una clausola richiede di valutare se stessa. Una definizione è \textbf{ben data} se definisce univocamente una funzione. \\
+Una generica definizione ricorsiva può:
 \begin{itemize}
-    \item con \(n\) il numero dei nodi del grafo, cioè \(n = \lvert V\rvert\)
-    \item con \(m\) il numero di archi, ovvero \(m = \lvert E\rvert\)
+    \item Definire univocamente una funzione
+    \item Definire una funzione parziale
+    \item Definire una relazione non univalente
 \end{itemize}
 
-\subsection{Vicinato e grado dei nodi}
-Due nodi x e y sono adiacenti se c'è un arco da x a y o c'è un'arco da y a x
-\[(x,y) \in E \lor (y,x) \in E\]
-Per ogni nodo possiamo indicare
+\subsection{Relazione associata a una definizione ricorsiva}
+Data una definizione generale di funzione \(rec: D \rightarrow A\). La relazione \(R_{rec} \subseteq D \times A\)
+% \[
+%     R_{rec} = \left\{(n,m) \mid \text{partendo da \(rec(n)\) e applicando iterativamente (e correttamente) le clausole della definizione, la valutazione termina con il risultato m}\right\}
+% \]
+Una definizione ricorsiva è \textbf{ben data} se la corrisponde relazione è \textbf{univalente} e \textbf{totale}. Per garantire queste le due proprietà possiamo assumere che \(\{D_1, D_2, \ldots, D_k\}\) sia un \textbf{partizione} dell'insieme di partenza.
+
+\subsection{Relazione di precedenza indotta da una definizione ricorsiva}
+La relazione di precedenza \(\prec_{rec} \subseteq D \times D\) è definita come
+\begin{center}
+    \(x \prec_{rec} y \) se \(rec(y)\) è definita direttamente in termini di \(rec(x)\)
+\end{center}
+Una relazione su \(A\) è \textbf{ben fondata} se non esiste una catena infinita devrescente di elementi di \(A\). \\
+Quindi una funzione ricorsiva \(rec: D \rightarrow A\) è ben data se la relazione di precedenza indotta \(\prec_{rec} \subseteq D \times D\) è ben fondata, e \(\{D_1, \ldots, D_k\}\) è una partizione dell'insieme di partenza. \\
+le funzioni induttive sono ben date perchè la definizione induttiva dell'insieme di partenza induce una relazione di precedenza ben fondata.
+\pagebreak
+
+\section{Linguaggi formali}
+Definiamo un \textbf{linguaggio} come un insieme di strnghe ammissibili su un alfabeto \(A\).
 \begin{itemize}
-    \item Vicinato in uscita (stella uscente) di x 
-    \[N^+(x) = \{y \mid (x,y) \in E\}\]
-    \item Vicinato in ingresso (stella entrante) di x 
-    \[N^-(x) = \{y \mid (y,x) \in E\}\]
-    \item Grado in uscita di x:
-    \[d^+_x = \lvert N^+(x) \rvert\]
-    \item Grado in ingresso di x:
-    \[d^-_x = \lvert N^-(x) \rvert\]
+    \item \textbf{Alfabeto}: insieme finito di simboli
+    \item \textbf{Strnghe}: sequenze di lunghezza arbitraria di simboli
 \end{itemize}
+Necessitiamo di un modo per determinare il sottoinsieme legale delle stringhe su un certo alfabeto. Ci sono 2 tecniche:
+\begin{itemize}
+    \item \textbf{Generativa}, con una \emph{grammatica} generiamo tutte le strnghe del linguaggio. (induttiva)
+    \item \textbf{Accetatzione}, un \emph{automa} accetta/riconosce tutte e le sole strighe ammissibili
+\end{itemize}
+\subsection*{Definizione formale di linguaggio}
+Un linguaggio \(L\) su \(A\) è un sottoinsieme delle stringhe su \(A\).
+\[L \subseteq A^*\]
+Quindi l'insieme di tutti i linguaggi è
+\[\mathcal{P}(A^*)\]
 
-\noindent\textbf{Hand-Shaking Lemma per grafi orientati}
-\[\sum_{x \in V} d_x^- = \sum_{x \in V} d_x^+ = \lvert E \rvert\]
+\subsection{Automi a stati finiti}
+Possono essere deterministici o non, e sono utilizzati per il riconoscimento di linguaggi. \\
+Idea fondamentale:
+\begin{itemize}
+    \item Si legge una stringa in input a partire da uno stato.
+    \item Ogni carattere causa una transizione di stato.
+    \item La stringa è riconosciuta dallo stato iniziale se alla fine lo stato raggiunto è di accetatzione.
+\end{itemize}
+\subsection*{Esempio di automa a stati finito}
+\begin{eg}
+    Sia \(L\) l'insieme delle parole inglesi che contengono tutte e 5 le vocali \(\{a,e,i,o,u\}\) esattamente in questo ordine. \\
+    Un automa che riconosca questo linguaggio dovra ricordare le vocali già lette e cambiare stato quando ne legge un'altra.
 
-\subsection{Grafo come relazione}
-Essendo un grafo una relazione su un insieme finito di nodi, ovviamente possiamo verificare le proprietà TUSI.
-Le proprietà TUSI (Totale, Univalente, Surgettiva, Iniettiva) diventano condizioni sul grado dei nodi.
+    Definiamo un grafo con 5 nodi, che reappresentano gli stati. Ad ogni nodo colleghiamo 2 archi etichettati, un cappio, e uno etichettato da una vocale che verrà percorso quando tale vocale sarà letta.
+\end{eg}
+\subsection*{Definizione formale di automa}
+Dato un alfabeto \(A\), un automa a stati finiti è definito come una tripla
+\[\mathcal{A} = (S,T,F)\]
+dove
+\begin{itemize}
+    \item \(S\) è un insieme finito di stati
+    \item \(T \subseteq (A \times S) \times S\) è la relazione di transizione
+    \item \(F \subseteq S\) è l'insieme di stati finali
+\end{itemize}
+\subsection*{Raggiungibilità in un automa}
+Sia \(\mathcal{A}\) un automa sull'alfabeto \(A\). \\
+Per ogni \(a \in A\) definiamo
+\[T_a = \{(x,y) \mid ((a, x), y) \in T\}\]
+la relazione sugli stati dell'automa che individua tutti i collegamenti etichettati con \(a\). \\
+Possiamo ora definire induttivamente la relazione derivata per una stringa \(w\). Sia \(w \in A^*\) definiamo \(T_w \in Rel(S,S)\)
 \begin{enumerate}
-    \item \(E: V \leftrightarrow V\) è \textbf{totale} se e solo se per ogni nodo \(x \in V\) vale \(d_x^+ \geq 1\);
-    \item \(E: V \leftrightarrow V\) è \textbf{univalente} se e solo se per ogni nodo \(x \in V\) vale \(d_x^+ \leq 1\);
-    \item \(E: V \leftrightarrow V\) è \textbf{surgettiva} se e solo se per ogni nodo \(x \in V\) vale \(d_x^- \geq 1\);
-    \item \(E: V \leftrightarrow V\) è \textbf{iniettiva} se e solo se per ogni nodo \(x \in V\) vale \(d_x^- \leq 1\);
+    \item {[Clausola base]} \(T_\epsilon = Id_S\)
+    \item {[Clausola induttiva]} \(T_{aw} = T_a;T_w\)
 \end{enumerate}
-
-\subsection{Cammini}
+Se \((x,y) \in T_w\) allora \(y\) è raggiungibile da \(x\) con la stringa \(w\).
+\subsection*{Linguaggio accettato}
+Dato un automa \(\mathcal{A} = (S,T,F)\) sull'alfabeto \(A\) e \(x \in S\). \\
+Il linguaggio accettato da \(x\) è
+\[\ll x \gg = \{w \in A^* \mid (\exists y \in F . (x,y) \in T_F)\}\]
+l'insieme delle stringhe in \(A^*\) per cui esiste uno stato finale nella sua relazione di raggiungibilità \(T_w\).
+\subsection*{Automi deterministici e non deterministici}
+Un automa è \textbf{deterministico} se e solo se \(T\) è una funzione. \\
+Questo vuol dire che da ogni stato, qualunque simbolo io legga c'è esattamente uno stato verso cui spostarsi. \\
+Se un automa è \textbf{non deterministico} la relazione di transizione \(T\) può non essere univalente.
+\subsection*{Costruzione dei sottoinsiemi}
+Dato un automa \(\mathcal{A} = (S,T,F)\), l'automa deterministico \(Det(\mathcal{A})\) è
+\[Det(\mathcal{A}) = (\mathcal{P}(S), T^\#, F^\#)\]
+dove
 \begin{itemize}
-    \item Un \emph{walk} è una sequenza di nodi \(P = v_0, \ldots, v_k\) con \(k \in \mathbb{N}\) tale che \((v_i,v_{i+1}) \in E\) per ogni \(i \in \{1,\ldots,k\}\).
-    \item Un \emph{trail} è un \emph{walk} che non attraversa più volte lo stesso \textbf{arco}.
-    \item Un \emph{path} è un \emph{trail} che non attraversa più volte lo stesso \textbf{nodo}.
+    \item L'insieme di stati è l'insieme delle parti di \(S\)
+    \item \(T^{\#}(a,X) = \{z \mid \exists x \in X . ((a,x),z) \in T\}\)
+    \item \(F^{\#} = \{X \subseteq S \mid X \cap F \neq \varnothing\}\)
+\end{itemize}
+\textbf{Teorema.} per ogni \(x \in S\) vale \(\ll \{x\} \gg = \ll x \gg\)
+
+\subsection{Grammatiche libere da contensto}
+Un approccio \emph{generativo} per descrivere linguaggi utilizzato nella definizione di linguaggi di programmazione ma anche di linguaggi logici e molto altro.
+\subsection*{Esempio di grammatica}
+Una grammatica sulle espressioni aritmetiche.
+\begin{align*}
+    \angled{ExA} & \leadsto \angled{Num}                     \\
+    \angled{ExA} & \leadsto \angled{ExA} + \angled{Exa}      \\
+    \angled{ExA} & \leadsto \angled{ExA} - \angled{Exa}      \\
+    \angled{ExA} & \leadsto \angled{ExA} \times \angled{Exa} \\
+    \angled{ExA} & \leadsto \angled{ExA} \div \angled{Exa}
+\end{align*}
+dove
+\begin{itemize}
+    \item \(\angled{ExA}, \angled{Num}\) sono simboli non terminali
+    \item \(+, -, \times, \div\) sono simboli terminali
+    \item \(\leadsto\) è chiamato \textbf{metasimbolo}
+    \item Una produzione è della forma \(Testa \leadsto Corpo\). Dove testa è un simbolo non terminale, e corpo una sequenza di simboli.
+\end{itemize}
+\subsection*{Definizione di grammatica}
+Una grammatica è una coppia \(\mathcal{G} = (S, P)\) dove
+\begin{itemize}
+    \item \(S\) è l'insieme di simboli non terminali, \(S \cap A = \varnothing\)
+    \item \(P\) è l'insieme di produzioni della forma \(\angled{X} \leadsto w\) dove \(\angled{X} \in S\) e \(w \in (S \cup A)^*\)
+\end{itemize}
+\subsection*{Albero di derivazione sintattica}
+Possiamo far vedere che una stringa è generata da una grammatica se riusciamo a costruire il suo \textbf{parse tree}. \\
+Un albero di derivazione sintattica è un albero radicato ordinale dove:
+\begin{itemize}
+    \item Ogni nodo interno è etichettato con un simbolo in \(S\).
+    \item Ogni foglia è etichettata da un simbolo in \(A\) o da \(\epsilon\).
+    \item Se un nodo interno \(x\) è etichettato con \(\angled{X}\) allora deve esistere una produzione \(\angled{X} \leadsto w\) in \(P\) tale che \(w\) è la sequenza di etichetta dei figli di \(x\) da sinistra a destra.
+\end{itemize}
+Se \(v \in A^*\) è la sequenza di etichette delle foglie (ignorando \(\epsilon\)) allora l'albero è un parse tree per \(v\).
+\subsection*{Linguaggio generato da un simbolo non terminale}
+Sia \((S,P)\) una grammatica libera da contesto sull'alfabeto \(A\), \(\angled{X} \in S\) un simbolo non terminale. \\
+Allora il linguaggio generato da \(\angled{X}\), \(\ll \angled{X} \gg\) è l'insieme delle stringhe \(w \in A^*\) tali che esiste un albero di derivazione per \(w\) avente come radice \(\angled{X}\).
+\subsection*{Grammatiche ambigue}
+Una stringa è ambigua se ammette almeno due alberi di derivazione diversi. Una grammatica è ambigua se genera almeno una stringa ambigua.
+
+\subsection{Confronto tra automi e grammatiche}
+Automi e linguaggi sono equivalenti? In modo più esplicito:
+\begin{enumerate}
+    \item Per ogni automa a stati finiti \(\mathcal{A}\) con stato \(x\), esiste una grammatica libera a contesto \(\mathcal{G}\) con categoria sintattica \(\angled{X}\) tale che
+          \[\ll \angled{X} \gg\ =\ \ll x \gg\]
+    \item Per ogni grammatica libera da contesto \(\mathcal{G}\) con categoria sintattica \(\angled{X}\), esiste un atuoma a stati finiti \(\mathcal{A}\) con stato \(x\) tale che
+          \[\ll x \gg\ =\ \ll \angled{X} \gg\]
+\end{enumerate}
+\subsection*{Estraiamo una grammatica da un automa}
+Sia \(A\) un alfabeto e \(\mathcal{A} = (S,T,F)\) un automa a stati finiti su \(A\). \\
+Definiamo \(\mathcal{G}_\mathcal{A} = (S_\mathcal{A}, P_\mathcal{A})\).
+\begin{itemize}
+    \item Per ogni stato dell'automa generiamo un simbolo non terminale
+    \item Per ogni transizione generiamo una produzione che ha come testa lo stato di partenza, e come corpo il simbolo letto seguito dallo stato di arrivo.
+\end{itemize}
+Formalmente
+\begin{itemize}
+    \item \(S_\mathcal{A} = \{\angled{x} \mid x \in S\}\)
+    \item \(P_\mathcal{A} = \{\angled{x} \leadsto \epsilon \mid x \in F\} \cup \{\angled{x} \leadsto a\angled{y} \mid ((a,x),y) \in T\}\)
 \end{itemize}
 
-La lunghezza di un walk è \(k\) e gli estremi sono \(v_0\) e \(v_k\).
 
-Un walk di lunghezza zero è costituito solo dal nodo \(v_0\).
+\pagebreak
 
-Esiste un walk di lunghezza \(n \in \mathbb{N}\) da \(x\) a \(y\) se e solo se \((x,y) \in E^n\).
+\section{Logica}
+La logica ci permette di formalizzare propsizioni in liguaggio naturale, attraveso valori di verità e formule proposizionali.
 
-\begin{dms}
-    Dimostriamo per induzione questa proprietà
+\subsection{Logica del calcolo proposizionale}
+\subsection*{Sintassi delle formule proposizionali}
+\begin{center}
+    \textbf{Linguaggio proposizionale}
+    \begin{align*}
+        \angled{Prop} & \leadsto \angled{Atom} \mid \lnot\angled{Atom} \mid \angled{Prop}\angled{OpB}\angled{Prop} \\
+        \angled{Atom} & \leadsto T \mid F \mid \angled{X} \mid (\angled{Prop})                                     \\
+        \angled{OpB}  & \leadsto \land \mid \lor \mid \Rightarrow \mid \Leftarrow \mid \Leftrightarrow             \\
+        \angled{X}    & \leadsto A \mid B \mid C \mid \ldots
+    \end{align*}
+\end{center}
+\subsection*{Definizione di connettivi logici come funzioni sui booleani}
+Possiamo definire i vari connettivi logici come funzioni sui booleani, e quindi descrivere il loro comportamento attraverso tavole di verità, che per ogni combinazione di elementi dell'insieme di partenza \(Bool\) oppure \(Bool \times Bool\) definiscono un risultato booleano nell'insieme di arrivo \(Bool\).
+\begin{itemize}
+    \item \(\lnot: Bool \rightarrow Bool\)
+    \item \(\land, \lor, \Rightarrow, \Leftarrow, \Leftrightarrow: Bool \times Bool \rightarrow Bool\)
+\end{itemize}
+\subsection*{Semantica del calcolo proposiozionale}
+Data una interpretazione \(\mathcal{I}: X \rightarrow Bool\). Definiamo induttivamente la semantica
+\[\llbracket\mathunderscore\rrbracket: Prop \rightarrow Bool\]
+\begin{enumerate}
+    \item \(\bbracket{T}_\calI = t\) e \(\bbracket{F}_\calI = f\)
+    \item \(\bbracket{A}_\calI = \calI(A)\) per ogni \(A \in X\)
+    \item \(\bbracket{(P)}_\calI = (\bbracket{P}_\calI)\) per ogni \(P \in Prop\)
+    \item \(\bbracket{\lnot Q}_\calI = \lnot\bbracket{Q}_\calI\) per ogni formula atomica \(Q\)
+    \item \(\bbracket{P\ op\ Q}_\calI = \bbracket{P}_\calI\ op\ \bbracket{Q}_\calI\) per ogni connettivo e per ogni \(P, Q \in Prop\)
+\end{enumerate}
+\subsection*{Modelli, equivalenza e conseguenza logica}
+Una interpretazione \(\calI\) è un modello di \(P\) se \(\bbracket{P}_\calI = t\)
+\[\calI \models P\]
+
+\noindent Due formule proposiozionali \(P\) e \(Q\) sono logicamente equivalenti se hanno gli stessi modelli
+\[P \equiv Q\]
+
+\noindent \(P\) è conseguenza logica di un insieme di formule \(\Gamma\), se ogni modello di \(\Gamma\) è anche un modello di \(P\)
+\[\Gamma \models P\]
+\subsection*{Tautologie, contraddizioni e formule soddisfacibili}
+Una tautologia è una formula proposiozionale che è vera in ogni interpretazione.
+\[\models P\]
+
+\noindent Una contraddizione è una formula proposiozionale che è falsa in tutte le interpretazioni.
+\[\models \lnot P\]
+
+\noindent Una formula soddisfacibile è una formula proposiozionale vera in alemeno una interpretazione.
+\[\not\models \lnot P\]
+
+\noindent Una \quoted{non tautologias} è una formula proposiozionale falsa in alemeno una interpretazione.
+\[\not\models P\]
+\subsection*{Dimostrazione per sostituzione di tautologie}
+Consideriamo formule dedl tipo \(P \iff Q\), e le dimostriamo per sostituzione, introducendo delle leggi. \\
+Quindi dimostriamo con una sequenza di doppie implicazioni come
+\[P = R_1 \Leftrightarrow R_2 \Leftrightarrow \cdots \Leftrightarrow R_n = Q\]
+dove ogni passo è giustificato da una legge.
+\subsection*{Rimpiazzamento}
+Date \(P, Q, R\) formule proposiozionali
+\[P\left[Q \diagup R\right]\]
+è la formula ottenuta rimpiazzando una specifica occorrenza di \(R\) con \(Q\) in \(P\).
+\subsection*{Principo di sostituzione}
+Ci dice che possiamo rimpiazzare due cose equivalenti senza modificare il risultato di una formula.
+\[
+    \frac
+    {Q \iff R}
+    {P \iff P[Q \diagup R]}
+\]
+Si esprime con una regola di inferenza. Si legge \quoted{Se \(Q \iff R\) è tautologia allora anche \(P \iff P[Q \diagup R]\) è tautologia}
+
+\subsection{Proof systems}
+Un proof system ci permette di dimostrare conseguenza logiche. \\
+Fissato \(\Delta\) un insieme di formule. Un sistema di dimostrazioni su \(\Delta\) è un insieme di regole di inferenza e assiomi.
+\begin{center}
+    \begin{tabular}{cc}
+        \(\displaystyle \frac{P_1 \cdots P_n}{P}[r]\) & \(\frac{}{P}\) \\
+        Regola di inferenza                           & assioma
+    \end{tabular}
+\end{center}
+\subsection*{Dimostrazione di una formula a partire da un insieme di premesse}
+Vogliamo dimostrare una formula \(Q\) in \(\Delta\) a partire da un insieme di formule \(\Gamma\). \\
+Data una sequenza di formule \(R_1, R_2, R_3, \ldots, R_k\) tali che
+\begin{itemize}
+    \item \(R_k = Q\)
+    \item Per ogni \(i\) vale una delle seguenti
+          \begin{itemize}
+              \item \(R_i \in \Gamma\)
+              \item Esiste una regola di inferenza t.c.
+                    \[\frac{R_{i_1} R_{i_2} R_{i_n}}{R_i}\]
+                    con \(\{i_1, i_2, \ldots, i_n\} \subseteq [1, i-1]\)
+          \end{itemize}
+\end{itemize}
+Se queste condizioni sono rispettate diciamo Chiusure
+\[\Gamma \vdash_\mathcal{R} Q\]
+Ovvero che \(Q\) è dimostrabile da \(\Gamma\).
+\subsection*{Correttezza e completezza di un Proof System}
+Un proof system è corretto se
+\[\Gamma \vdash_\mathcal{R} P \implies \Gamma \models P\]
+Un proof system è completo se
+\[\Gamma \models P \implies \Gamma \vdash_\mathcal{R} P\]
+\subsection*{Proof system per il calcolo proposizionale}
+Definiamo un proof system \(S_{\Leftrightarrow}\) costituito dalle regole di inferenza proprie \emph{Transitività} e \emph{Principio di sostituzione}, e come assimoi tutte le leggi già viste.
+\begin{align*}
+    \frac{Q \Leftrightarrow R}{P \Leftrightarrow P[Q \diagup R]} &  & \frac{P \Leftrightarrow Q \quad Q \Leftrightarrow R}{P \Leftrightarrow R}
+\end{align*}
+
+\subsection{Logica dei predicati}
+Per poter esprimere formulazioni logiche dove vogliamo parlare di elementi di un dominio, proprietà su questi elementi e relazioni tra questi elementi. Vogliamo potre parlare anche di insiemi infiniti, come i naturali.
+\subsection*{Quantificatori}
+Servono per rappresentare pronomi o aggettivi indefiniti come \emph{tutti, nessuno, alcuni} facendo riferimento a elementi del dominio.
+\begin{itemize}
+    \item \textbf{Variabili} rappresentano elementi del dominio
+    \item \textbf{Quantificazione universale} \(\forall x . P\), che si legge \quoted{per ogni x vale P}
+    \item \textbf{Quantificazione esistenziale} \(\exists x . P\), che si legge \quoted{esiste un x tale che P vale}
+\end{itemize}
+\subsection*{Definizione}
+\textbf{Alfabeto del primo ordine. } Una quadrupla \(\mathcal{A} = (\mathcal{C,F,P,V})\) dove
+\begin{enumerate}
+    \item \(\calC\) è l'insieme dei simboli di costante
+    \item \(\calF = \{\calF_n\}_{n \in \numN^+}\) è una famiglia di insiemi di simboli di funzione, di arietà indicizzata dai naturali positivi.
+    \item \(\calP = \{\calP_n\}_{n \in \numN}\) è una famiglia di insiemi di simboli di predicato, di arietà indicizzata dai naturali.
+    \item \(\calV\) è l'insieme delle variabili.
+\end{enumerate}
+\subsection*{Portata e campo di azione}
+\begin{itemize}
+    \item La portata e campo di azione di una formula quantificata va dal punto fino alla fine della parentesi.
+    \item Una variabile è legata se apparare nella portata di un quantificatore con tale variabile. Altrimenti è libera.
+    \item Una formula è chiusa se tutte le sue variabili sono legate, altrimenti è aperta.
+\end{itemize}
+\subsection*{Interpretazione}
+Una interpretazione \(\calI\) per \(\calA = (\mathcal{C, F, P, V})\) è una coppia
+\[\calI = (\calD, \alpha)\]
+dove \(\calD\) è il dominio di interpretazione, mentre \(\alpha = \angled{\alpha_\calC,\alpha_\calF,\alpha_\calP}\) è un'associazione dove
+\begin{itemize}
+    \item \(\alpha_\calC: \calC \rightarrow \calD\)
+    \item \(\alpha_\calF = \{\alpha_{\calF_n}\}_{n \in \numN^+}\) è una famiglia di funzioni dove per ogni \(f \in \calF_n, \alpha_{\calF_n}(f): D^n \rightarrow D\)
+    \item \(\alpha_\calP = \{\alpha_{\calP_n}\}_{n \in \numN}\) è definito come
     \begin{itemize}
-        \item \textbf{Caso base}: Sia \(v \in V\), v è walk di lunghezza 0 per definizione v è un walk da v a v, ma \(E^0 = Id_v\), quindi \((v,v) \in E^0 = Id_v\).
-        \item \textbf{Passo induttivo}: Esiste \(v_1 v_2, \ldots, v_{n+1}\) un walk di lunghezza n + 1 se e solo se c'è un arco \((v_0,v_1) \in E\) e un walk \(v_0, v_1, \ldots, v_{n+1}\) di lunghezza n.
+        \item \(\alpha_{\calP_0}: \calP_0 \rightarrow Bool\)
+        \item \(\alpha_{\calP_n}(A) \subseteq \calD^n\) per ogni \(n \in \numN^+\) e per ogni \(A \in \calP_n\)
     \end{itemize}
-\end{dms}
-
-Se esiste un walk da \(x\) a \(y\) allora esiste un trail da \(x\) a \(y\).
-
-\subsection{Walk chiusi, circuiti e cicli}
-Un walk è detto chiuso se 
-
-\subsection{Connettività}
-Un grafo orientato \(G = (V,E)\) è fortemente connesso se per ogni coppia di nodi \(x,y \in V\) esiste un walk da \(x\) a \(y\).
-
-Una componente fortemente connessa di G è un sotto insieme non vuoto di nodi \(U \subseteq V\) tale che
+\end{itemize}
+\subsection*{Assegnamento}
+Un assegnamento \(r: \calV \rightarrow \calD\) è una funzione parziale che associa un elemento del dominio alle variabili in \(\calV\). \\
+\textbf{Modificare un assegnamento. } Dati un assegnamento \(r: \calV \rightarrow \calD, v \in \calV, d \in \calD\) definiamo
+\[
+    r[x \rightarrow d](y) =
+    \begin{cases}
+        d & \text{se } y = x \\
+        r(y) & \text{altrimenti}
+    \end{cases}
+\]
+\subsection*{Semantica dei termini}
+Definizione per induzione strutturale
 \begin{enumerate}
-    \item Per ogni copppia di nodi \(x, y \in U\) esiste un walk da \(x\) a \(y\).
-    \item Se \(U' \subseteq V\) soddisfa la 1. e \(U \subseteq U'\), allora \(U = U'\).
+    \item \(\bbracket{x}_\calI^r = r(x)\) per \(x \in \calV\)
+    \item \(\bbracket{c}_\calI^r = \alpha_\calC(c)\) per \(c \in \calC\)
+    \item \(\bbracket{f(t_1, \ldots, t_n)}_\calI^r = \alpha_\calF(f)(d_1, \ldots, d_n)\) per ogni \(f \in \calF_n\), per ogni sequenza di termini \(t_1 \ldots t_n\) dove \(\bbracket{t_i}_\calI^r = d_i\), per ogni \(n \in \numN^+\)
 \end{enumerate}
-
-\textbf{Altre proprietà}
-\begin{itemize}
-    \item \(G = (V,E)\) è fortemente connessa se e solo se \(V \times V \subseteq E^*\)
-    \item \((x,y) \in E^* \cap (E^*)^{op}\) se e solo se \(x\) e \(y\) appartengono alla stessa SCC.
-    \item \(x\) e \(y\) appartengono alla stessa SCC se e solo se esiste un walk chiuso che li attraversa entrambi.
-\end{itemize}
-
-\subsection{Directed Acyclic Graphs}
-Un grafo orientato senza cicli si chiama \textbf{Directed Acyclic Graph} (DAG)
-
-I nodi con grado di ingresso 0 vengono chiamati \emph{sorgenti} e i nodi con grado di uscita 0 si chiamano \emph{pozzi}.
-
-Se \(G = (V,E)\) è un DAG, allora \(E^*\) è un ordinamento parziale.
-
-\begin{dfn}{Ordinamenti topologici:}
-    Dato un DAG, un ordinamento topologico di G è una biiezione \(\eta: V \rightarrow n = \{0,1,2,\ldots,n-1\}\) tale che
-    \begin{center}
-        Per ogni arco \((x,y) \in E\) vale che \(\eta(x) < \eta(y)\)
-    \end{center}
-\end{dfn}
-
-\subsection{Cammini e cicli Euleriani}
-
-\begin{dfn}{Circuito euleriano: } 
-    Un circuito euleriano è un circuito che passa esattamente una volta per tutti gli archi del grafo.
-\end{dfn}
-
-\begin{dfn}{Trail euleriano: }
-    Un percorso euleriano è un trail che passa esattamente una volta per tutti gli archi del grafo.
-\end{dfn}
-
-\vspace{1 cm}
-
-Eulero ha sviluppato un teorema per decidere se esiste o meno un circuito o trail che passa per tutti gli archi.
-
-\begin{dfn}{Teorema di Eulero}\\
-    Dato un grafo non orientato e connesso,
-    \begin{enumerate}
-        \item Eiste un circuito euleriano se e solo se tutti i nodi hanno grado pari.
-        \item Esiste un trail euleriano da \(x\) a \(y\) se e solo se \(x\) e \(y\) sono gli unici nodi di grado dispari
-    \end{enumerate}
-\end{dfn}
-
-\subsection{Cicli e path hamiltoniani}
-Dato un grafo connesso (orientato o no orientato), un ciclo hamiltoniano è un ciclo che passa esattamente una volta per tutti i nodi del grafo.
-
-Un path hamiltoniano può partire e arrivare in nodi distinti.
-
-
-\section{Alberi}
-Un albero è un grafo non orientato, connesso, aciclico e non vuoto.
-
-\subsection{Terminologia}
-\begin{itemize}
-    \item Una \textbf{foresta} è un grafo non orientato, aciclico e non vuoto.
-    \item Una \textbf{foglia} è un nodo con grado 1.
-    \item Un \textbf{nodo interno} è un nodo con grado > 1
-    \item Un \textbf{albero radicato} è un albero con un \quoted{nodo speciale} ovvero la \textbf{radice}
-\end{itemize}
-
-\subsection{Proprietà}
-
-\section{Distanza}
-
-\subsection{Grafi non orientati}
-
-\subsection{Grafi orientati}
-La definizione di distanza (come lunghezza del cammino minimo) si può applicare anche a grafi orentatai fortemente connessi. Otteniamo ancora una distanza metrica?
-
-\subsection{Alberi - Diametro, altezza, profondità}
-Il diametro di un grafo è la massima distanza tra coppie di nodi.
-
-
-\subsection{Isomorfismo di grafi}
-Un isomorfismo tra \(G = (V,E)\) e \(G' = (V',E')\) è una biiezione \(f: V \rightarrow V'\) tale che \(xy \in E\) se es solo se \(f(x)f(y) \in E'\).
-
-\section{Calcolo combinatorio}
-
-
-\[\left\lvert \bigcup_{j = 1}^r S_j \right\rvert = \sum_{I \subseteq \{1,2,\ldots,r\}, I \neq \varnothing} (-1)^{\lvert I \rvert + 1} \left\lvert \bigcap_{i \in I} S_i \right\rvert \]
-
-\subsection{Disposizioni}
-Una disposizione delgi elementidi \(A\) in \(k\) posti.
-
-\[D(n,k) = \frac{n!}{(n-k)!}\]
-
-\subsection{Combinazioni}
-Una combinazione di \(k\) elementi di \(A\) è un sottoinsieme di \(A\) di cardinalità \(k\);
-
+\subsection*{Semantica di formule atomiche}
+Definizione per induzione strutturale
+\begin{enumerate}
+    \item \(\bbracket{T}_\calI^r = t\) e \(\bbracket{F}_\calI^r = f\)
+    \item \(\bbracket{A}_\calI^r = \alpha_{\calP_0}(A)\) per \(A \in \calP_0\)
+    \item \(\bbracket{(P)}_\calI^r = (\bbracket{P}_\calI^r)\) per ogni \(P \in Pred\)
+    \item Per ogni \(A \in \calP_n\) di arietà \(n > 0\)
+    \[
+        \bbracket{A(t_1, \ldots, t_n)}_\calI^r = 
+        \begin{cases}
+            t & \text{se } (\bbracket{t_1}_\calI^r, \ldots, \bbracket{t_n}_\calI^r) \in \alpha_{\calP_n}(A) \\
+            f & \text{altrimenti}
+        \end{cases}
+    \]
+\end{enumerate}
+\subsection*{Semantica di formule dei predicati}
+\begin{enumerate}
+    \item \(\bbracket{\lnot P}_\calI^r = \lnot\bbracket{P}_\calI^r\) per ogni formula atomica \(P\)
+    \item \(\bbracket{P\ op\ Q}_\calI^r = \bbracket{P}_\calI^r\ op\ \bbracket{Q}_\calI^r\) per ogni connettivo e formula \(P, Q \in Pred\)
+    \item \(\bbracket{(\forall x . P)}_\calI^r = t\) se e solo se \(\bbracket{P}_\calI^r = t\) \textbf{per ogni} \(d \in \calD\)
+    \item \(\bbracket{(\exists x . P)}_\calI^r = t\) se e solo se \(\bbracket{P}_\calI^r = t\) \textbf{per almeno un} \(d \in \calD\)
+\end{enumerate}
+\subsection*{Modelli, equivalenza e conseguenza logica}
+Una interpretazione \(\calI\) è un \textbf{modello} di una formula chiusa \(P\) se \(\bbracket{P}_\calI^\varnothing = t\)
+\[\calI \models P\]
 
 \end{document}

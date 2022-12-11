@@ -1,0 +1,199 @@
+\documentclass{article}
+\input{../../include/setup.tex}
+
+\title{Esercitazione 4}
+\author{Tiziano Marzocchella [655205]}
+\date{A.A. 2022/2023}
+
+\begin{document}
+\maketitle
+
+\noindent Esercitazione svolta insieme a Francesco Faenza, Luca Cerretini e Emanuele Chilin
+
+\section{Esercizio 1}
+
+\begin{enumerate}
+    \item \(mul: NTerm \times NTerm \rightarrow NTerm\):
+          \begin{itemize}
+              \item[\text{[C.B.]}] \(mul(x,Z) = Z\)
+              \item[\text{[C.I.]}] \(mul(x, S(y)) = add(mul(x,y),x)\)
+          \end{itemize}
+          Dimostrazione per induzione della proprietà: \(val(mul(x,y)) = val(x) \cdot val(y)\)
+          \begin{itemize}
+              \item[\text{[C.B.]}] \(val(mul(x,z)) = val(x) \cdot val(Z)\)
+              \begin{align*}
+                  \{\text{C.B. di mul}\} &  & val(mul(x,z)) & = val(x) \cdot val(z) &  & \{\text{C.B. di val}\}         \\
+                  \{\text{C.B. di val}\} &  & val(z)        & = val(x) \cdot 0      &  & \{\text{0 neutro di } \times\} \\
+                                         &  & 0             & = 0                   &  &
+              \end{align*}
+              \item[\text{[P.I.]}] \(val(mul(x,y)) = val(x) \cdot val(y) \implies val(mul(x, S(y))) = val(x) \cdot val(S(y))\)
+              \begin{align*}
+                   & val(mul(x, S(y)))              &  & \{\text{C.I. mul}\}                 \\
+                   & = val(add(mul(x,y),x))         &  & \{\text{Lemma valutazione di add}\} \\
+                   & = val(mul(x,y)) + val(x)       &  & \{\text{Ipotesi induttiva}\}        \\
+                   & = val(x) \cdot val(y) + val(x) &  & \{\text{Calcolo}\}                  \\
+                   & = val(x) \cdot (val(y) + 1)    &  & \{\text{C.I. val}\}                 \\
+                   & = val(x) \cdot (val(S(y)))
+              \end{align*}
+          \end{itemize}
+
+    \item \(exp: NTerm \times NTerm \rightarrow NTerm\):
+          \begin{itemize}
+              \item[\text{[C.B.]}] \(exp(x,Z) = S(Z)\)
+              \item[\text{[C.I.]}] \(exp(x, S(y)) = mul(x, exp(x,y))\)
+          \end{itemize}
+          Dimostrazione per induzione della proprietà: \(val(exp(x,y)) = val(x)^{val(y)}\)
+          \begin{itemize}
+              \item[\text{[C.B.]}] \(val(exp(x,Z)) = val(x)^{val(Z)}\)
+              \begin{align*}
+                  \{\text{C.B. di exp}\} &  & val(exp(x,Z)) & = val(x)^{val(Z)} &  & \{\text{C.B. di val}\}                 \\
+                  \{\text{C.I. di val}\} &  & val(S(Z))     & = val(x)^0        &  & \{n^0 = 1\ \forall n \in \mathbb{N} \} \\
+                  \{\text{C.B. di val}\} &  & val(Z) + 1    & = 1               &  &                                        \\
+                                         &  & 1             & = 1               &  &
+              \end{align*}
+              \item[\text{[P.I.]}] \(val(exp(x,y)) = val(x)^{val(y)} \implies val(exp(x, S(y))) = val(x)^{val(S(y))}\)
+              \begin{align*}
+                   & val(exp(x, S(y)))              &  & \{\text{C.I. exp}\}                 \\
+                   & = val(mul(x, exp(x,y)))        &  & \{\text{Lemma valutazione di mul}\} \\
+                   & = val(x) \cdot val(exp(x,y))   &  & \{\text{Ipotesi induttiva}\}        \\
+                   & = val(x) \cdot val(x)^{val(y)} &  & \{\text{Calcolo}\}                  \\
+                   & = val(x)^{val(y) + 1}          &  & \{\text{C.I. val}\}                 \\
+                   & = val(x)^{val(S(y))}
+              \end{align*}
+          \end{itemize}
+
+    \item \begin{itemize}
+              \item \(exp(0,0) \geq exp(0,1)\)
+                    \begin{align*}
+                        exp(0,0) & = val(exp(Z,Z)) = \\
+                                 & = val(S(Z)) =     \\
+                                 & = val(Z) + 1 =    \\
+                                 & = 0 + 1 =         \\
+                                 & = 1
+                    \end{align*}
+                    \begin{align*}
+                        exp(0,1) & = val(exp(Z,S(Z))) =      \\
+                                 & = val(mul(Z, exp(Z,Z))) = \\
+                                 & = val(Z) * 1 =            \\
+                                 & = 0 * 1 =                 \\
+                                 & = 0
+                    \end{align*}
+                    \(1 \geq 0\)
+              \item \(\lvert Fun(\varnothing, \varnothing) \rvert = val(exp(0,0)) = 1\)
+              \item \(\lvert Fun(1, \varnothing) \rvert = val(exp(0,1)) = 0\)
+          \end{itemize}
+\end{enumerate}
+
+\section{Esercizio 2}
+\begin{enumerate}
+    \item \(len(app(l_1, l_2)  = len(l_1) + len(l_2))\)
+          \begin{itemize}
+              \item[\text{[C.B.]}]
+              \begin{align*}
+                   & len(app([], l_2))    \\ \{\text{C.B. app}\}
+                   & = len([]) + len(l_2)
+              \end{align*}
+              \item[\text{[C.I.]}] \(len(app(l_1,l_2)) = len(l_1) + len(l_2) \implies len(app(a:l_1, l_2)) = len(a:l_1) + len(l_2)\)
+              \begin{align*}
+                   & len(app(a: l_1, l_2)) =     \\
+                   & = len(a: app(l_1, l_2)) =   \\
+                   & = len(app(l_1,l_2)) + 1 =   \\
+                   & = len(l_1) + len(l_2) + 1 = \\
+                   & = len(a: l_1) + len(l_2)
+              \end{align*}
+          \end{itemize}
+    \item \(len(rev(l)) = len(l)\)
+          \begin{itemize}
+              \item[\text{[C.B.]}]
+              \begin{align*}
+                   & len(rev([]])) \\ \{\text{C.B. rev}\}
+                   & = len([])
+              \end{align*}
+              \item[\text{[C.I.]}] \(len(rev(l)) = len(l) \implies len(rev(a: l)) = len(a: l)\)
+              \begin{align*}
+                   & len(rev(a: l)) =          \\
+                   & = len(app(rev(l), a:[]))  \\
+                   & = len(rev(l)) + len(a:[]) \\
+                   & = len(l) + len([]) + 1    \\
+                   & = len(l) + 1              \\
+                   & = len(a: l)
+              \end{align*}
+          \end{itemize}
+\end{enumerate}
+
+\section{Esercizio 3}
+\begin{enumerate}
+    \item \(max: BT_\mathbb{N} \rightarrow N \cup \{\infty\}\)
+          \begin{enumerate}
+              \item \(max(\lambda) = 0\)
+              \item \(max(N(t_1, a, t_2)) = a, \forall a \in \mathbb{N} . \forall t_1,t_2 \in BT_\mathbb{N} .\ a \geq max(t_1) \land a \geq max(t_2)\)
+              \item \(max(N(t_1, a, t_2)) = max(t_1), \forall a \in \mathbb{N} . \forall t_1,t_2 \in BT_\mathbb{N} .\ max(t_1) \geq max(t_2) \land max(t_1) \geq a\)
+              \item \(max(N(t_1, a, t_2)) = max(t_2), \forall a \in \mathbb{N} . \forall t_1,t_2 \in BT_\mathbb{N} .\ max(t_2) \geq max(t_1) \land max(t_2) \geq a\)
+          \end{enumerate}
+    \item \(min: BT_\mathbb{N} \rightarrow N \cup \{\infty\}\)
+          \begin{enumerate}
+              \item \(min(\lambda) = \infty\)
+              \item \(min(N(t_1, a, t_2)) = a, \forall a \in \mathbb{N} .\ \forall t_1,t_2 \in BT_\mathbb{N} .\ a \leq min(t_1) \land a \leq min(t_2)\)
+              \item \(min(N(t_1, a, t_2)) = min(t_1), \forall a \in \mathbb{N} .\ \forall t_1,t_2 \in BT_\mathbb{N} .\ min(t_1) \leq min(t_2) \land min(t_1) \leq a\)
+              \item \(min(N(t_1, a, t_2)) = min(t_2), \forall a \in \mathbb{N} .\ \forall t_1,t_2 \in BT_\mathbb{N} .\ min(t_2) \leq min(t_1) \land min(t_2) \leq a\)
+          \end{enumerate}
+\end{enumerate}
+
+\section{Esercizio 5}
+
+\begin{enumerate}
+    \item \(ins: \mathbb{N} \times BT_\mathbb{N} \rightarrow BT_\mathbb{N}\)
+          \begin{enumerate}
+              \item \(ins(n, \lambda) = N(\lambda, n, \lambda)\)
+              \item \(ins(n, N(t_1, a, t_2)) = N(ins(n, t_1), a, t_2), n < a\)
+              \item \(ins(n, N(t_1, a, t_2)) = N(t_1, a, ins(n, t2)), \text{altrimenti}\)
+          \end{enumerate}
+
+    \item
+          \begin{itemize}
+              \item
+                    \begin{align*}
+                         & ins(4, N(N(\lambda,2,\lambda), 5, N(\lambda,7,\lambda))) =            \\
+                         & = N(ins(4, N(\lambda, 2 \lambda)), 5, N(\lambda, 7, \lambda)) =       \\
+                         & = N(N(\lambda, 2, ins(4, \lambda)), 5, N(\lambda, 7, \lambda)) =      \\
+                         & = N(N(\lambda, 2, N(\lambda, 4, \lambda)), 5, N(\lambda, 7, \lambda))
+                    \end{align*}
+              \item
+                    \begin{align*}
+                         & ins(6, N(N(\lambda,2,\lambda), 5, N(\lambda,7,\lambda))) =            \\
+                         & = N(N(\lambda, 2 \lambda), 5, ins(6, N(\lambda, 7, \lambda))) =       \\
+                         & = N(N(\lambda, 2, \lambda), 5, N(ins(6, \lambda), 7, \lambda)) =      \\
+                         & = N(N(\lambda, 2, \lambda), 5, N(N(\lambda, 6, \lambda), 7, \lambda))
+                    \end{align*}
+              \item
+                    \begin{align*}
+                         & ins(9, N(N(\lambda,2,\lambda), 5, N(\lambda,7,\lambda))) =            \\
+                         & = N(N(\lambda, 2 \lambda), 5, ins(9, N(\lambda, 7, \lambda))) =       \\
+                         & = N(N(\lambda, 2 \lambda), 5, N(\lambda, 7, ins(9,\lambda))) =        \\
+                         & = N(N(\lambda, 2 \lambda), 5, N(\lambda, 7, N(\lambda, 9,\lambda))) = \\
+                    \end{align*}
+          \end{itemize}
+\end{enumerate}
+
+\section{Esercizio 6}
+\(ordinato(t) \implies ordinato(ins(n,t))\)
+
+\begin{itemize}
+    \item \(ordinato(\lambda) \implies ordinato(ins(n, \lambda))\)
+          \begin{align*}
+               & ordinato(ins(n, \lambda))                   \\
+               & = ordinato(N(\lambda, n, \lambda))          \\
+               & = ordinato(\lambda) \land ordinato(\lambda) \\
+               & = true \land true
+          \end{align*}
+
+    \item \(\forall a \in \mathbb{N} . \forall t_1,t_2 \in BT_\mathbb{N} . (P(t_1) \land P(t_2) \implies P(N(t_1,a,t_2)))\)
+          \begin{align*}
+                       & (ordinato(t_1) \implies ordinato(ins(n,t_1)) \land ordinato(t_2) \implies ordinato(ins(n, t_2))) \\
+              \implies & (ordinato(N(t_1,n,t_2)) \implies ordinato(ins(n, N(t_1, a, t_2))))
+          \end{align*}
+
+          \(ordinato(N(t_1,nt_2)) \implies ordinato(ins(n, N(t_1, a, t_2)))\)
+\end{itemize}
+
+\end{document}
