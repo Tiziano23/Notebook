@@ -1,24 +1,58 @@
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
 \usepackage[margin=1.25in]{geometry}
+\usepackage{mathptmx}
 
-\usepackage{amsfonts, amssymb}
-\usepackage{amsmath, amsthm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listings}
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\usepackage{amsfonts, amssymb, amsmath, amsthm}
 \usepackage{stmaryrd}
 \usepackage[thicklines]{cancel}
 
-\usepackage{graphicx}
-\usepackage{hyperref}
-
 \hypersetup{
-colorlinks=true,
-linkcolor=black,
-filecolor=magenta,
-urlcolor=blue,
+  colorlinks=true,
+  linkcolor=black,
+  filecolor=magenta,
+  urlcolor=blue,
 }
 
-\newtheorem*{thm}{Teorema}
+\definecolor{codekeyword}{HTML}{7cd2e2}
+\definecolor{codestring}{HTML}{7df0d2}
+\definecolor{codenumber}{HTML}{000000}
+\definecolor{codecomment}{HTML}{7df0a1}
+\definecolor{codebackground}{HTML}{1E1E1E}
+\lstdefinelanguage{pseudolang}
+{
+  keywords={let, if, else, for, while, switch, case, return},
+  string=[b]",
+  comment=[l]//
+}
+\lstdefinestyle{pseudostyle}
+{
+  keywordstyle=\color{codekeyword},
+  stringstyle=\color{codestring},
+  numberstyle=\tiny\color{codenumber},
+  commentstyle=\color{codecomment},
+  backgroundcolor=\color{codebackground},
+  basicstyle=\ttfamily\footnotesize\bfseries\color{White},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=t,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2
+}
+\lstset{language=pseudolang, style=pseudostyle}
 
+\newtheorem*{thm}{Teorema}
 \theoremstyle{definition}
 \newtheorem*{dfn}{Definizione}
 \newtheorem*{oss}{Osservazione}
