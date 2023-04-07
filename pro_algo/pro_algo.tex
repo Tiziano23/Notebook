@@ -801,11 +801,6 @@ Quanto costa il QuickSort?
   \item Caso peggiore (array ordinato): il partizione mi costa sempre \(\Theta(n)\), ma il pivot mi divide l'array in una parte che composta da un elemento ed un'altra composta da \(n-1\) elementi. Quindi la mia chiamata ricorsiva sarà \(
         T(n-1) + T(0)\), dove ho \(T(0)\) perché il pivot è l'ultimo elemento e quindi la seconda parte è vuota. Se svolgo l'equazione di ricorrenza ottengo \(\Theta(n^2)\).
 \end{itemize}
-
-\subsection{Sommario delle complessità}
-\begin{center}
-  \includegraphics[width=0.8\textwidth]{costo_algo}
-\end{center}
 \pagebreak
 
 \section{Strutture dati 2}
@@ -1028,9 +1023,8 @@ A questo punto se il genitore di \(v\) ha quattro figlio, ripeto la procedura ri
 \pagebreak
 
 \section{Algoritmi di ordinamento 2}
-\subsection*{Ordinamento stabile}
+\subsection{Ordinamento stabile}
 Un algoritmo di ordinamento è \textbf{stabile} se preserva l'ordine iniziale tra due elementi con la stessa chiave.
-
 \subsection{Ordinamento senza confronti}
 A volte possiamo sfruttare alcune proprietà note a priori degli oggetti da ordinare per effettuare ordinamenti in tempo lineare.
 \pagebreak
@@ -1067,8 +1061,7 @@ Formalmente \(S\) è una sotto-sequenza di \(A\) se esistono le posizioni
   \(A[i_j] = S[i_j]\) per \(i = 0, 1, \ldots, k\)
 \end{center}
 \(S\) è sotto-sequenza \textbf{comune} ad \(A\) e \(B\) se è sotto-sequenza sia di \(A\) che di \(B\)
-
-\subsection*{LCS(A,B) ricorsivamente}
+\subsection*{Formulazione ricorsiva}
 Una chiamata di \(LCS(A,B)\) può essere scomposta nella chiamata ricorsiva \(LCS(A',B')\) dove
 \begin{itemize}
   \item \(A' + x = A\) con \(x \in A \setminus A'\)
@@ -1094,7 +1087,7 @@ Riorganizzando ho che \(LCS(i,j)\) è uguale a
   \end{cases}
 \end{equation*}
 
-\begin{lstlisting}
+\begin{minted}{JavaScript}
 LCS(A,B):
   for (i = 0; i <= A.length; i++)
     L[i][0] = 0
@@ -1109,21 +1102,196 @@ LCS(A,B):
           L[i][j] = L[i][j - 1] + 1
       else 
           L[i][j] = L[i - 1][j] + 1
-\end{lstlisting}
+\end{minted}
+
+\subsection{Problema 3: Problema dello zaino}
+Dato un insieme di \(n\) elementi ogniuno con un peso \(w_i\) e un valore \(v_i\), e un peso massimo \(W\), voglio riempire uno zaino con una porzione degli elementi in modo da massimizzare il valore senza eccedere il peso massimo. \\
+Sia \(B[k, w]\) il valore della soluzione ottima per \(k\) elementi e peso massimo \(w <= W\) voglio esprimere il valore \(B[n,W]\) utilizzando le soluzioni di sottoproblemi.
+\subsection*{Formulazione ricorsiva}
+\begin{equation*}
+  B[k,w] =
+  \begin{cases}
+    B[k - 1, w]                         & \text{se } w_k > w \\
+    max\{B[k-1,w], B[k-1,w-w_k] + v_k\} & \text{altrimenti}
+  \end{cases}
+\end{equation*}
+\pagebreak
+
+\subsection{Problema 4: Edit distance}
+\subsection*{Formulazione ricorsiva}
+\begin{equation*}
+  M[i,j] = min\{M[i-1, j] + 1, M[i, j-1] + 1, M[i-1, j-1] + dist(X_i,Y_j)\}
+\end{equation*}
+
+\section{Pseudo polinomialità}
+\pagebreak
+
+\section{Algoritmi greedy}
+\pagebreak
+
+\section{Grafi}
+\subsection{Introduzione}
+\begin{itemize}
+  \item Un grafo è una coppia \(G = (V,E)\) dove \(V\) è un insieme di nodi e \(E\) è una relazione su questi nodi.
+        \begin{itemize}
+          \item Un grafo orientato è \textbf{denso} se \(|E| \approx |V|^2\)
+          \item Un grafo è \textbf{sparso} se \(|E| \approx |V|\)
+          \item Un albero è un grafo non orientato senza cicli connesso.
+        \end{itemize}
+  \item Per rappresentare un grafo utilizziamo una matrice di adiacenza
+        \begin{itemize}
+          \item La matrice ha dimensione \(n \times n\) dove \(n = |V|\)
+          \item Spazio: \(O(n^2)\)
+          \item \( M[i,j] = \begin{cases}
+                  1 & \text{se } (i,j) \in E    \\
+                  0 & \text{se } (i,j) \notin E
+                \end{cases} \)
+        \end{itemize}
+  \item Alternativamente, per risparmiare spazio, possiamo utilizzare \textbf{liste di adiacenza}
+        \begin{itemize}
+          \item Una lista di adiacenza rappresenta il grafo cme un'array di liste
+          \item Spazio: \(O(n + m)\) dove \(n = |V|, m = |E|\)
+        \end{itemize}
+\end{itemize}
+\newpage
+\subsection{Visita in ampiezza: BFS}
+Dato un grafo \(G = (V,E)\) e un vertice di partenza \(s\) detto \textbf{sorgente} la BFS (Breadth-First Search)
+\begin{itemize}
+  \item Visita sistematicamente i nodi di \(G\) per "scoprire" tutti i nodi raggiungibili da \(s\)
+  \item Per ciascun nodo \(v\) calcola la sua distanza da \(s\), ovvero il numero minimo di archi da passare per raggiungere \(v\) partendo da \(s\).
+  \item Genera un albero \(BF\), con radice \(s\) che contiene tutti i nodi raggiungibili.
+  \item
+\end{itemize}
+\subsubsection*{Implementazione}
+\begin{itemize}
+  \item L'idea di base è quella di generare una coda di nodi da visitare, aggiungendo in coda i figli dei nodi che vado a visitare.
+  \item Inoltre devo ricordare i nodi che ho già visitato, altrimenti rischierei di ricadere in un loop che impedisce alla coda di svuotarsi.
+\end{itemize}
+\begin{center}
+  \includegraphics[width=0.5\textwidth]{bfs_pseudo-code.png}
+\end{center}
+\begin{itemize}
+  \item Inizialmente la procedura inizializza tutti i vertici come da visitare, impostando il campo della distanza ad infinito e il campo padre a \textbf{NIL}
+  \item Successivamente si inizializza il nodo radice come "scoperto", con distanza a 0, e con predecessore \textbf{NIL}
+  \item Il ciclo while esegue finche ci sono nodi contrassegnati come "scoperti" ma ancora da visitare completamente. L'invariante di ciclo dice che al momento del test sulla coda \(Q\), essa contiene l'insieme dei nodi "scoperti" ma ancora da visitare.
+  \item Il ciclo \emph{for} scorre sui nodi nella lista di adiacenza del nodo estratto dalla coda.
+  \item Per ogniuno di questi nodi \(v\) nella lista di adiacenza di \(u\), se \(v\) è ancora da "scoprire", si imposta la sua distanza con \(v.d = u.d + 1\) e lo si aggiunge alla coda \(Q\).
+  \item Infine il nodo \(u\) viene contrassegnato come "visitato" completamente.
+\end{itemize}
+\begin{center}
+  \includegraphics[width=0.8\textwidth]{bfs.png}
+\end{center}
+\subsubsection*{Analisi complessità}
+\begin{itemize}
+  \item Per la natura dell'algoritmo di contrassegnare i vertici visitati, possiamo assicurare che ogniuno di essi venga accodato al più una volta, e quindi estratto al più una volta. Essendo il costo di operazioni sulla coda \(O(1)\), possiamo concludere che il costo dedicato ad operazioni con la coda è \(O(V)\).
+  \item Inoltre, per ogni nodo nella coda visitiamo per intero la sua lista di adiacenza, quindi ogni lista viene ispezionata al più una volta, ed essendo che la dimensione totale delle liste è esattamente \(|E|\) possiamo conclude che il costo totale di ispezione delle liste è \(O(E)\).
+  \item In conclusione, il costo totale di esecuzione di una \textbf{BFS} è \(O(V + E)\), ovvero lineare nella dimensione delle liste di adiacenza.
+\end{itemize}
+\pagebreak
+
+\subsection{Visita in profondità}
+\begin{itemize}
+  \item Nella visita in profondità visito i vertici a partire dall'ultimo che ho scoperto che ha ancora archi in uscita da attraversare.
+\end{itemize}
+\subsubsection*{Teorema delle parentesi}
+\subsubsection*{Cammino bianco}
+
+\begin{center}
+  \includegraphics[width=0.45\textwidth]{dfs_algo.png}
+  \includegraphics[width=0.45\textwidth]{dfs_visit_algo.png}
+\end{center}
 
 \pagebreak
 
-\section*{Prova itinere 03-06}
-Esercitazione Mercoledì 03-01.
+\section{Problemi computazionali}
+\subsection{Modelli computazionali}
+Abbiamo già visto il modello RAM (Random-Access Memory) dove
 \begin{itemize}
-  \item Semantica statica / dinamica
-  \item Heap
-  \item Hash
-  \item Programmazione dinamica
+  \item La memoria è \textbf{infinita} e ogni cella contiene una quantità di dati finita.
+  \item L'acecsso alla memoria impiega tempo costante per ogni cella.
+  \item Un singolo processore con un programma.
+  \item Operazioni di \textbf{lettura, scrittura, ... e ...} impiegano tempo costante
+\end{itemize}
+Un altro modello è quello della macchina di Touring.
+\begin{itemize}
+  \item \textbf{Nastro} di lunghezza infinita. Ogni cella del nastro contiene un informazione finita.
+  \item La \textbf{testina} in una unità di tempo può:
         \begin{itemize}
-          \item Taglio della corda
-          \item Longest common subsequence (LCS)
+          \item Leggere o scrivere la cella alla posizione corrente.
+          \item Muoversi di 1 cella a sinista o a destra.
+          \item Restare ferma.
         \end{itemize}
 \end{itemize}
+
+\subsection{Definizione formale di problema}
+Un problema \(P\) (computazionale) è una relazione tra l'insime \(I\) delle istanze di input e l'insieme \(S\) delle soluzioni.\\
+Inoltre definiamo un predicato che data una coppia \((x,s) \in I \times S\) restituisca \((x,s) \in P\)
+\subsection*{Problemi di decisione}
+\begin{itemize}
+  \item Richiedono una risposta binaria
+  \item Ricadono in due tipi: Istanze positive \((x,1) \in P\) o negative \((x,0) \in P\)
+\end{itemize}
+\subsection*{Probelmi di ricerca}
+Richiedono di restituire una soluzione \(s\) tale che \((x,s) \in P\)
+\subsection*{Problemi di ottimizzazione}
+Data un'istanza \(x\), si vuole trovare la migliore soluzione \(s\) tra tutte le possibili \(s\) tali che \((x,s) \in P\).
+
+\subsection{Classificazione}
+\subsection*{Problemi indecidibili}
+Non tutti i problemi computazionali possono essere risolti attraverso un algoritmo.
+\subsubsection*{Problema della fermata}
+Ad esempio, il problema del dire se un generico algoritmo \textbf{termina} oppure no è un \textbf{problema indecidibile}. Supponiamo che esista un algoritmo \textbf{Termina(A,D)} che, in tempo finito, restituisca \textbf{true} se A termina con input D e \textbf{false} se A vai in ciclo con input D. Consideriamo ora l'algoritmo
+\begin{center}
+  \begin{minted}{c++}
+    Paradosso(A) {
+      if Termina(A,A) LOOP()
+      else return FALSE
+    }
+  \end{minted}
+  Paradosso(Paradosso) termina \(\iff\) Paradosso(Paradosso) non termina
+\end{center}
+\subsection*{Problemi decidibili}
+I problemi decidibili possono essere \textbf{trattabili} e \textbf{non trattabili}
+\begin{itemize}
+  \item Problemi \textbf{trattabili}, si può troavare una soluzione in tempo \textbf{polinomiale} e deterministica.
+  \item Problemi \textbf{intrattabli}, non esiste un algoritmo risolutivo polinomiale, ma questo non esclude che esista una soluzione.
+\end{itemize}
+\subsection*{Complessità computazionale}
+La teoria della complessità computationale è definita in termini di problemi di decisione. \\
+Possiamo quindi esprimere un problema di ottimizzazione come un problema decisionale? \\
+Un problema di ottimizzazione è almeno tanto difficile quanto la sua controparte decisionale, quindi la complessità di un problema decisionale da un \textbf{lower-bound} al problema di ottimizzazione o di ricerca assocaito.
+
+\subsection{Classi di complessità}
+Dato un problema decisionale \(P\) e un algoritmo \(A\), diciamo che \(A\) risolve \(P\) se
+\begin{center}
+  A restituisce \(1\) per l'input \(x \iff (x,1) \in P\).  
+\end{center}
+Data una funzione \(f(n)\) che esprime la complessità di tempo o spazio di un algoritmo chiamiamo
+\begin{center}
+  \(Time(f(n))\) e \(Space(f(n))\)
+\end{center}
+gli insiemi dei problemi decisionali che possono essere risolti rispettivamente in tempo e spazio \(O(f(n))\)
+\subsection*{Classe P}
+Un algoritmo polinomiale è un algoritmo per cui esistono due costanti \(c,n_0 > 0\) per cui il numero di passi elementari è al più \(n^c\) per tutte le \(n \geq n_0\)
+\[P = \bigcup_{c\geq0} Time(n^c)\]
+La classe \(PSpace\) è l'insieme di problemi risolvibili in \textbf{spazio polinomiale} rispetto a \(n\) (dimensione dell'istanza di ingresso).
+\[P_{space} = \bigcup_{c\geq0} Space(n^c)\]
+La classe \(ExpTime\) è l'insieme di problemi risolvibili in \textbf{tempo esponenziale} rispetto a \(n\) (dimensione dell'input).
+\[ExpTime = \bigcup_{c\geq0} Time(2^{n^c})\]
+La relazione tra queste tre classi è
+\[P \subseteq P_{Space} \subseteq ExpTime\]
+
+% \subsection{SAT}
+
+\subsection{Certificati}
+
+
+\pagebreak
+
+\section{Appendice}
+\subsection*{Sommario delle complessità}
+\begin{center}
+  \includegraphics[width=0.8\textwidth]{costo_algo}
+\end{center}
 
 \end{document}
